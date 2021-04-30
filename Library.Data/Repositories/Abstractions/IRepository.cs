@@ -12,7 +12,7 @@ namespace Library.Data.Repositories.Abstractions
     public interface IRepository<TEntity> : IDisposable
         where TEntity : BaseEntity, new()
     {
-        public LibraryDbContext DbContext { get; }
+        LibraryDbContext DbContext { get; }
 
         Task<IQueryable<TEntity>> GetAll(IFilter filter = null);
 
