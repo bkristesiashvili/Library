@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "_SecuredLayout";
+    ViewBag.Title = "ავტორიზაცია";
+}
+@model LoginViewModel
+
+<div class="container-fluid">
+    <div class="col-lg-4 offset-lg-4">
+        <div class="jumbotron login">
+            <form method="post">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user" style="color:rgb(1,46,93);"></i></span>
+                            </div>
+                            <input asp-for="Email" class="form-control" placeholder="ელ.ფოსტა" require />
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <span asp-validation-for="Email" class="text-danger" style="font-size: 11px;"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-lock" style="color:rgb(1,46,93);"></i></span>
+                            </div>
+                            <input asp-for="Password" class="form-control" placeholder="პაროლი" require /><br />
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <span asp-validation-for="Password" class="text-danger" style="font-size: 11px;"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="custom-checkbox">
+                        <input asp-for="RememberMe" style="font-size: 11px;" />
+                        <span style="font-size:13px;">@Html.DisplayNameFor(m => m.RememberMe)</span>
+                    </div>
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger" style="font-size: 11px;"></div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <div class="ml-auto float-right">
+                                <button id="signin" type="submit" class="btn btn-sm btn-naviblue"><i class="fa fa-sign-in-alt">&nbsp;&nbsp;</i>ავტორიზაცია</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
