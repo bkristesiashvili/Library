@@ -23,6 +23,8 @@ namespace Library.Data
             builder.ApplyConfiguration(new AuthorEntityConfigurations());
             builder.ApplyConfiguration(new BookEntityConfigurations());
             builder.ApplyConfiguration(new GenreEntityConfigurations());
+            builder.ApplyConfiguration(new BookShelveEntityConfigurations());
+            builder.ApplyConfiguration(new SectorEntityConfigurations());
 
             builder.SeedSystemRoles();
 

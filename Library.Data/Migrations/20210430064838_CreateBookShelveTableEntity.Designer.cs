@@ -4,14 +4,16 @@ using Library.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.Data.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    partial class LibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210430064838_CreateBookShelveTableEntity")]
+    partial class CreateBookShelveTableEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -359,43 +361,43 @@ namespace Library.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("80c0994b-fc7b-4354-be72-db9fe634a75e"),
+                            Id = new Guid("063fac97-1c9b-46b3-be6c-40e7ac84ab27"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ავტობიოგრაფია"
                         },
                         new
                         {
-                            Id = new Guid("52a697b9-130f-417c-a222-05c7feaa82b5"),
+                            Id = new Guid("ee46348f-9e92-4548-b544-425ecdb71959"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ბიოგრაფია"
                         },
                         new
                         {
-                            Id = new Guid("59a9e17e-531d-49b5-a08b-9ff61fc28d49"),
+                            Id = new Guid("0795f188-650e-4359-9a15-5da5fefd2f14"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ბელეტრისტიკა"
                         },
                         new
                         {
-                            Id = new Guid("22c72a7f-1dd1-4b20-aca8-a9e555e447ff"),
+                            Id = new Guid("32126c56-c470-4939-9aa7-10b76e283aae"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "პროზა"
                         },
                         new
                         {
-                            Id = new Guid("60631b09-db77-471d-9403-bbca652f0a4c"),
+                            Id = new Guid("e33cdbb9-f3b1-44e6-addb-877a8d99a816"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "რომანი"
                         },
                         new
                         {
-                            Id = new Guid("6927100a-37dd-4445-98c7-940aec342934"),
+                            Id = new Guid("806dd329-958c-4e35-a5dd-e8bc1a225737"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "დეტექტივი"
                         },
                         new
                         {
-                            Id = new Guid("46fd5ce4-caa2-44a9-9e11-5bc2150cac85"),
+                            Id = new Guid("6ced4e9f-a014-4876-99bf-051df03c920a"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "დრამა"
                         });
@@ -431,22 +433,22 @@ namespace Library.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("91c20d46-cc5e-44f4-b368-e906ffac5079"),
-                            ConcurrencyStamp = "f2cc9db0-a6ee-4e01-8ddc-358928273c54",
+                            Id = new Guid("cee356de-2ba8-4ac1-9cc6-498d2867920a"),
+                            ConcurrencyStamp = "c5fd6a00-d5a8-4a8d-8ee4-56160fa8e494",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = new Guid("c8d2e12f-155b-4cd3-85ce-b3176d5ff023"),
-                            ConcurrencyStamp = "588b0cfa-18d3-45a5-8237-ef1d0d96f3db",
+                            Id = new Guid("d6435d77-a103-4fce-b3ad-daef39e7bf36"),
+                            ConcurrencyStamp = "8e387e5d-74e3-4d7b-acc3-37a9a4bae638",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("4481b95d-fd16-4414-abd6-b5a66bcc1d87"),
-                            ConcurrencyStamp = "f9d7fd1c-4d36-4f7a-b67b-d949f6e37b4a",
+                            Id = new Guid("f99c3f89-9264-4edd-be30-e78b5490d896"),
+                            ConcurrencyStamp = "e3075ca9-c69f-4e47-9147-26ea721e4538",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -490,27 +492,19 @@ namespace Library.Data.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("NULL");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("NULL");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
 
                     b.ToTable("Sector");
                 });

@@ -20,6 +20,14 @@ namespace Library.Data.Entities.Configurations
                    .WithOne(entity => entity.Book)
                    .HasForeignKey(entity => entity.BookId);
 
+            builder.HasMany(entity => entity.Genres)
+                   .WithOne(entity => entity.Book)
+                   .HasForeignKey(entity => entity.BookId);
+
+            builder.HasMany(entity => entity.BookShelves)
+                   .WithOne(entity => entity.Book)
+                   .HasForeignKey(entity => entity.BookId);
+
             base.Configure(builder);
         }
     }
