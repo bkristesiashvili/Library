@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace Library.Data.Entities
 
         public DateTime ExiperDate { get; set; }
 
+        [DefaultValue(BorrowStatus.Rented)]
         public BorrowStatus Status { get; set; }
     }
 }

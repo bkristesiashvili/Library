@@ -13,6 +13,9 @@ namespace Library.Data.Entities.Configurations
     {
         public override void Configure(EntityTypeBuilder<Sector> builder)
         {
+            builder.HasIndex(entity => entity.Name)
+                   .IsUnique();
+
             builder.HasMany(entity => entity.Sections)
                    .WithOne(entity => entity.Sector)
                    .HasForeignKey(entity => entity.SectorId);

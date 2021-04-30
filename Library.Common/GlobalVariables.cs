@@ -15,5 +15,8 @@ namespace Library.Common
                 { SystemDefaultRoles.Admin, "Admin" },
                 { SystemDefaultRoles.User, "User" }
             };
+
+        public static readonly string SystemUserAuthEmail = "admin@library.app";
+        public static readonly string SystemUserAuthPass = "@admin1234!";
     }
 }
