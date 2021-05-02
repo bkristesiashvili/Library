@@ -1,21 +1,25 @@
 ﻿@{
     ViewBag.Title = "მთავარი გვერდი";
+
+    var index = 1;
 }
 
 <div class="text-center">
-    <div class="row naviblue-menu text-light pt-2 pb-2 rounded-top text-13px">
+    <div class="row profile-bg text-dark font-weight-bold p-3 rounded-top text-13px">
         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">ISBN</div>
         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">დასახელება</div>
         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">სტატუსი</div>
         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3"></div>
     </div>
-    @foreach (var item in new[] {"a","b" })
+    @foreach (var item in new[] {"a","b","c","d","e","f" })
     {
-        <div class="row">
+        <div class="row @Html.Raw(index % 2 == 0 ? "grid-header":"") p-2">
             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">@item</div>
             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3"></div>
             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3"></div>
             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3"></div>
         </div>
+
+        index++;
     }
 </div>
