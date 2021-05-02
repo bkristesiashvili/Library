@@ -16,9 +16,6 @@ namespace Library.Data.Entities.Configurations.Abstractions
         {
             builder.HasKey(entity => entity.Id);
 
-            builder.HasIndex(entity => entity.Id)
-                   .IsUnique();
-
             builder.Property(entity => entity.CreatedAt)
                    .HasDefaultValueSql("GETDATE()");
 

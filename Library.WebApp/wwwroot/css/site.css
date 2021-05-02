@@ -87,3 +87,16 @@ body {
     background-color: rgb(1, 46, 93);
     color: rgba(255, 255, 255, 1);
 }
+.text-11px{
+    font-size: 11px;
+}
+.text-12px{
+    font-size: 12px;
+}
+.text-13px{
+    font-size: 13px;
+}
+.naviblue-menu {
+    background-color: #09032b;
+    color: #FFF;
+}

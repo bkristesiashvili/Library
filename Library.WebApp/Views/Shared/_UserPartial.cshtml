@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Library.Data.Entities
+@using Library.Common
+@using Library.Common.Enums
+
+@inject SignInManager<User> SigninManager
+@inject UserManager<User> UserManager
+
+<ul class="navbar-nav">
+    @if (SigninManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-controller="account" asp-action="profile" title="მომხმარებლის გვერდის მართვა"><span class="text-11px">@User.Identity.Name</span></a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="auth" asp-action="logout" method="post">
+                <button type="submit" class="btn btn-sm btn-danger mt-2 text-12px text-light">გასვლა</button>
+            </form>
+        </li>
+    }
+</ul>

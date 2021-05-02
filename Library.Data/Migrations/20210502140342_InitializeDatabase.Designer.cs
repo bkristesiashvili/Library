@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Data.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20210429205534_CreateGenreTableMigration")]
-    partial class CreateGenreTableMigration
+    [Migration("20210502140342_InitializeDatabase")]
+    partial class InitializeDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,9 +54,6 @@ namespace Library.Data.Migrations
                         .HasDefaultValueSql("NULL");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
 
                     b.ToTable("Authors");
                 });
@@ -129,10 +126,7 @@ namespace Library.Data.Migrations
                     b.HasIndex("ISBN")
                         .IsUnique();
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
-                    b.ToTable("Book");
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.BookGenres", b =>
@@ -174,10 +168,13 @@ namespace Library.Data.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("NULL");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -186,13 +183,15 @@ namespace Library.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("NULL");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SectionId");
 
-                    b.ToTable("BookShelve");
+                    b.ToTable("BookShelves");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.BooksBookshelve", b =>
@@ -223,7 +222,7 @@ namespace Library.Data.Migrations
 
                     b.HasIndex("BookshelveId");
 
-                    b.ToTable("BooksBookshelve");
+                    b.ToTable("ShelvesOfBook");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.BorrowedBook", b =>
@@ -268,7 +267,7 @@ namespace Library.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BorrowedBook");
+                    b.ToTable("BorrowedBooks");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.Customer", b =>
@@ -279,14 +278,17 @@ namespace Library.Data.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("NULL");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -294,7 +296,7 @@ namespace Library.Data.Migrations
 
                     b.Property<string>("IdentityNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -305,14 +307,19 @@ namespace Library.Data.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("NULL");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customer");
+                    b.HasIndex("IdentityNumber", "Phone", "Email")
+                        .IsUnique();
+
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.Genre", b =>
@@ -342,56 +349,104 @@ namespace Library.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Genre");
+                    b.ToTable("Genres");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("77ba1c5e-f2f3-4305-a548-2b5405e0e8e2"),
+                            Id = new Guid("3cb31e7e-616c-46a1-a580-9b1331069dde"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ავტობიოგრაფია"
                         },
                         new
                         {
-                            Id = new Guid("9b65b7c1-e7aa-4019-89f7-fc2b0bf3cbaf"),
+                            Id = new Guid("b9b657fb-2d95-4c72-8bc2-66ae1ba1bd57"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ბიოგრაფია"
                         },
                         new
                         {
-                            Id = new Guid("58cd0035-c182-470c-9d86-6c32587a1d45"),
+                            Id = new Guid("df6598de-7176-444b-ac4c-46c72b449b6b"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ბელეტრისტიკა"
                         },
                         new
                         {
-                            Id = new Guid("d2c310cd-a572-4bae-9a1c-725ac2a67883"),
+                            Id = new Guid("71d82d0d-7bb5-4f8f-a426-24999201b92c"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "პროზა"
                         },
                         new
                         {
-                            Id = new Guid("14a6f743-c8fa-4633-b82f-531be49529f1"),
+                            Id = new Guid("6ac546b2-d526-4748-b28d-027bc0f37bb9"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "რომანი"
                         },
                         new
                         {
-                            Id = new Guid("23ed4b00-b7d3-492e-ab42-a6c42ccb0be8"),
+                            Id = new Guid("4e79ed20-3bd0-48bc-90af-695db9d69ec2"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "დეტექტივი"
                         },
                         new
                         {
-                            Id = new Guid("0e345309-84e6-44a2-a176-4c0cd82aff23"),
+                            Id = new Guid("92928974-b761-451b-b655-00394fb1b7d5"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "დრამა"
+                        });
+                });
+
+            modelBuilder.Entity("Library.Data.Entities.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0ded8b9f-f4f5-4efc-8bf0-c36b08a9e6de"),
+                            ConcurrencyStamp = "eca23c8b-b221-4235-8d7b-27d2f1958602",
+                            Name = "SuperAdmin",
+                            NormalizedName = "SUPERADMIN"
+                        },
+                        new
+                        {
+                            Id = new Guid("a157b7df-80e9-4f6e-84e5-454653f45524"),
+                            ConcurrencyStamp = "92fa0a14-0322-4a2f-a9cc-3d6e4ef70fce",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = new Guid("39ea1bd0-9447-4118-9b46-aab89ec5d652"),
+                            ConcurrencyStamp = "6cd2f399-2bef-4935-88c8-983fa04575d6",
+                            Name = "User",
+                            NormalizedName = "USER"
                         });
                 });
 
@@ -403,10 +458,13 @@ namespace Library.Data.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("NULL");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -416,13 +474,15 @@ namespace Library.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("NULL");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SectorId");
 
-                    b.ToTable("Section");
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.Sector", b =>
@@ -433,21 +493,29 @@ namespace Library.Data.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("NULL");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("NULL");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sector");
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Sectors");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.User", b =>
@@ -525,57 +593,6 @@ namespace Library.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("921f7bb8-6edf-469a-8b49-e784d4d7f6b6"),
-                            ConcurrencyStamp = "9f8ed707-2273-44fe-a2de-e307c7501160",
-                            Name = "SuperAdmin",
-                            NormalizedName = "SUPERADMIN"
-                        },
-                        new
-                        {
-                            Id = new Guid("9e969f71-4b19-4757-85f4-c03c6169289e"),
-                            ConcurrencyStamp = "5d189b90-6d1d-491c-bc48-5fff7b34b868",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = new Guid("ed08be8d-49b3-4056-b266-c05ce9573d38"),
-                            ConcurrencyStamp = "37706b96-629a-4ee4-9e95-583d0672576a",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -787,7 +804,7 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
+                    b.HasOne("Library.Data.Entities.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -814,7 +831,7 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
+                    b.HasOne("Library.Data.Entities.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)

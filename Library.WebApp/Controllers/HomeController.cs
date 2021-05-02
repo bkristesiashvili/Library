@@ -18,20 +18,13 @@ namespace Library.WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly LibraryDbContext context;
 
-        public HomeController(ILogger<HomeController> logger, LibraryDbContext context)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            this.context = context;
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }

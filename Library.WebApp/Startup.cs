@@ -52,6 +52,7 @@ namespace Library.WebApp
             {
                 options.LoginPath = "/auth/login";
                 options.LogoutPath = "/auth/logout";
+                options.AccessDeniedPath = "/auth/accessdenied";
             });
             
         }

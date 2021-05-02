@@ -1,6 +1,7 @@
 ﻿using Library.Data.Entities;
 using Library.WebApp.Models;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Library.WebApp.Controllers
 {
+    [Authorize]
     public class AuthController : Controller
     {
         private readonly UserManager<User> userManager;
@@ -22,6 +24,7 @@ namespace Library.WebApp.Controllers
             this.signinManager = signinManager;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
@@ -30,6 +33,7 @@ namespace Library.WebApp.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -51,12 +55,15 @@ namespace Library.WebApp.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await signinManager.SignOutAsync();
             return RedirectToAction("login", "auth");
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult AccessDenied() => View();
     }
 }

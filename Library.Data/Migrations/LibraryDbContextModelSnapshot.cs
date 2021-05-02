@@ -53,9 +53,6 @@ namespace Library.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
                     b.ToTable("Authors");
                 });
 
@@ -127,10 +124,7 @@ namespace Library.Data.Migrations
                     b.HasIndex("ISBN")
                         .IsUnique();
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
-                    b.ToTable("Book");
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.BookGenres", b =>
@@ -193,12 +187,9 @@ namespace Library.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
                     b.HasIndex("SectionId");
 
-                    b.ToTable("BookShelve");
+                    b.ToTable("BookShelves");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.BooksBookshelve", b =>
@@ -229,7 +220,7 @@ namespace Library.Data.Migrations
 
                     b.HasIndex("BookshelveId");
 
-                    b.ToTable("BooksBookshelve");
+                    b.ToTable("ShelvesOfBook");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.BorrowedBook", b =>
@@ -274,7 +265,7 @@ namespace Library.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BorrowedBook");
+                    b.ToTable("BorrowedBooks");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.Customer", b =>
@@ -323,13 +314,10 @@ namespace Library.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
                     b.HasIndex("IdentityNumber", "Phone", "Email")
                         .IsUnique();
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.Genre", b =>
@@ -359,54 +347,51 @@ namespace Library.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Genre");
+                    b.ToTable("Genres");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("66512934-d410-4dd6-a7b2-d858de8c5b4b"),
+                            Id = new Guid("3cb31e7e-616c-46a1-a580-9b1331069dde"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ავტობიოგრაფია"
                         },
                         new
                         {
-                            Id = new Guid("1fbbc2da-4dff-47f5-94e0-b1bb336f3474"),
+                            Id = new Guid("b9b657fb-2d95-4c72-8bc2-66ae1ba1bd57"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ბიოგრაფია"
                         },
                         new
                         {
-                            Id = new Guid("eab7a555-0f43-4646-9c7e-66f9743d1453"),
+                            Id = new Guid("df6598de-7176-444b-ac4c-46c72b449b6b"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ბელეტრისტიკა"
                         },
                         new
                         {
-                            Id = new Guid("20648d03-0bdd-4b9b-afb6-0e80925e41f2"),
+                            Id = new Guid("71d82d0d-7bb5-4f8f-a426-24999201b92c"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "პროზა"
                         },
                         new
                         {
-                            Id = new Guid("c94ed4fc-ed72-42f8-a51a-25ef053d379d"),
+                            Id = new Guid("6ac546b2-d526-4748-b28d-027bc0f37bb9"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "რომანი"
                         },
                         new
                         {
-                            Id = new Guid("f7ec91d4-7d07-444b-b760-90353e90b2b3"),
+                            Id = new Guid("4e79ed20-3bd0-48bc-90af-695db9d69ec2"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "დეტექტივი"
                         },
                         new
                         {
-                            Id = new Guid("6ef016f5-2c77-4d0c-8857-37057ff4659f"),
+                            Id = new Guid("92928974-b761-451b-b655-00394fb1b7d5"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "დრამა"
                         });
@@ -442,22 +427,22 @@ namespace Library.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("87aab860-4113-4fb6-aed6-4a48a96a2969"),
-                            ConcurrencyStamp = "0462dd23-a95c-420b-b59b-00cdbe27417a",
+                            Id = new Guid("0ded8b9f-f4f5-4efc-8bf0-c36b08a9e6de"),
+                            ConcurrencyStamp = "eca23c8b-b221-4235-8d7b-27d2f1958602",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = new Guid("6cee0115-7f65-45c6-a8e6-3b27920741b1"),
-                            ConcurrencyStamp = "c6c448e7-b4e2-4d9c-a2e8-0fb51f3946a2",
+                            Id = new Guid("a157b7df-80e9-4f6e-84e5-454653f45524"),
+                            ConcurrencyStamp = "92fa0a14-0322-4a2f-a9cc-3d6e4ef70fce",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("745f267a-779c-4a62-ab44-54a02fa08980"),
-                            ConcurrencyStamp = "09e709a1-b122-4651-b152-2da1a82329fd",
+                            Id = new Guid("39ea1bd0-9447-4118-9b46-aab89ec5d652"),
+                            ConcurrencyStamp = "6cd2f399-2bef-4935-88c8-983fa04575d6",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -493,12 +478,9 @@ namespace Library.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
                     b.HasIndex("SectorId");
 
-                    b.ToTable("Section");
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.Sector", b =>
@@ -528,13 +510,10 @@ namespace Library.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Sector");
+                    b.ToTable("Sectors");
                 });
 
             modelBuilder.Entity("Library.Data.Entities.User", b =>
