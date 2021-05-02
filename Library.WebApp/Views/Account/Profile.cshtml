@@ -3,7 +3,7 @@
 
 @inject UserManager<User> UserManager
 
-@{ 
+@{
     ViewBag.Title = "პროფილი";
 
     var AuthUser = await UserManager.GetUserAsync(User);
@@ -12,17 +12,40 @@
     <div class="row">
         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
             <div class="rounded-lg profile-bg h-auto text-dark p-4">
-                <div class="text-center p-2"><img class="img-fluid" src="~/imgs/user.png"/></div>
+                <div class="text-center p-2"><img class="img-fluid" src="~/imgs/user.png" /></div>
                 <div class="text-center p-1"><a href="#">#@AuthUser.Email</a></div>
                 <div class="text-center p-1 text-13px">სახელი: @AuthUser.FirstName</div>
                 <div class="text-center p-1 text-13px">გვარი: @AuthUser.LastName</div>
                 <div class="text-center p-1 text-12px">
-                    <a href="#" class="btn btn-sm btn-secondary text-12px"><i class="far fa-edit">&nbsp;</i>რედაქტირება</a>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-sm btn-secondary text-12px" data-toggle="modal" data-target="#exampleModal">
+                        <i class="far fa-edit">&nbsp;</i>რედაქტირება
+                    </button>
                 </div>
             </div>
         </div>
         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 profile-bg rounded">
             books
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">პროფილის რედაქტირება</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary text-12px" data-dismiss="modal">გაუქმება</button>
+                <button type="button" class="btn btn-sm btn-success text-12px">ცვლილების დამახსოვრება</button>
+            </div>
         </div>
     </div>
 </div>
