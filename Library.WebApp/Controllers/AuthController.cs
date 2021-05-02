@@ -56,6 +56,7 @@ namespace Library.WebApp.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await signinManager.SignOutAsync();

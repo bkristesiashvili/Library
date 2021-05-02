@@ -1,4 +1,28 @@
-﻿@{ 
+﻿@using Microsoft.AspNetCore.Identity;
+@using Library.Data.Entities;
+
+@inject UserManager<User> UserManager
+
+@{ 
     ViewBag.Title = "პროფილი";
+
+    var AuthUser = await UserManager.GetUserAsync(User);
 }
-<b>გვერდი მუშაობს!</b>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+            <div class="rounded-lg profile-bg h-auto text-dark p-4">
+                <div class="text-center p-2"><img class="img-fluid" src="~/imgs/user.png"/></div>
+                <div class="text-center p-1"><a href="#">#@AuthUser.Email</a></div>
+                <div class="text-center p-1 text-13px">სახელი: @AuthUser.FirstName</div>
+                <div class="text-center p-1 text-13px">გვარი: @AuthUser.LastName</div>
+                <div class="text-center p-1 text-12px">
+                    <a href="#" class="btn btn-sm btn-secondary text-12px"><i class="far fa-edit">&nbsp;</i>რედაქტირება</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 profile-bg rounded">
+            books
+        </div>
+    </div>
+</div>

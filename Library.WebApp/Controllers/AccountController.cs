@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Library.WebApp.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize]
     public class AccountController : Controller
     {
         public IActionResult Profile() => View();

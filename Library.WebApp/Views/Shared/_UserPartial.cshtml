@@ -4,18 +4,25 @@
 @using Library.Common.Enums
 
 @inject SignInManager<User> SigninManager
-@inject UserManager<User> UserManager
 
 <ul class="navbar-nav">
     @if (SigninManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-light" asp-controller="account" asp-action="profile" title="მომხმარებლის გვერდის მართვა"><span class="text-11px">@User.Identity.Name</span></a>
-        </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-controller="auth" asp-action="logout" method="post">
-                <button type="submit" class="btn btn-sm btn-danger mt-2 text-12px text-light">გასვლა</button>
-            </form>
+            <div class="dropdown">
+                <button class="btn btn-sm text-light mt-2 naviblue-menu dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="text-12px">@User.Identity.Name</span>
+                </button>
+                <div class="dropdown-menu text-13px" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" asp-controller="account" asp-action="profile">პროფილი</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="text-center">
+                        <form class="dropdown-item" asp-controller="auth" asp-action="logout" method="post">
+                            <button type="submit" class="btn btn-sm btn-danger mt-2 text-12px text-light"><i class="fas fa-sign-out-alt">&nbsp;</i>გასვლა</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </li>
     }
 </ul>

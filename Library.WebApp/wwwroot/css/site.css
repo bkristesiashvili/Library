@@ -27,7 +27,7 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+  font-size: 13px;
 }
 @media (min-width: 768px) {
   html {
@@ -99,4 +99,7 @@ body {
 .naviblue-menu {
     background-color: #09032b;
     color: #FFF;
+}
+.profile-bg{
+    background: #d3d3d3;
 }
