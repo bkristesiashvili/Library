@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Library.Common;
+@using Library.Common.Enums;
+@{
     ViewBag.Title = "მთავარი გვერდი";
 
     var index = 1;
@@ -9,9 +11,35 @@
         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">ISBN</div>
         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">დასახელება</div>
         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">სტატუსი</div>
-        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3"></div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+            @if (User.IsInRole(GlobalVariables.DefaultRoles[SystemDefaultRoles.SuperAdmin]) || User.IsInRole(GlobalVariables.DefaultRoles[SystemDefaultRoles.Admin]))
+            {
+            <button type="button" class="btn btn-sm btn-success text-12px float-right" data-toggle="modal" data-target="#exampleModal">
+                <i class="fas fa-plus">&nbsp;</i>დამატება
+            </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">წიგნის დამატება</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-sm btn-secondary text-12px" data-dismiss="modal">გაუქმება</button>
+                                <button type="button" class="btn btn-sm btn-success text-12px">დამახსოვრება</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-    @foreach (var item in new[] {"a","b","c","d","e","f" })
+    @foreach (var item in new[] { "a", "b", "c", "d", "e", "f" })
     {
         <div class="row @Html.Raw(index % 2 == 0 ? "grid-header":"") p-2">
             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">@item</div>

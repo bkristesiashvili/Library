@@ -17,7 +17,7 @@
                     <a class="dropdown-item" asp-controller="account" asp-action="profile">პროფილი</a>
                     @if (User.IsInRole(GlobalVariables.DefaultRoles[SystemDefaultRoles.SuperAdmin]))
                     {
-                        <a class="dropdown-item" href="#">ახალი მომხმარებელი</a>
+                        <a class="dropdown-item" asp-controller="account" asp-action="register">ახალი მომხმარებელი</a>
                     }
                     <div class="text-center">
                         <form class="" asp-controller="auth" asp-action="logout" method="post">
