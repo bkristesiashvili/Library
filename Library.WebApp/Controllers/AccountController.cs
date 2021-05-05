@@ -25,7 +25,10 @@ namespace Library.WebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Profile() => View();
+        public async Task<IActionResult> Profile()
+        {
+            return View();
+        }
 
         [HttpGet]
         public IActionResult Register()
