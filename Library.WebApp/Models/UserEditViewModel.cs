@@ -16,14 +16,14 @@ namespace Library.WebApp.Models
         [Required(ErrorMessage = LastNameRequiredErrorMessage)]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = EmailErrorMessage)]
+        //[Required(ErrorMessage = EmailErrorMessage)]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = EmailConfirmErrorMessage)]
-        [EmailAddress]
-        [Compare(nameof(Email), ErrorMessage = EmailMismatchErrorMesssage)]
-        public string ConfirmEmail { get; set; }
+        //[Required(ErrorMessage = EmailConfirmErrorMessage)]
+        //[EmailAddress]
+        //[Compare(nameof(Email), ErrorMessage = EmailMismatchErrorMesssage)]
+        //public string ConfirmEmail { get; set; }
 
         [Required(ErrorMessage = PasswordRequiredErrorMessage)]
         [DataType(DataType.Password)]
