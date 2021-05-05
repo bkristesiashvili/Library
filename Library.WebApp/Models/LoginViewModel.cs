@@ -1,4 +1,6 @@
-﻿using System;
+﻿using static Library.Common.GlobalVariables;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,17 +10,17 @@ namespace Library.WebApp.Models
 {
     public sealed class LoginViewModel
     {
-        [Required(ErrorMessage = "ელ.ფოსტის ველი აუცილებელია!")]
-        [EmailAddress(ErrorMessage ="არასწორი ელ.ფოსტის მისამართი!")]
-        [Display(Name = "ელ.ფოსტა")]
+        [Required(ErrorMessage = EmailErrorMessage)]
+        [EmailAddress]
+        [Display(Name = EmailDisplayName)]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "პაროლის ველი აუცილებელია!")]
-        [Display(Name = "პაროლი")]
+        [Required(ErrorMessage = PasswordRequiredErrorMessage)]
+        [Display(Name = PasswordDisplayName)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Description = "დამახსოვრება", Name = "დამახსოვრება!")]
+        [Display(Description = RememberMeDisplayName, Name = RememberMeDisplayName)]
         public bool RememberMe { get; set; }
     }
 }

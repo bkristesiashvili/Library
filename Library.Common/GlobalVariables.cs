@@ -16,7 +16,24 @@ namespace Library.Common
                 { SystemDefaultRoles.User, "User" }
             };
 
-        public static readonly string SystemUserAuthEmail = "admin@library.app";
-        public static readonly string SystemUserAuthPass = "@admin1234!";
+        public const string SystemUserAuthEmail = "admin@library.app";
+        public const string SystemUserAuthPass = "@admin1234!";
+
+        public const string EmailErrorMessage = "ელ.ფოსტის ველი აუცილებელია!";
+        public const string EmailConfirmErrorMessage = "ელ.ფოსტის დადასტურება აუცილებელია!";
+        public const string EmailMismatchErrorMesssage = "ელ.ფოსტა არ ემთხვევა ერთმანეთს!";
+
+        public const string FirstNameRequiredErrorMessage = "სახელის ველი აუცილებელია!";
+        public const string LastNameRequiredErrorMessage = "გვარის ველი აუცილებელია!";
+
+        public const string PasswordRequiredErrorMessage = "პაროლის ველი აუცილებელია!";
+        public const string PasswordConfirmErrorMessage = "პაროლის დადასტურება აუცილებელია!";
+        public const string PasswordMismatchErrorMessage = "პაროლი არ ემთხვევა ერთმანეთს!";
+
+        public const string RoleRequiredErrorMessage = "როლის დამატება აუცილებელია!";
+
+        public const string EmailDisplayName = "ელ.ფოსტა";
+        public const string PasswordDisplayName = "პაროლი";
+        public const string RememberMeDisplayName = "დამიმახსოვრე";
     }
 }
