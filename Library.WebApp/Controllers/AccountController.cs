@@ -25,10 +25,7 @@ namespace Library.WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Profile()
-        {
-            return View();
-        }
+        public IActionResult Profile() => View();
 
         [HttpGet]
         public IActionResult Register()
@@ -58,7 +55,7 @@ namespace Library.WebApp.Controllers
 
                 if (result.Succeeded)
                 {
-                    if(!string.IsNullOrEmpty(model.Role) || !string.IsNullOrWhiteSpace(model.Role))
+                    if (!string.IsNullOrEmpty(model.Role) || !string.IsNullOrWhiteSpace(model.Role))
                     {
                         await userManager.AddToRoleAsync(newUser, model.Role);
                         ViewBag.Success = "მომხმარებელი წარმატებით შეიქმნა.";
@@ -68,6 +65,35 @@ namespace Library.WebApp.Controllers
                     ViewBag.Error = "ასეთი მომხმარებელი უკვე არსებობს!";
 
             }
+            return View(model);
+        }
+
+        public IActionResult Edit() => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(UserEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var passwordHasher = userManager.PasswordHasher;
+
+                var user = await userManager.GetUserAsync(User);
+
+                user.Email = model.Email;
+                user.UserName = model.Email;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+
+                user.PasswordHash = passwordHasher.HashPassword(user, model.Password);
+                var result = await userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                    return RedirectToAction(nameof(Profile));
+
+                ModelState.AddModelError(string.Empty, "განახლების დროს დაფიქსირდა შეცდომა!");
+            }
+
             return View(model);
         }
 

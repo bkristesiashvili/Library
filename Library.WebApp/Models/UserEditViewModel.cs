@@ -26,13 +26,14 @@ namespace Library.WebApp.Models
         public string ConfirmEmail { get; set; }
 
         [Required(ErrorMessage = PasswordRequiredErrorMessage)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required(ErrorMessage = PasswordConfirmErrorMessage)]
         [Compare(nameof(Password), ErrorMessage = PasswordMismatchErrorMessage)]
+        [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = RoleRequiredErrorMessage)]
         public string Role { get; set; }
 
     }
