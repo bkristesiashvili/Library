@@ -1,6 +1,7 @@
 using Library.Common;
 using Library.Data;
 using Library.Data.Entities;
+using Library.Services.Extensions;
 using Library.WebApp.Helpers.Extensions;
 
 using Microsoft.AspNetCore.Builder;
@@ -54,7 +55,8 @@ namespace Library.WebApp
                 options.LogoutPath = "/auth/logout";
                 options.AccessDeniedPath = "/auth/accessdenied";
             });
-            
+
+            services.AddFileLogger("Logs");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

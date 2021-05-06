@@ -1,11 +1,14 @@
 ﻿using Library.Common;
 using Library.Common.Enums;
 using Library.Data.Entities;
+using Library.Services.Abstractions;
+using Library.WebApp.Controllers.Abstractions;
 using Library.WebApp.Models;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 using System;
 using System.Collections.Generic;
@@ -15,11 +18,15 @@ using System.Threading.Tasks;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly UserManager<User> userManager;
 
-        public AccountController(UserManager<User> userManager)
+        public AccountController(
+            IFileLogger logger,
+            UserManager<User> userManager
+            )
+            :base(logger)
         {
             this.userManager = userManager;
         }
@@ -28,19 +35,12 @@ namespace Library.WebApp.Controllers
         public IActionResult Profile() => View();
 
         [HttpGet]
-        public IActionResult Register()
-        {
-            ViewBag.AvailableRoles = GetAvailableRoles();
-
-            return View();
-        }
+        public IActionResult Register() => View(new RegisterViewModel());
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            ViewBag.AvailableRoles = GetAvailableRoles();
-
             if (ModelState.IsValid)
             {
                 var newUser = new User
@@ -95,16 +95,6 @@ namespace Library.WebApp.Controllers
             }
 
             return View(model);
-        }
-
-        private IEnumerable<string> GetAvailableRoles()
-        {
-            var availableRoles = new HashSet<string>(GlobalVariables.DefaultRoles.Count);
-
-            foreach (KeyValuePair<SystemDefaultRoles, string> item in GlobalVariables.DefaultRoles)
-                availableRoles.Add(item.Value);
-
-            return availableRoles;
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Library.Common;
+using Library.Common.Enums;
 
 namespace Library.WebApp.Models
 {
@@ -35,6 +37,5 @@ namespace Library.WebApp.Models
         public string ConfirmPassword { get; set; }
 
         public string Role { get; set; }
-
     }
 }

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Library.Common.Enums;
 
 namespace Library.WebApp.Models
 {
@@ -37,6 +38,23 @@ namespace Library.WebApp.Models
 
         [Required(ErrorMessage = RoleRequiredErrorMessage)]
         public string Role { get; set; }
+
+
+        public IEnumerable<string> AvailableRoles => GetAvailableRoles();
+
+        #region PRIVATE METHODS
+
+        private IEnumerable<string> GetAvailableRoles()
+        {
+            var availableRoles = new HashSet<string>(DefaultRoles.Count);
+
+            foreach (KeyValuePair<SystemDefaultRoles, string> item in DefaultRoles)
+                availableRoles.Add(item.Value);
+
+            return availableRoles;
+        }
+
+        #endregion
 
     }
 }

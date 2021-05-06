@@ -45,7 +45,6 @@ namespace Library.WebApp.Controllers
 
                 if (result.Succeeded)
                 {
-                    var usr = User;
                     return RedirectToAction("index", "home");
                 }
 

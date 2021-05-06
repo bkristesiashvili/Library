@@ -83,7 +83,7 @@
         </div>
         <div class="row m-5">
             <select asp-for="Role" class="form-control text-13px" style="width: 200px;">
-                @foreach (var item in ViewBag.AvailableRoles)
+                @foreach (var item in Model.AvailableRoles)
                 {
                     <option value="@item">@item</option>
                 }
