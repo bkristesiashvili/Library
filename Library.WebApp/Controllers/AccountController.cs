@@ -72,12 +72,10 @@ namespace Library.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(UserEditViewModel model)
+        public async Task<IActionResult> EditProfile(UserProfileEditViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var passwordHasher = userManager.PasswordHasher;
-
                 var user = await userManager.GetUserAsync(User);
 
                 user.Email = model.Email;
@@ -85,7 +83,6 @@ namespace Library.WebApp.Controllers
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
 
-                user.PasswordHash = passwordHasher.HashPassword(user, model.Password);
                 var result = await userManager.UpdateAsync(user);
 
                 if (result.Succeeded)
@@ -94,7 +91,28 @@ namespace Library.WebApp.Controllers
                 ModelState.AddModelError(string.Empty, "განახლების დროს დაფიქსირდა შეცდომა!");
             }
 
-            return View(model);
+            return View("edit", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPassword(PasswordEditViewModel model)
+        {
+            var user = await userManager.GetUserAsync(User);
+            if (ModelState.IsValid)
+            {
+                var passwordHasher = userManager.PasswordHasher;
+
+                var verified = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.OldPassword);
+
+                
+            }
+            return View("edit", new UserProfileEditViewModel
+            {
+                Email = user?.Email,
+                FirstName = user?.FirstName,
+                LastName = user?.LastName
+            });
         }
     }
 }

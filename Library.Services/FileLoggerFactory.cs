@@ -96,7 +96,7 @@ namespace Library.Services
         {
             var formated = loggingType == LoggingTypes.Information ? INFO : ERROR;
 
-            return $"[{DateTime.Now:hh:mm:ss}] ({formated}) - (PATH:{httpContext.Request.Path} " +
+            return $"[{DateTime.Now:hh:mm:ss tt}] ({formated}) - (PATH:{httpContext.Request.Path} " +
                    $"| METHOD:{httpContext.Request.Method})" +
                    $"{Environment.NewLine}{message}";
         }

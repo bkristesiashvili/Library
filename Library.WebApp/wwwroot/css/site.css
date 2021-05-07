@@ -122,3 +122,11 @@ body {
 .custom-select{
     width: 200px;
 }
+.form{
+    margin: 0 auto;
+    position: relative;
+}
+.active {
+    background: #e9ecef !important;
+    border: #e9ecef !important;
+}

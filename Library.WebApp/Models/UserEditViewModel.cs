@@ -10,7 +10,7 @@ using Library.Common.Enums;
 
 namespace Library.WebApp.Models
 {
-    public sealed class UserEditViewModel
+    public sealed class UserProfileEditViewModel
     {
         [Required(ErrorMessage = FirstNameRequiredErrorMessage)]
         public string FirstName { get; set; }
@@ -18,24 +18,8 @@ namespace Library.WebApp.Models
         [Required(ErrorMessage = LastNameRequiredErrorMessage)]
         public string LastName { get; set; }
 
-        //[Required(ErrorMessage = EmailErrorMessage)]
+        [Required(ErrorMessage = EmailErrorMessage)]
         [EmailAddress]
         public string Email { get; set; }
-
-        //[Required(ErrorMessage = EmailConfirmErrorMessage)]
-        //[EmailAddress]
-        //[Compare(nameof(Email), ErrorMessage = EmailMismatchErrorMesssage)]
-        //public string ConfirmEmail { get; set; }
-
-        [Required(ErrorMessage = PasswordRequiredErrorMessage)]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [Required(ErrorMessage = PasswordConfirmErrorMessage)]
-        [Compare(nameof(Password), ErrorMessage = PasswordMismatchErrorMessage)]
-        [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }
-
-        public string Role { get; set; }
     }
 }
