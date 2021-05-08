@@ -44,7 +44,7 @@ namespace Library.Services
         #region PUBLIC METHODS
 
         public async Task<IdentityResult> RegisterUserAsync(User newUser, string password,
-            params string[] roles)
+            IEnumerable<string> roles)
         {
             var result = new IdentityResult();
 

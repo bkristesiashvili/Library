@@ -60,7 +60,7 @@ namespace Library.WebApp.Controllers
                     LastName = model.LastName,
                     Email = model.Email,
                     UserName = model.Email
-                },model.Password, model.Role);
+                },model.Password, model.Roles);
 
                 if (result.Succeeded)
                     ViewBag.Success = "მომხმარებელი წარმატებით შეიქმნა.";

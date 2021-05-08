@@ -23,7 +23,7 @@ namespace Library.Services.Abstractions
         #region METHODS
 
         Task<IdentityResult> RegisterUserAsync(User newUser, string password,
-            params string[] roles);
+            IEnumerable<string> roles);
 
         Task<User> GetAuthenticatedUser(ClaimsPrincipal principal);
 

@@ -121,7 +121,8 @@ body {
 }
 .custom-select{
     width: 200px;
-}
+    font-size:13px;
+} 
 .form{
     margin: 0 auto;
     position: relative;
@@ -129,4 +130,8 @@ body {
 .active {
     background: #e9ecef !important;
     border: #e9ecef !important;
+}
+.selected-dropdow {
+    background-color: #FFF;
+    color: #000;
 }

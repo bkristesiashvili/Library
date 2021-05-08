@@ -33,14 +33,15 @@
                 <span asp-validation-for="ConfirmPassword" class="text-danger text-11px"></span>
             </div>
             <div class="form-group">
-                <select asp-for="Role" class="form-control text-13px">
+                <select id="roles" asp-for="Roles" class="form-control text-13px">
                     @foreach (var item in Model.AvailableRoles)
                     {
-                        <option value="@item">@item</option>
+                        <option class="text-13px" value="@item">@item</option>
                     }
-                </select>
+                </select><br />
+                <span asp-validation-for="Roles" class="text-danger text-11px"></span>
             </div>
-            <div class="input-group">
+            <div class="form-group">
                 <button class="form-control btn btn-sm btn-success">რეგისტრაცია</button>
             </div>
         </form>
@@ -48,6 +49,17 @@
 </div>
 @section Scripts{
     @await Html.PartialAsync("/Views/Shared/_ValidationScriptsPartial.cshtml");
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#roles").multiselect({
+                selectAllText: 'ყველას არჩევა',
+                selectAllValue: 'multiselect-all',
+                selectedClass: 'selected-dropdow',
+                nonSelectedText: 'ცარიელი',
+
+            });
+        });
+    </script>
 
     @if (ViewBag.Success != null)
     {

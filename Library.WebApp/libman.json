@@ -12,6 +12,10 @@
     {
       "library": "toastr.js@2.1.4",
       "destination": "wwwroot/toastr.js/"
+    },
+    {
+      "library": "bootstrap-multiselect@0.9.16",
+      "destination": "wwwroot/bootstrap-multiselect/"
     }
   ]
 }

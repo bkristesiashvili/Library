@@ -37,7 +37,7 @@ namespace Library.WebApp.Models
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = RoleRequiredErrorMessage)]
-        public string Role { get; set; }
+        public IEnumerable<string> Roles { get; set; }
 
 
         public IEnumerable<string> AvailableRoles => GetAvailableRoles();
