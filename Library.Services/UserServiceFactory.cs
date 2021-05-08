@@ -58,6 +58,7 @@ namespace Library.Services
                 return result;
 
             result = await UserManager.CreateAsync(newUser, password);
+
             if (result.Succeeded)
                 result = await UserManager.AddToRolesAsync(newUser, roles);
             
