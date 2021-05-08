@@ -20,16 +20,26 @@ namespace Library.WebApp.Controllers
     [Authorize]
     public class AccountController : BaseController
     {
-        private readonly UserManager<User> userManager;
+        #region PRIVATE READONLY VARIABLES
+
+        private readonly IUserService UserService;
+
+        #endregion
+
+        #region CTOR
 
         public AccountController(
             IFileLogger logger,
-            UserManager<User> userManager
+            IUserService userService
             )
             :base(logger)
         {
-            this.userManager = userManager;
+            UserService = userService;
         }
+
+        #endregion
+
+        #region ACTIONS
 
         [HttpGet]
         public IActionResult Profile() => View();
@@ -43,24 +53,17 @@ namespace Library.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newUser = new User
+
+                var result = await UserService.RegisterUserAsync(new User
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email,
-                    UserName = model.Email,
-                };
-
-                var result = await userManager.CreateAsync(newUser, model.Password);
+                    UserName = model.Email
+                },model.Password, model.Role);
 
                 if (result.Succeeded)
-                {
-                    if (!string.IsNullOrEmpty(model.Role) || !string.IsNullOrWhiteSpace(model.Role))
-                    {
-                        await userManager.AddToRoleAsync(newUser, model.Role);
-                        ViewBag.Success = "მომხმარებელი წარმატებით შეიქმნა.";
-                    }
-                }
+                    ViewBag.Success = "მომხმარებელი წარმატებით შეიქმნა.";
                 else
                     ViewBag.Error = "ასეთი მომხმარებელი უკვე არსებობს!";
 
@@ -76,43 +79,40 @@ namespace Library.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.GetUserAsync(User);
+                var user = await UserService.GetAuthenticatedUser(User);
 
-                user.Email = model.Email;
-                user.UserName = model.Email;
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-
-                var result = await userManager.UpdateAsync(user);
+                var result = await UserService.UpdateUserProfileAsync(user, model.FirstName,
+                    model.LastName, model.Email);
 
                 if (result.Succeeded)
-                    return RedirectToAction(nameof(Profile));
-
-                ModelState.AddModelError(string.Empty, "განახლების დროს დაფიქსირდა შეცდომა!");
+                    ViewBag.Success = "პროფილი წარმატებით განახლდა.";
+                else
+                    ViewBag.Error = "პროფილის განახლება ვერ მოხერხდა!";
             }
 
-            return View("edit", model);
+            return View("edit");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPassword(PasswordEditViewModel model)
         {
-            var user = await userManager.GetUserAsync(User);
+            var user = await UserService.GetAuthenticatedUser(User);
+
             if (ModelState.IsValid)
             {
-                var passwordHasher = userManager.PasswordHasher;
+                var result = await UserService
+                    .UpdateUserpasswordAsync(user, model.OldPassword, model.NewPassword);
 
-                var verified = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.OldPassword);
-
-                
+                if (result.Succeeded)
+                    ViewBag.Success = "პაროლი წარმატებით განახლდა.";
+                else
+                    ViewBag.Error = "პაროლის განახლება ვერ მოხერხდა!";
             }
-            return View("edit", new UserProfileEditViewModel
-            {
-                Email = user?.Email,
-                FirstName = user?.FirstName,
-                LastName = user?.LastName
-            });
+
+            return View("edit");
         }
+
+        #endregion
     }
 }

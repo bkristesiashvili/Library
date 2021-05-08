@@ -21,6 +21,7 @@ namespace Library.Services.Extensions
                 throw new ArgumentNullException("Empty logging directory name!");
 
             @this.AddSingleton<IFileLogger>(new FileLoggerFactory(loggingDirectoryPath));
+            @this.AddScoped<IUserService, UserServiceFactory>();
         }
 
         #endregion
