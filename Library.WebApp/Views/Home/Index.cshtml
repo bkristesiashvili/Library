@@ -41,7 +41,7 @@
     </div>
     @foreach (var item in new[] { "a", "b", "c", "d", "e", "f" })
     {
-        <div class="row @Html.Raw(index % 2 == 0 ? "grid-header":"") p-2">
+        <div class="row @Html.Raw(index % 2 == 0 ? "grid-header":"") p-2 border row-hover">
             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">@item</div>
             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3"></div>
             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3"></div>

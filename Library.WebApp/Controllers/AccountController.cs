@@ -114,13 +114,18 @@ namespace Library.WebApp.Controllers
             return View("edit");
         }
 
-        public async Task<IActionResult> getAllUsers([FromQuery] AccountFilter filter)
+        [HttpGet]
+        public async Task<IActionResult> All([FromQuery] AccountFilter filter)
         {
-            var users = await UserService.GetAllUsersList(filter);
+            var users = from user in await UserService.GetAllUsersList(filter)
+                              select new UserListViewModel
+                              {
+                                  FirstName = user.FirstName,
+                                  LastName = user.LastName,
+                                  Email = user.Email
+                              };
 
-            var conv = users.ToList();
-
-            return Json(conv);
+            return View(users.ToList());
         }
 
         #endregion
