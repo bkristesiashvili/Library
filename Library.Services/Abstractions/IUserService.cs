@@ -1,9 +1,12 @@
-﻿using Library.Data.Entities;
+﻿using Library.Data;
+using Library.Data.Entities;
+using Library.Data.Request.Filters.Abstractions;
 
 using Microsoft.AspNetCore.Identity;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +20,8 @@ namespace Library.Services.Abstractions
         UserManager<User> UserManager { get; }
 
         SignInManager<User> SigninManager { get; }
+
+        LibraryDbContext DbContext { get; }
 
         #endregion
 
@@ -39,6 +44,8 @@ namespace Library.Services.Abstractions
         Task SignOutAsync();
 
         bool IsSignedIn(ClaimsPrincipal userPrincipal);
+
+        Task<IQueryable<User>> GetAllUsersList(IFilter filert = null);
 
         #endregion
 

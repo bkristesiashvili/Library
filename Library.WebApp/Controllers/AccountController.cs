@@ -1,6 +1,7 @@
 ﻿using Library.Common;
 using Library.Common.Enums;
 using Library.Data.Entities;
+using Library.Data.Request.Filters;
 using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
 using Library.WebApp.Models;
@@ -111,6 +112,15 @@ namespace Library.WebApp.Controllers
             }
 
             return View("edit");
+        }
+
+        public async Task<IActionResult> getAllUsers([FromQuery] AccountFilter filter)
+        {
+            var users = await UserService.GetAllUsersList(filter);
+
+            var conv = users.ToList();
+
+            return Json(conv);
         }
 
         #endregion

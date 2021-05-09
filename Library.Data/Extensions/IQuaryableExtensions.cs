@@ -10,11 +10,11 @@ using System.Text;
 
 namespace Library.Data.Extensions
 {
-    internal static class IQueryableExtensions
+    public static class IQueryableExtensions
     {
         #region EXTENSION METHODS
 
-        internal static IQueryable<TObject> OrderBy<TObject>(this IQueryable<TObject> @this, IFilter filter)
+        public static IQueryable<TObject> OrderBy<TObject>(this IQueryable<TObject> @this, IFilter filter)
         {
             var type = typeof(TObject);
 
@@ -43,16 +43,17 @@ namespace Library.Data.Extensions
         {
             if (filter == null) throw new ArgumentNullException(nameof(filter));
 
-            return filter.Ordering.ToLower().Equals(OrderingTypes.DESCENDING) ?
-                Expression.Call(typeof(Queryable), "OrderByDescending",
-                new Type[] { type, property.PropertyType },
-                @this.Expression,
-                Expression.Quote(expression))
-                :
-                Expression.Call(typeof(Queryable), "OrderBy",
+            if (filter.Ordering.ToUpper().Equals(OrderingTypes.DESCENDING))
+                return Expression.Call(typeof(Queryable), "OrderByDescending",
                 new Type[] { type, property.PropertyType },
                 @this.Expression,
                 Expression.Quote(expression));
+            else 
+                return Expression.Call(typeof(Queryable), "OrderBy",
+                new Type[] { type, property.PropertyType },
+                @this.Expression,
+                Expression.Quote(expression));
+
         }
 
         #endregion

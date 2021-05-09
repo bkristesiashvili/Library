@@ -1,7 +1,11 @@
-﻿using Library.Data.Entities;
+﻿using Library.Data;
+using Library.Data.Entities;
+using Library.Data.Extensions;
+using Library.Data.Request.Filters.Abstractions;
 using Library.Services.Abstractions;
 
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 using System;
 using System.Collections.Generic;
@@ -26,15 +30,19 @@ namespace Library.Services
 
         public SignInManager<User> SigninManager { get; }
 
+        public LibraryDbContext DbContext { get; }
+
         #endregion
 
         #region CTOR
 
         public UserServiceFactory(UserManager<User> userManager,
-            SignInManager<User> signinManager)
+            SignInManager<User> signinManager,
+            LibraryDbContext context)
         {
             UserManager = userManager;
             SigninManager = signinManager;
+            DbContext = context;
 
             EnsureDependencies();
         }
@@ -61,7 +69,7 @@ namespace Library.Services
 
             if (result.Succeeded)
                 result = await UserManager.AddToRolesAsync(newUser, roles);
-            
+
             return result;
         }
 
@@ -86,7 +94,7 @@ namespace Library.Services
             return result;
         }
 
-        public async Task<IdentityResult> UpdateUserpasswordAsync(User user, 
+        public async Task<IdentityResult> UpdateUserpasswordAsync(User user,
             string currentPassword, string newPassword)
         {
             var result = new IdentityResult();
@@ -114,6 +122,21 @@ namespace Library.Services
         public bool IsSignedIn(ClaimsPrincipal userPrincipal)
             => SigninManager.IsSignedIn(userPrincipal);
 
+        public async Task<IQueryable<User>> GetAllUsersList(IFilter filter = null)
+        {
+            var results = filter == null
+                ? await Task.FromResult(DbContext.Users)
+                : await Task.FromResult(DbContext.Users.OrderBy(filter));
+
+            return string.IsNullOrEmpty(filter.Search) || string.IsNullOrWhiteSpace(filter.Search)
+                ? results
+                : from entity in results
+                  where entity.FirstName.StartsWith(filter.Search) ||
+                        entity.LastName.StartsWith(filter.Search) ||
+                        entity.Email.StartsWith(filter.Search)
+                  select entity;
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -139,6 +162,8 @@ namespace Library.Services
                 throw new ArgumentNullException(nameof(UserManager));
             if (SigninManager == null)
                 throw new ArgumentNullException(nameof(SigninManager));
+            if (DbContext == null)
+                throw new ArgumentNullException(nameof(DbContext));
         }
 
         #endregion
