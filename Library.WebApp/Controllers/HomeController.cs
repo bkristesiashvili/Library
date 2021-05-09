@@ -1,5 +1,7 @@
 ﻿using Library.Data;
 using Library.Data.Entities;
+using Library.Services.Abstractions;
+using Library.WebApp.Controllers.Abstractions;
 using Library.WebApp.Models;
 
 using Microsoft.AspNetCore.Authorization;
@@ -15,15 +17,14 @@ using System.Threading.Tasks;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
+        #region CTOR
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-            //log4net
-        }
+        public HomeController(IFileLogger logger)
+            : base(logger) { }
+
+        #endregion
 
         public IActionResult Index()
         {

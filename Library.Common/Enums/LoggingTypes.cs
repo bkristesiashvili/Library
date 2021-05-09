@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Library.Services.Enums
+namespace Library.Common.Enums
 {
     public enum LoggingTypes
     {

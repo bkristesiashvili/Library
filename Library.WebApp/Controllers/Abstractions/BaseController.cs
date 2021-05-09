@@ -1,5 +1,5 @@
 ﻿using Library.Services.Abstractions;
-using Library.Services.Enums;
+using Library.Common.Enums;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
