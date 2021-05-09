@@ -137,6 +137,12 @@ namespace Library.Services
                   select entity;
         }
 
+        public async Task<IdentityResult> DeleteUserAsync(User user)
+            => await UserManager.DeleteAsync(user);
+
+        public async Task<User> GetUserById(Guid id)
+            => await UserManager.FindByIdAsync(id.ToString());
+
         public void Dispose()
         {
             Dispose(true);

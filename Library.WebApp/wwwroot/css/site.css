@@ -136,7 +136,18 @@ body {
     color: #000;
 }
 .row-hover:hover{
-    background-color: rgb(0 0 0 / 70%);
+    background-color: rgb(0 0 0 / 30%);
     color: #FFF;
     cursor: pointer;
+}
+.active-user {
+    background-color: rgb(0 0 0 / 50%);
+    color: #FFF;
+    font-weight:bold;
+}
+a.disabled {
+    /* Make the disabled links grayish*/
+    color: gray;
+    /* And disable the pointer events */
+    pointer-events: none;
 }

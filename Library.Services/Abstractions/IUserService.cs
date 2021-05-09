@@ -47,6 +47,10 @@ namespace Library.Services.Abstractions
 
         Task<IQueryable<User>> GetAllUsersList(IFilter filert = null);
 
+        Task<User> GetUserById(Guid id);
+
+        Task<IdentityResult> DeleteUserAsync(User user);
+
         #endregion
 
     }

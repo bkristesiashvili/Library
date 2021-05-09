@@ -5,6 +5,7 @@ using Library.Data.Request.Filters;
 using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
 using Library.WebApp.Models;
+using static Library.Common.GlobalVariables;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Library.WebApp.Helpers.Extensions;
 
 namespace Library.WebApp.Controllers
 {
@@ -33,7 +35,7 @@ namespace Library.WebApp.Controllers
             IFileLogger logger,
             IUserService userService
             )
-            :base(logger)
+            : base(logger)
         {
             UserService = userService;
         }
@@ -61,7 +63,7 @@ namespace Library.WebApp.Controllers
                     LastName = model.LastName,
                     Email = model.Email,
                     UserName = model.Email
-                },model.Password, model.Roles);
+                }, model.Password, model.Roles);
 
                 if (result.Succeeded)
                     ViewBag.Success = "მომხმარებელი წარმატებით შეიქმნა.";
@@ -117,15 +119,37 @@ namespace Library.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] AccountFilter filter)
         {
+
             var users = from user in await UserService.GetAllUsersList(filter)
-                              select new UserListViewModel
-                              {
-                                  FirstName = user.FirstName,
-                                  LastName = user.LastName,
-                                  Email = user.Email
-                              };
+                        select new UserListViewModel
+                        {
+                            Id = user.Id,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            Email = user.Email
+                        };
 
             return View(users.ToList());
+        }
+
+        [HttpPost]
+        //[AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Delete([FromBody]Guid id)
+        {
+            Guid.TryParse(User.GetUserId(), out var currentUserId);
+
+            var user = await UserService.GetUserById(id);
+
+            if (id == currentUserId)
+                return Json(new { Success = false, Location = "/account/all" });
+
+
+            var result = await UserService.DeleteUserAsync(user);
+
+            if (result.Succeeded)
+                return Json(new { Success = true, Location = "/account/all" });
+
+            return Json(new { Success = false, Location = string.Empty });
         }
 
         #endregion

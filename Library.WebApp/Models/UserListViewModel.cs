@@ -9,6 +9,8 @@ namespace Library.WebApp.Models
     {
         #region PUBLIC PROPERTIES
 
+        public Guid Id { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
