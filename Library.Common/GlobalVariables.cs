@@ -22,6 +22,7 @@ namespace Library.Common
         public const string EmailErrorMessage = "ელ.ფოსტის ველი აუცილებელია!";
         public const string EmailConfirmErrorMessage = "ელ.ფოსტის დადასტურება აუცილებელია!";
         public const string EmailMismatchErrorMesssage = "ელ.ფოსტა არ ემთხვევა ერთმანეთს!";
+        public const string EmailFormatError = "არასწორი ელ.ფოსტის მისამართი!";
 
         public const string FirstNameRequiredErrorMessage = "სახელის ველი აუცილებელია!";
         public const string LastNameRequiredErrorMessage = "გვარის ველი აუცილებელია!";

@@ -56,25 +56,10 @@
                 selectAllValue: 'multiselect-all',
                 selectedClass: 'selected-dropdow',
                 nonSelectedText: 'ცარიელი',
+                allSelectedText: 'ყველა როლი',
+                buttonWidth: 'relative',
 
             });
         });
     </script>
-
-    @if (ViewBag.Success != null)
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                toastr.success('@ViewBag.Success');
-            });
-        </script>
-    }
-    else if (ViewBag.Error != null)
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                toastr.error('@ViewBag.Error');
-            });
-        </script>
-    }
 }

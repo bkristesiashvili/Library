@@ -1,10 +1,4 @@
-﻿
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,10 +6,31 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/fonts.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/toastr.js/toastr.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    @RenderBody();
+    <div class="container-fluid">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/toastr.js/toastr.min.js"></script>
+    @if (ViewBag.Error != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                toastr.options.closeMethod = 'slideUp';
+                toastr.options.hideMethod = 'slideUp';
+                toastr.options.showMethod = 'slideDown';
+                toastr.options.closeDuration = 300;
+                toastr.options.closeEasing = 'swing';
+                toastr.warning('@ViewBag.Error');
+            });
+        </script>
+    }
+    @RenderSection("Scripts", required: true)
 </body>
 </html>

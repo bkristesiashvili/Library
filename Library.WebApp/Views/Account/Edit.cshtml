@@ -22,22 +22,5 @@
 </div>
 @section Scripts{
     @await Html.PartialAsync("/Views/Shared/_ValidationScriptsPartial.cshtml")
-
-    @if (ViewBag.Success != null)
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                toastr.success('@ViewBag.Success');
-            });
-        </script>
-    }
-    else if (ViewBag.Error != null)
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                toastr.error('@ViewBag.Error');
-            });
-        </script>
-    }
 }
 

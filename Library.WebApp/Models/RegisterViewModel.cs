@@ -19,12 +19,12 @@ namespace Library.WebApp.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage =EmailErrorMessage)]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = EmailFormatError)]
         public string Email { get; set; }
 
         [Required(ErrorMessage =EmailConfirmErrorMessage)]
         [Compare(nameof(Email), ErrorMessage =EmailMismatchErrorMesssage)]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = EmailFormatError)]
         public string ConfirmEmail { get; set; }
 
         [Required(ErrorMessage =PasswordRequiredErrorMessage)]

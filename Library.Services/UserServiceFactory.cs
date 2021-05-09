@@ -105,6 +105,15 @@ namespace Library.Services
             return result;
         }
 
+        public async Task<SignInResult> SigninAsync(string email, string password, bool rememberMe, bool lockOut = false)
+            => await SigninManager.PasswordSignInAsync(email, password, rememberMe, lockOut);
+
+        public async Task SignOutAsync()
+            => await SigninManager.SignOutAsync();
+
+        public bool IsSignedIn(ClaimsPrincipal userPrincipal)
+            => SigninManager.IsSignedIn(userPrincipal);
+
         public void Dispose()
         {
             Dispose(true);

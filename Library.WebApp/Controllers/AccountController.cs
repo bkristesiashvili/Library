@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
-    public class AccountController : BaseController
+    public sealed class AccountController : BaseController
     {
         #region PRIVATE READONLY VARIABLES
 

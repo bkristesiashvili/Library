@@ -11,7 +11,7 @@ namespace Library.WebApp.Models
     public sealed class LoginViewModel
     {
         [Required(ErrorMessage = EmailErrorMessage)]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = EmailFormatError)]
         [Display(Name = EmailDisplayName)]
         public string Email { get; set; }
 

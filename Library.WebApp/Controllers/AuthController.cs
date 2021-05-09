@@ -1,4 +1,6 @@
 ﻿using Library.Data.Entities;
+using Library.Services.Abstractions;
+using Library.WebApp.Controllers.Abstractions;
 using Library.WebApp.Models;
 
 using Microsoft.AspNetCore.Authorization;
@@ -13,22 +15,31 @@ using System.Threading.Tasks;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
-    public class AuthController : Controller
+    public class AuthController : BaseController
     {
-        private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signinManager;
+        #region PRIVATE VARIABLES
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signinManager)
+        private readonly IUserService userService;
+
+        #endregion
+
+        #region CTOR
+
+        public AuthController(IFileLogger logger, IUserService userService)
+            :base(logger)
         {
-            this.userManager = userManager;
-            this.signinManager = signinManager;
+            this.userService = userService;
         }
+
+        #endregion
+
+        #region ACTIONS
 
         [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
-            if (signinManager.IsSignedIn(User))
+            if (userService.IsSignedIn(User))
                 return RedirectToAction("index", "home");
             return View();
         }
@@ -40,15 +51,15 @@ namespace Library.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await signinManager
-                    .PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                var result = await userService
+                    .SigninAsync(model.Email, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
-                {
                     return RedirectToAction("index", "home");
-                }
+                else
+                    ViewBag.Error = "არასწორი მომხმარებელი ან პაროლი!";
 
-                ModelState.AddModelError(string.Empty, "არასწორი მომხმარებელი ან პაროლი!");
+                //ModelState.AddModelError(string.Empty, "არასწორი მომხმარებელი ან პაროლი!");
             }
 
             return View(model);
@@ -58,12 +69,14 @@ namespace Library.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await signinManager.SignOutAsync();
+            await userService.SignOutAsync();
             return RedirectToAction("login", "auth");
         }
 
         [AllowAnonymous]
         [HttpGet]
         public IActionResult AccessDenied() => View();
+
+        #endregion
     }
 }

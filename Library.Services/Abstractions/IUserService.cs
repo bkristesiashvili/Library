@@ -33,6 +33,13 @@ namespace Library.Services.Abstractions
         Task<IdentityResult> UpdateUserpasswordAsync(User user, 
             string currentPassword, string newPassword);
 
+        Task<SignInResult> SigninAsync(string email, string password,
+            bool rememberMe, bool lockOut = false);
+
+        Task SignOutAsync();
+
+        bool IsSignedIn(ClaimsPrincipal userPrincipal);
+
         #endregion
 
     }
