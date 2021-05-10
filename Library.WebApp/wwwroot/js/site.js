@@ -3,38 +3,42 @@
 
 // Write your JavaScript code.
 
+$(document).ready(function () {
 
-var deleteItem = function (url, uid) {
-    event.preventDefault();
+    $("#saveChanges").on('click')
 
-    toastr.options.closeMethod = 'slideUp';
-    toastr.options.hideMethod = 'slideUp';
-    toastr.options.showMethod = 'slideDown';
-    toastr.options.closeDuration = 50;
-    toastr.options.closeEasing = 'swing';
+    var deleteItem = function (url, uid) {
+        event.preventDefault();
 
-    $.ajax({
-        type: 'POST',
-        url: url,
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        data: JSON.stringify(uid),
-        success: function (data) {
-            console.log(data);
-            if (data.success === true) {
-                toastr.options.onHidden = function () {
-                    window.location.href = data.location;
+        toastr.options.closeMethod = 'slideUp';
+        toastr.options.hideMethod = 'slideUp';
+        toastr.options.showMethod = 'slideDown';
+        toastr.options.closeDuration = 50;
+        toastr.options.closeEasing = 'swing';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(uid),
+            success: function (data) {
+                console.log(data);
+                if (data.success === true) {
+                    toastr.options.onHidden = function () {
+                        window.location.href = data.location;
+                    }
+                    toastr.success("მომხმარებელი წარმატებით წაიშალა.");
+                } else if (data.success == false) {
+                    toastr.warning("ავტორიზებული მომხმარებლის წაშლა შეუძლებელია!");
+                    toastr.options.hideMethod = function () {
+                        alert("test");
+                    }
                 }
-                toastr.success("მომხმარებელი წარმატებით წაიშალა.");
-            } else if (data.success == false) {
-                toastr.warning("ავტორიზებული მომხმარებლის წაშლა შეუძლებელია!");
-                toastr.options.hideMethod = function () {
-                    alert("test");
-                }
+            },
+            error: function (resp) {
+                toastr.error("დაფიქსირდა შეცდომა!");
             }
-        },
-        error: function (resp) {
-            toastr.error("დაფიქსირდა შეცდომა!");
-        }
-    });
-}
+        });
+    }
+});

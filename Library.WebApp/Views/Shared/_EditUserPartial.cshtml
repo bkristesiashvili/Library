@@ -16,7 +16,7 @@
                 <div class="container">
                     <form method="post">
                         <div class=" form-group">
-                            <input asp-for="Id" />
+                            <input asp-for="Id" id="user_id"/>
                         </div>
                         <div class="form-group">
                             <input asp-for="FirstName" class="form-control text-13px" />
@@ -35,7 +35,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-secondary text-12px" data-dismiss="modal">გაუქმება</button>
-                <button type="button" class="btn btn-sm btn-success text-12px">დამახსოვრება</button>
+                <button type="button" id="saveChanges" class="btn btn-sm btn-success text-12px">დამახსოვრება</button>
             </div>
         </div>
     </div>
