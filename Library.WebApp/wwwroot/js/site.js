@@ -22,12 +22,10 @@ var deleteItem = function (url, uid) {
         success: function (data) {
             console.log(data);
             if (data.success === true) {
-                //console.log(data.location);
-                //window.location.href = data.location;
                 toastr.options.onHidden = function () {
                     window.location.href = data.location;
                 }
-                toastr.success("waishala");
+                toastr.success("მომხმარებელი წარმატებით წაიშალა.");
             } else if (data.success == false) {
                 toastr.warning("ავტორიზებული მომხმარებლის წაშლა შეუძლებელია!");
                 toastr.options.hideMethod = function () {

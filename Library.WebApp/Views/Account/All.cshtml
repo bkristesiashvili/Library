@@ -1,13 +1,15 @@
 ﻿@model IEnumerable<UserListViewModel>
-@using Library.Common
 @using Library.Common.Enums
 @using Library.WebApp.Helpers.Extensions
+@using static Library.Common.GlobalVariables
 @{
     ViewBag.Title = "მომხმარებლების სია";
 
     var index = 0;
 
     Guid.TryParse(User.GetUserId(), out var currentId);
+
+    var editModel = new UserProfileEditViewModel();
 }
 
 <div class="text-13px">
@@ -17,7 +19,7 @@
         <div class="col-sm-3 col-md-3">ელ.ფოსტა</div>
         <div class="col-sm-2 col-md-2">
             <div class="text-right">
-                @if (User.IsInRole(GlobalVariables.DefaultRoles[SystemDefaultRoles.SuperAdmin]) || User.IsInRole(GlobalVariables.DefaultRoles[SystemDefaultRoles.Admin]))
+                @if (User.IsInRole(DefaultRoles[SystemDefaultRoles.SuperAdmin]) || User.IsInRole(DefaultRoles[SystemDefaultRoles.Admin]))
                 {
                     <a asp-controller="account" asp-action="register" class="btn btn-sm btn-success text-12px"><i class="fas fa-plus">&nbsp;</i>დამატება</a>
                 }
@@ -26,6 +28,11 @@
     </div>
     @foreach (var user in Model)
     {
+        editModel.Id = user.Id;
+        editModel.FirstName = user.FirstName;
+        editModel.LastName = user.LastName;
+        editModel.Email = user.Email;
+
         <div class="row @Html.Raw(index % 2 == 0 ? "grid-header":"") align-middle p-1 text-13px text-left row-hover border @Html.Raw(user.Id == currentId ? "active-user": "")">
             <div class="col-sm-3 col-md-3">@user.FirstName</div>
             <div class="col-sm-4 col-md-4">@user.LastName</div>
@@ -35,19 +42,17 @@
                     <div>
                         <button type="button" class="btn btn-sm text-11px text-dark"><i class="fas fa-eye"></i></button>
                     </div>
-                    @if (User.IsInRole(GlobalVariables.DefaultRoles[SystemDefaultRoles.SuperAdmin]) || User.IsInRole(GlobalVariables.DefaultRoles[SystemDefaultRoles.Admin]))
+                    @if (User.IsInRole(DefaultRoles[SystemDefaultRoles.SuperAdmin]) || User.IsInRole(DefaultRoles[SystemDefaultRoles.Admin]))
                     {
-                        <div>
-                            <button type="button" class="btn btn-sm text-primary text-11px"><i class="fas fa-edit"></i></button>
-                        </div>
+                        <partial name="_EditUserPartial" model="editModel"/>
                     }
 
-                    @if (User.IsInRole(GlobalVariables.DefaultRoles[SystemDefaultRoles.SuperAdmin]))
+                    @if (User.IsInRole(DefaultRoles[SystemDefaultRoles.SuperAdmin]))
                     {
                         <div>
                             <form method="post">
-                                <button type="button" onclick="deleteItem('@Url.Action("delete","account")', '@user.Id');" class="btn btn-sm text-11px 
-                                        @Html.Raw(user.Id == currentId ? "disabled":"text-danger")" 
+                                <button type="button" onclick="deleteItem('@Url.Action("delete","account")', '@user.Id');" class="btn btn-sm text-11px
+                                        @Html.Raw(user.Id == currentId ? "disabled":"text-danger")"
                                         @Html.Raw(user.Id == currentId ? "disabled" : "")>
                                     <i class="fas fa-trash"></i>
                                 </button>
