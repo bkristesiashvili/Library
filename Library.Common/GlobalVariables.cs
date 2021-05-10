@@ -36,5 +36,9 @@ namespace Library.Common
         public const string EmailDisplayName = "ელ.ფოსტა";
         public const string PasswordDisplayName = "პაროლი";
         public const string RememberMeDisplayName = "დამიმახსოვრე";
+
+        public const string UserProfileUpdateFailed = "პროფილის განახლება დასრულდა შეცდომით!";
+        public const string UserNotFound = "მოხმარებელი ვერ მოიძებნა!";
+        public const string UserUpdatedSuccess = "პროფილის განახლება წარმატებით შესრულდა.";
     }
 }

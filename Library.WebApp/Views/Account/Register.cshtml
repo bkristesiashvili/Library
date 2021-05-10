@@ -58,8 +58,11 @@
                 nonSelectedText: 'ცარიელი',
                 allSelectedText: 'ყველა როლი',
                 buttonWidth: 'relative',
-
             });
+            toastr.options.onHidden = function () {
+                window.location.href = '/account/all';
+            }
+            toastr.options.timeOut = 1000;
         });
     </script>
 }

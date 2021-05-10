@@ -16,6 +16,10 @@
     {
       "library": "bootstrap-multiselect@0.9.16",
       "destination": "wwwroot/bootstrap-multiselect/"
+    },
+    {
+      "library": "jquery-confirm@3.3.4",
+      "destination": "wwwroot/jquery-confirm/"
     }
   ]
 }

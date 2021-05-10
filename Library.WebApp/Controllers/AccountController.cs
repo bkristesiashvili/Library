@@ -66,7 +66,7 @@ namespace Library.WebApp.Controllers
                 }, model.Password, model.Roles);
 
                 if (result.Succeeded)
-                    ViewBag.Success = "მომხმარებელი წარმატებით შეიქმნა.";
+                    ViewBag.Success = "მომხმარებელი წარმატებით დაემატა.";
                 else
                     ViewBag.Error = "ასეთი მომხმარებელი უკვე არსებობს!";
 
@@ -133,8 +133,7 @@ namespace Library.WebApp.Controllers
         }
 
         [HttpPost]
-        //[AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Delete([FromBody]Guid id)
+        public async Task<IActionResult> Delete([FromBody] Guid id)
         {
             Guid.TryParse(User.GetUserId(), out var currentUserId);
 
@@ -150,6 +149,47 @@ namespace Library.WebApp.Controllers
                 return Json(new { Success = true, Location = "/account/all" });
 
             return Json(new { Success = false, Location = string.Empty });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromForm]UserProfileEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var existedUser = await UserService.GetUserById(model.Id);
+
+                if (existedUser == null)
+                    return Json(new
+                    {
+                        Success = false,
+                        Location = string.Empty,
+                        Message = UserNotFound
+                    });
+
+                var result = await UserService.UpdateUserProfileAsync(existedUser, model.FirstName,
+                    model.LastName, model.Email);
+
+                if (!result.Succeeded)
+                    return Json(new
+                    {
+                        Success = false,
+                        Location = string.Empty,
+                        Message = UserProfileUpdateFailed
+                    });
+
+                return Json(new
+                {
+                    Success = true,
+                    Location = "/account/all",
+                    Message = UserUpdatedSuccess
+                });
+            }
+            return Json(new
+            {
+                Success = false,
+                Location = string.Empty,
+                Message = UserProfileUpdateFailed
+            });
         }
 
         #endregion
