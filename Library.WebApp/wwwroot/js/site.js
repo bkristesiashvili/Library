@@ -73,7 +73,7 @@ var deleteItem = function (url, uid) {
                             console.log(data);
                             if (data.success === true) {
                                 toastr.success("", "მომხმარებელი წარმატებით წაიშალა.", {
-                                    timeOut: 900,
+                                    timeOut: 1000,
                                     fadeOut: 1500,
                                     onHidden: function () {
                                         window.location.href = data.location;

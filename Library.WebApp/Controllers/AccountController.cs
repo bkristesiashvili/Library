@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Library.WebApp.Helpers.Extensions;
+using Library.Data.Extensions;
 
 namespace Library.WebApp.Controllers
 {
@@ -129,7 +130,9 @@ namespace Library.WebApp.Controllers
                             Email = user.Email
                         };
 
-            return View(users.ToList());
+            ViewBag.Search = filter.Search;
+
+            return View(await users.ToPagedListAsync(filter.Page, filter.PageSize));
         }
 
         [HttpPost]

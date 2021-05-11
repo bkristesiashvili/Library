@@ -1,4 +1,5 @@
-﻿using Library.Common.Types;
+﻿using Library.Common.Collections;
+using Library.Common.Types;
 using Library.Data.Request.Filters.Abstractions;
 
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Library.Data.Extensions
 {
@@ -33,6 +35,12 @@ namespace Library.Data.Extensions
 
             return @this.Provider.CreateQuery<TObject>(resultExp);
         }
+
+        public async static Task<PagedList<TObject>> ToPagedListAsync<TObject>(this IQueryable<TObject> @this, 
+            int pageNumber, 
+            int pageSize = 15)
+            where TObject : class
+        => await PagedList<TObject>.CreatePagedListAsync(@this, pageNumber, pageSize);
 
         #endregion
 
