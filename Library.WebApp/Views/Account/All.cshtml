@@ -1,9 +1,12 @@
 ﻿@using Library.Common.Collections
-@model PagedList<UserListViewModel>
 @using Library.Common.Enums
 @using Library.WebApp.Helpers.Extensions
 @using static Library.Common.GlobalVariables
 @using static Library.Common.Enums.SystemDefaultRoles;
+@using static Library.Common.Types.OrderingTypes;
+
+@model PagedList<UserListViewModel>
+
 @{
     ViewBag.Title = "მომხმარებლების სია";
 
@@ -17,7 +20,7 @@
         <div class="text-left pb-1">
             <form method="get" asp-controller="account" asp-action="all" autocomplete="off">
                 <div class="input-group">
-                    <input type="search" placeholder="ძებნა" name="search" class="form-control text-12px" />
+                    <input type="search" placeholder="ძებნა" name="search" class="form-control text-12px" maxlength="30" />
                     <div class="input-group-append">
                         <button class="btn btn-success text-12px">
                             <i class="fas fa-search"></i>
@@ -30,9 +33,38 @@
 </div>
 <div class="text-13px">
     <div class="row profile-bg text-dark font-weight-bold p-3 rounded-top">
-        <div class="col-sm-3 col-md-3">სახელი</div>
-        <div class="col-sm-4 col-md-4">გვარი</div>
-        <div class="col-sm-3 col-md-3">ელ.ფოსტა</div>
+        <div class="col-sm-3 col-md-3">
+            <a asp-controller="account" 
+               asp-action="all" 
+               asp-route-orderby="firstname"
+               asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+               class="btn btn-sm"><i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING && 
+                                                             ((string)ViewBag.OrderBy).ToLower() == "firstname" 
+                                                             ? "up"
+                                                             :"down")">&nbsp;&nbsp;</i>სახელი</a>
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <a asp-controller="account"
+               asp-action="all"
+               asp-route-orderby="lastname"
+               asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+               class="btn btn-sm"><i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING && 
+                                                             ((string)ViewBag.OrderBy).ToLower() == "lastname" 
+                                                             ? "up"
+                                                             :"down")">&nbsp;&nbsp;</i>გვარი</a>
+        </div>
+        <div class="col-sm-3 col-md-3">
+            <a asp-controller="account"
+               asp-action="all"
+               asp-route-orderby="email"
+               asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+               class="btn btn-sm">
+                <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
+                                                             ((string)ViewBag.OrderBy).ToLower() == "email"
+                                                             ? "up"
+                                                             :"down")">&nbsp;&nbsp;</i>ელ.ფოსტა
+            </a>
+        </div>
         <div class="col-sm-2 col-md-2">
             <div class="text-right">
                 @if (User.IsInRole(DefaultRoles[SystemDefaultRoles.SuperAdmin]) || User.IsInRole(DefaultRoles[SystemDefaultRoles.Admin]))
@@ -110,31 +142,43 @@
 </div>
 @if (Model.Any())
 {
-<div class="row pt-1">
-    <div class="col-sm-3 col-md-6 col-lg-6 col-xl-6">
-        @if (!string.IsNullOrEmpty(ViewBag.Search))
-        {
-            <div class="float-left">
-                <div class="text-center">
-                    <a asp-controller="account" asp-action="all" class="btn btn-sm btn-outline-danger text-12px">
-                        <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
-                    </a>
+    <div class="row pt-1">
+        <div class="col-sm-3 col-md-6 col-lg-6 col-xl-6">
+            @if (!string.IsNullOrEmpty(ViewBag.Search))
+            {
+                <div class="float-left">
+                    <div class="text-center">
+                        <a asp-controller="account" asp-action="all" class="btn btn-sm btn-outline-danger text-12px">
+                            <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
+                        </a>
+                    </div>
                 </div>
-            </div>
-        }
-    </div>
-    <div class="col-sm-8 col-md-6 col-lg-6 col-xl-6">
-        <div class="float-right">
-            <div class="pagination">
-                
-                <div class="page-item">
-                    <a asp-controller="account" asp-action="all" asp-route-page="@(Model.PageNumber - 1)" asp-route-search="@ViewBag.Search" class="btn @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
-                </div>
-                <div class="page-item">
-                    <a asp-controller="account" asp-action="all" asp-route-page="@(Model.PageNumber + 1)" asp-route-search="@ViewBag.Search" class="btn @Html.Raw(Model.Next ? "" : "disabled") text-12px">წინ&nbsp;<i class="fas fa-chevron-right"></i></a>
+            }
+        </div>
+        <div class="col-sm-8 col-md-6 col-lg-6 col-xl-6">
+            <div class="float-right">
+                <div class="pagination">
+
+                    <div class="page-item">
+                        <a asp-controller="account" 
+                           asp-action="all" 
+                           asp-route-page="@(Model.PageNumber - 1)" 
+                           asp-route-search="@ViewBag.Search" 
+                           asp-route-orderby="@ViewBag.OrderBy"
+                           asp-route-ordering="@ViewBag.Ordering"
+                           class="btn @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
+                    </div>
+                    <div class="page-item">
+                        <a asp-controller="account" 
+                           asp-action="all" 
+                           asp-route-page="@(Model.PageNumber + 1)" 
+                           asp-route-search="@ViewBag.Search" 
+                           asp-route-orderby="@ViewBag.OrderBy"
+                           asp-route-ordering="@ViewBag.Ordering"
+                           class="btn @Html.Raw(Model.Next ? "" : "disabled") text-12px">წინ&nbsp;<i class="fas fa-chevron-right"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 }

@@ -47,8 +47,8 @@ namespace Library.Data.Request.Filters
             get => _pageSize;
             set
             {
-                _pageSize = value < MIN_PAGE_SIZE 
-                    ? MIN_PAGE_SIZE 
+                _pageSize = value < MIN_PAGE_SIZE
+                    ? MIN_PAGE_SIZE
                     : value > MAX_PAGE_SIZE
                     ? MAX_PAGE_SIZE
                     : value;

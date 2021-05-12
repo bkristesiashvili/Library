@@ -40,5 +40,7 @@ namespace Library.Common
         public const string UserProfileUpdateFailed = "პროფილის განახლება დასრულდა შეცდომით!";
         public const string UserNotFound = "მოხმარებელი ვერ მოიძებნა!";
         public const string UserUpdatedSuccess = "პროფილის განახლება წარმატებით შესრულდა.";
+
+        public const string Space = "\u0020";
     }
 }

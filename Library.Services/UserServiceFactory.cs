@@ -144,9 +144,7 @@ namespace Library.Services
             => await UserManager.FindByIdAsync(id.ToString());
 
         public void Dispose()
-        {
-            Dispose(true);
-        }
+            => Dispose(true);
 
         #endregion
 

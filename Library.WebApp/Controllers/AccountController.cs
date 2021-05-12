@@ -131,6 +131,8 @@ namespace Library.WebApp.Controllers
                         };
 
             ViewBag.Search = filter.Search;
+            ViewBag.Ordering = filter.Ordering;
+            ViewBag.OrderBy = filter.OrderBy;
 
             return View(await users.ToPagedListAsync(filter.Page, filter.PageSize));
         }
