@@ -12,6 +12,22 @@
     Guid.TryParse(User.GetUserId(), out var currentId);
 }
 
+<div class="row">
+    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+        <div class="text-left pb-1">
+            <form method="get" asp-controller="account" asp-action="all" autocomplete="off">
+                <div class="input-group">
+                    <input type="search" placeholder="ძებნა" name="search" class="form-control text-12px" />
+                    <div class="input-group-append">
+                        <button class="btn btn-success text-12px">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="text-13px">
     <div class="row profile-bg text-dark font-weight-bold p-3 rounded-top">
         <div class="col-sm-3 col-md-3">სახელი</div>
@@ -72,14 +88,53 @@
 
         index++;
     }
-</div>
-<div class="float-right">
-    <div class="pagination">
-        <div class="page-item">
-            <a asp-controller="account" asp-action="all" asp-route-page="@(Model.PageNumber - 1)" asp-route-search="@ViewBag.Search" class="btn @Html.Raw(Model.Previous ? "" : "disabled")"><i class="fas fa-arrow-circle-left"></i></a>
+    @if (!Model.Any())
+    {
+        <div class="row p-1">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="text-center">
+                    <div class="text-13px">
+                        ჩანაწერი ვერ მოიძებნა!
+                    </div>
+                    <div class="float-left">
+                        <div class="text-center">
+                            <a asp-controller="account" asp-action="all" class="btn btn-sm btn-outline-danger text-12px">
+                                <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="page-item">
-            <a asp-controller="account" asp-action="all" asp-route-page="@(Model.PageNumber + 1)" asp-route-search="@ViewBag.Search" class="btn @Html.Raw(Model.Next ? "" : "disabled")"><i class="fas fa-arrow-circle-right"></i></a>
+    }
+</div>
+@if (Model.Any())
+{
+<div class="row pt-1">
+    <div class="col-sm-3 col-md-6 col-lg-6 col-xl-6">
+        @if (!string.IsNullOrEmpty(ViewBag.Search))
+        {
+            <div class="float-left">
+                <div class="text-center">
+                    <a asp-controller="account" asp-action="all" class="btn btn-sm btn-outline-danger text-12px">
+                        <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-sm-8 col-md-6 col-lg-6 col-xl-6">
+        <div class="float-right">
+            <div class="pagination">
+                
+                <div class="page-item">
+                    <a asp-controller="account" asp-action="all" asp-route-page="@(Model.PageNumber - 1)" asp-route-search="@ViewBag.Search" class="btn @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
+                </div>
+                <div class="page-item">
+                    <a asp-controller="account" asp-action="all" asp-route-page="@(Model.PageNumber + 1)" asp-route-search="@ViewBag.Search" class="btn @Html.Raw(Model.Next ? "" : "disabled") text-12px">წინ&nbsp;<i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+}

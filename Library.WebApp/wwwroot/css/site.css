@@ -107,6 +107,18 @@ body {
     font-size: 13px;
 }
 
+.text-14px {
+    font-size: 14px;
+}
+
+.text-15px {
+    font-size: 15px;
+}
+
+.text-16px {
+    font-size: 16px;
+}
+
 .naviblue-menu {
     background-color: #09032b;
     color: #FFF;
