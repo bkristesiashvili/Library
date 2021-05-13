@@ -12,6 +12,8 @@ namespace Library.WebApp.Models
 {
     public sealed class RegisterViewModel
     {
+        #region PROPERTIES
+
         [Required(ErrorMessage =FirstNameRequiredErrorMessage)]
         public string FirstName { get; set; }
 
@@ -39,22 +41,6 @@ namespace Library.WebApp.Models
         [Required(ErrorMessage = RoleRequiredErrorMessage)]
         public IEnumerable<string> Roles { get; set; }
 
-
-        public IEnumerable<string> AvailableRoles => GetAvailableRoles();
-
-        #region PRIVATE METHODS
-
-        private IEnumerable<string> GetAvailableRoles()
-        {
-            var availableRoles = new HashSet<string>(DefaultRoles.Count);
-
-            foreach (KeyValuePair<SystemDefaultRoles, string> item in DefaultRoles)
-                availableRoles.Add(item.Value);
-
-            return availableRoles;
-        }
-
         #endregion
-
     }
 }

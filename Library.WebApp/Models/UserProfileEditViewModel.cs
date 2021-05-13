@@ -25,5 +25,7 @@ namespace Library.WebApp.Models
         [Required(ErrorMessage = EmailErrorMessage)]
         [EmailAddress]
         public string Email { get; set; }
+
+        public IEnumerable<string> Roles { get; set; }
     }
 }

@@ -12,6 +12,17 @@ $(document).ready(function () {
     toastr.options.closeEasing = 'swing';
     toastr.options.messageClass = 'text-11px';
     toastr.options.titleClass = 'text-11px';
+
+    const rolesDropDown = $('select[id="roles"');
+
+    rolesDropDown.multiselect({
+        selectAllText: 'ყველას არჩევა',
+        selectAllValue: 'multiselect-all',
+        selectedClass: 'selected-dropdow',
+        nonSelectedText: 'ცარიელი',
+        allSelectedText: 'ყველა როლი',
+        buttonWidth: 'relative',
+    });
 });
 
 var updateItem = function (form_id, user_id) {

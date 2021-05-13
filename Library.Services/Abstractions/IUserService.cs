@@ -21,6 +21,8 @@ namespace Library.Services.Abstractions
 
         SignInManager<User> SigninManager { get; }
 
+        RoleManager<Role> RoleManager { get; }
+
         LibraryDbContext DbContext { get; }
 
         #endregion
@@ -32,8 +34,10 @@ namespace Library.Services.Abstractions
 
         Task<User> GetAuthenticatedUser(ClaimsPrincipal principal);
 
-        Task<IdentityResult> UpdateUserProfileAsync(User oldUser, string firstName, 
+        Task<IdentityResult> UpdateUserProfileAsync(User user, string firstName, 
             string lastName, string email);
+
+        Task<IdentityResult> UpdateUserRoleAsync(User user, params string[] roles);
 
         Task<IdentityResult> UpdateUserpasswordAsync(User user, 
             string currentPassword, string newPassword);
@@ -47,9 +51,15 @@ namespace Library.Services.Abstractions
 
         Task<IQueryable<User>> GetAllUsersList(IFilter filert = null);
 
-        Task<User> GetUserById(Guid id);
+        Task<User> GetUserByIdAsync(Guid id);
 
         Task<IdentityResult> DeleteUserAsync(User user);
+
+        Task<IEnumerable<Role>> GetAvailableRolesAsync();
+
+        Task<IEnumerable<string>> GetUserRolesAsync(User user);
+
+        bool UserIsInRole(User user, string role);
 
         #endregion
 

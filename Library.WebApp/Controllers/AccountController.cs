@@ -51,6 +51,7 @@ namespace Library.WebApp.Controllers
         [HttpGet]
         public IActionResult Register() => View(new RegisterViewModel());
 
+        [Authorize(Roles = SuperAdminRoleName)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -77,6 +78,7 @@ namespace Library.WebApp.Controllers
 
         public IActionResult Edit() => View();
 
+        [Authorize(Roles = SuperAdminRoleName + "," + AdminRoleName)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProfile(UserProfileEditViewModel model)
@@ -142,7 +144,7 @@ namespace Library.WebApp.Controllers
         {
             Guid.TryParse(User.GetUserId(), out var currentUserId);
 
-            var user = await UserService.GetUserById(id);
+            var user = await UserService.GetUserByIdAsync(id);
 
             if (id == currentUserId)
                 return Json(new { Success = false, Location = "/account/all" });
@@ -157,11 +159,11 @@ namespace Library.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit([FromForm]UserProfileEditViewModel model)
+        public async Task<IActionResult> Edit([FromForm] UserProfileEditViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var existedUser = await UserService.GetUserById(model.Id);
+                var existedUser = await UserService.GetUserByIdAsync(model.Id);
 
                 if (existedUser == null)
                     return Json(new
@@ -173,6 +175,9 @@ namespace Library.WebApp.Controllers
 
                 var result = await UserService.UpdateUserProfileAsync(existedUser, model.FirstName,
                     model.LastName, model.Email);
+
+                if (model.Roles.Any())
+                    await UserService.UpdateUserRoleAsync(existedUser, model.Roles.ToArray());
 
                 if (!result.Succeeded)
                     return Json(new

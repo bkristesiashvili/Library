@@ -21,6 +21,7 @@ namespace Library.Services
         #region PRIVATE VARIABLES
 
         private bool _disposed = false;
+        private readonly RoleManager<Role> roleManager;
 
         #endregion
 
@@ -30,6 +31,8 @@ namespace Library.Services
 
         public SignInManager<User> SigninManager { get; }
 
+        public RoleManager<Role> RoleManager { get; }
+
         public LibraryDbContext DbContext { get; }
 
         #endregion
@@ -38,10 +41,12 @@ namespace Library.Services
 
         public UserServiceFactory(UserManager<User> userManager,
             SignInManager<User> signinManager,
+            RoleManager<Role> roleManager,
             LibraryDbContext context)
         {
             UserManager = userManager;
             SigninManager = signinManager;
+            RoleManager = roleManager;
             DbContext = context;
 
             EnsureDependencies();
@@ -94,6 +99,18 @@ namespace Library.Services
             return result;
         }
 
+        public async Task<IdentityResult> UpdateUserRoleAsync(User user, params string[] roles)
+        {
+            var userRoles = await GetUserRolesAsync(user);
+
+            var diffExitedRoles = userRoles.Except(roles).ToList();
+            var diffNewRoles = roles.Except(userRoles).ToList();
+
+            await UserManager.RemoveFromRolesAsync(user, diffExitedRoles);
+
+            return await UserManager.AddToRolesAsync(user, diffNewRoles);
+        }
+
         public async Task<IdentityResult> UpdateUserpasswordAsync(User user,
             string currentPassword, string newPassword)
         {
@@ -140,8 +157,17 @@ namespace Library.Services
         public async Task<IdentityResult> DeleteUserAsync(User user)
             => await UserManager.DeleteAsync(user);
 
-        public async Task<User> GetUserById(Guid id)
+        public async Task<User> GetUserByIdAsync(Guid id)
             => await UserManager.FindByIdAsync(id.ToString());
+
+        public async Task<IEnumerable<Role>> GetAvailableRolesAsync()
+            => await DbContext.Roles.ToListAsync();
+
+        public async Task<IEnumerable<string>> GetUserRolesAsync(User user)
+            => await UserManager.GetRolesAsync(user);
+
+        public bool UserIsInRole(User user, string role)
+            => UserManager.IsInRoleAsync(user, role).Result;
 
         public void Dispose()
             => Dispose(true);
@@ -166,6 +192,8 @@ namespace Library.Services
                 throw new ArgumentNullException(nameof(UserManager));
             if (SigninManager == null)
                 throw new ArgumentNullException(nameof(SigninManager));
+            if (RoleManager == null)
+                throw new ArgumentNullException(nameof(RoleManager));
             if (DbContext == null)
                 throw new ArgumentNullException(nameof(DbContext));
         }

@@ -11,9 +11,27 @@ namespace Library.WebApp.Controllers
     [Authorize]
     public class BooksController : Controller
     {
+        #region PRIVATE FIELDS
+
+        #endregion
+
+        #region CTOR
+
+        public BooksController()
+        {
+
+        }
+
+        #endregion
+
+        #region ACTIONS
+
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
+
+        #endregion
     }
 }
