@@ -16,9 +16,9 @@ namespace Library.Common
                 { SystemDefaultRoles.User, UserRoleName }
             };
 
-        private const string SuperAdminRoleName = "SuperAdmin";
-        private const string AdminRoleName = "Admin";
-        private const string UserRoleName = "User";
+        public const string SuperAdminRoleName = "SuperAdmin";
+        public const string AdminRoleName = "Admin";
+        public const string UserRoleName = "User";
 
         public const string SystemUserAuthEmail = "admin@library.app";
         public const string SystemUserAuthPass = "@admin1234!";

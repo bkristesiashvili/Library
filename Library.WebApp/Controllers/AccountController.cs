@@ -194,12 +194,15 @@ namespace Library.WebApp.Controllers
                     Message = UserUpdatedSuccess
                 });
             }
-            return Json(new
-            {
-                Success = false,
-                Location = string.Empty,
-                Message = UserProfileUpdateFailed
-            });
+
+            return PartialView("_EditUserParial");
+
+            //return Json(new
+            //{
+            //    Success = false,
+            //    Location = string.Empty,
+            //    Message = UserProfileUpdateFailed
+            //});
         }
 
         #endregion
