@@ -28,9 +28,10 @@ $(document).ready(function () {
 var updateItem = function (form_id, user_id) {
     event.preventDefault();
 
-    var form = $('#' + form_id + '_' + user_id);
-    var action = form.attr('action');
-    var formData = form.serialize();
+    const form = $('#' + form_id + '_' + user_id);
+    const action = form.attr('action');
+    const formData = form.serialize();
+    const modal = $('#editUser_' + user_id);
 
     $.ajax({
         type: 'POST',
@@ -38,9 +39,9 @@ var updateItem = function (form_id, user_id) {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         data: formData,
-        success: function (response) {
+        success: function (response, data) {
             if (response.success === true) {
-                $('#editUser_' + user_id).modal("hide");
+                modal.modal("hide");
                 toastr.success("", response.message, {
                     timeOut: 900,
                     fadeOut: 200,
@@ -52,6 +53,8 @@ var updateItem = function (form_id, user_id) {
             } else if (response.success === false) {
                 toastr.error(response.message);
             }
+
+            console.log(data);
         },
         error: function (response) {
             if (response.success === false) {

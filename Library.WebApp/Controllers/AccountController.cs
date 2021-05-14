@@ -195,7 +195,7 @@ namespace Library.WebApp.Controllers
                 });
             }
 
-            return PartialView("_EditUserParial");
+            return PartialView("_EditUserParial", model);
 
             //return Json(new
             //{
