@@ -46,5 +46,6 @@ namespace Library.Common
         public const string UserUpdatedSuccess = "პროფილის განახლება წარმატებით შესრულდა.";
 
         public const string Space = "\u0020";
+        public const string DefaultUrl = "/";
     }
 }
