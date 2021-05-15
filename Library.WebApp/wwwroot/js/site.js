@@ -8,7 +8,7 @@ $(document).ready(function () {
     toastr.options.closeMethod = 'slideUp';
     toastr.options.hideMethod = 'slideUp';
     toastr.options.showMethod = 'slideDown';
-    toastr.options.closeDuration = 50;
+    toastr.options.closeDuration = 500;
     toastr.options.closeEasing = 'swing';
     toastr.options.messageClass = 'text-11px';
     toastr.options.titleClass = 'text-11px';
@@ -22,6 +22,20 @@ $(document).ready(function () {
         nonSelectedText: 'ცარიელი',
         allSelectedText: 'ყველა როლი',
         buttonWidth: 'relative',
+    });
+
+    const profileEditForm = $('#edit_profile');
+
+    profileEditForm.on('submit', function () {
+        event.preventDefault();
+        const action = profileEditForm.attr('action');
+
+        const postData = profileEditForm.serialize();
+
+        $.post(action, postData).done(function (data) {
+            console.log(data);
+            alert('test');
+        })
     });
 });
 
@@ -40,18 +54,19 @@ var updateItem = function (form_id, user_id) {
         dataType: 'json',
         data: formData,
         success: function (response, data) {
-            if (response.success === true) {
+            if (response.succeed === true) {
                 modal.modal("hide");
                 toastr.success("", response.message, {
-                    timeOut: 900,
-                    fadeOut: 200,
+                    fadeOut: 500,
                     messageClass: 'text-11px',
                     onHidden: function () {
                         window.location.reload();
                     }
                 });
-            } else if (response.success === false) {
-                toastr.error(response.message);
+            } else if (response.succeed === false) {
+                toastr.error("", response.message, {
+                    fadeOut: 1000
+                });
             }
 
             console.log(data);

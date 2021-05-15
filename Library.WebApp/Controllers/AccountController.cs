@@ -18,6 +18,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Library.WebApp.Helpers.Extensions;
 using Library.Data.Extensions;
+using Library.WebApp.Response;
 
 namespace Library.WebApp.Controllers
 {
@@ -78,7 +79,7 @@ namespace Library.WebApp.Controllers
 
         public IActionResult Edit() => View();
 
-        [Authorize(Roles = SuperAdminRoleName + "," + AdminRoleName)]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProfile(UserProfileEditViewModel model)
@@ -176,26 +177,38 @@ namespace Library.WebApp.Controllers
                 var result = await UserService.UpdateUserProfileAsync(existedUser, model.FirstName,
                     model.LastName, model.Email);
 
-                if (model.Roles.Any())
-                    await UserService.UpdateUserRoleAsync(existedUser, model.Roles.ToArray());
+
 
                 if (!result.Succeeded)
-                    return Json(new
+                    return Json(new JsonResponse
                     {
-                        Success = false,
-                        Location = string.Empty,
-                        Message = UserProfileUpdateFailed
+                        Succeed = false,
+                        Message = UserProfileUpdateFailed,
                     });
 
-                return Json(new
+                if ( model.Roles == null || !model.Roles.Any())
+                    return Json(new JsonResponse
+                    {
+                        Succeed= false,
+                        Message  = UserRoleErrorMessage
+                    });
+
+                await UserService.UpdateUserRoleAsync(existedUser, model.Roles.ToArray());
+
+                return Json(new JsonResponse
                 {
-                    Success = true,
-                    Location = "/account/all",
+                    Succeed = true,
+                    ReturnUrl = "/account/all",
                     Message = UserUpdatedSuccess
                 });
             }
 
-            return PartialView("_EditUserParial", model);
+            return Json(new JsonResponse
+            {
+                Succeed = false,
+                ReturnUrl = string.Empty,
+                Message = UserProfileUpdateFailed
+            });
 
             //return Json(new
             //{

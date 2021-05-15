@@ -45,6 +45,8 @@ namespace Library.Common
         public const string UserNotFound = "მოხმარებელი ვერ მოიძებნა!";
         public const string UserUpdatedSuccess = "პროფილის განახლება წარმატებით შესრულდა.";
 
+        public const string UserRoleErrorMessage = "როლის დამატება აუცილებელია!";
+
         public const string Space = "\u0020";
         public const string DefaultUrl = "/";
     }
