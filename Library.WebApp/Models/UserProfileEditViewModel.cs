@@ -23,7 +23,7 @@ namespace Library.WebApp.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = EmailErrorMessage)]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = EmailFormatError)]
         public string Email { get; set; }
 
         public IEnumerable<string> Roles { get; set; }

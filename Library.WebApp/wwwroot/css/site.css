@@ -161,3 +161,10 @@ a.disabled {
     color: gray;
     pointer-events: none;
 }
+.toast {
+    opacity: 1 !important;
+}
+
+#toast-container > div {
+    opacity: 1 !important;
+}

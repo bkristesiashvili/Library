@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/bootstrap-multiselect/css/bootstrap-multiselect.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/toastr.js/toastr.min.css"/>
+    <link rel="stylesheet" href="~/toastr.js/toastr.min.css" />
     <link rel="stylesheet" href="~/jquery-confirm//jquery-confirm.min.css" />
 </head>
 <body>
@@ -24,17 +24,7 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_UserPartial" />
-                    <ul class="navbar-nav flex-grow-1 text-12px">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="home" asp-action="index">მთავარი</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="books" asp-action="index">წიგნების ჩამონათვალი</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="account" asp-action="all">მომხმარებლები</a>
-                        </li>
-                    </ul>
+                    <partial name="_MenuItemsPartial" />
                 </div>
             </div>
         </nav>

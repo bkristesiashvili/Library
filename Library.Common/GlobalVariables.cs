@@ -47,6 +47,16 @@ namespace Library.Common
 
         public const string UserRoleErrorMessage = "როლის დამატება აუცილებელია!";
 
+        public const string AuthorizedUserDeleteErrorMessage = "ავტორიზებული მომხმარებლის წაშლა შეუძლებელია!";
+        public const string UserDeleteFailed = "მომხმარებლის წაშლა დასრულდა შეცდომით!";
+        public const string UserDeletedSuccessfull = "მომხმარებელი წარმატებით წაიშალა.";
+
+        public const string PasswordUpdatedSuccessfull = "პაროლი წარმატებით განახლდა.";
+        public const string PasswordUpdateFailedErrorMessage = "პაროლის განახლება ვერ შესრულდა!";
+
+        public const string UserCreatedSuccessMessage = "მამხმარებელი წარმატებით შეიქმნა.";
+        public const string UserCreateFailedMessage = "ასეთი მომხმარებელი უკვე არსებობს!";
+
         public const string Space = "\u0020";
         public const string DefaultUrl = "/";
     }

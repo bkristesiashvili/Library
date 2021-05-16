@@ -4,7 +4,7 @@
 
 @inject IUserService UserService
 
-@{ 
+@{
     var user = await UserService.GetUserByIdAsync(Model.Id);
 }
 

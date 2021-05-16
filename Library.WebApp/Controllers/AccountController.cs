@@ -52,7 +52,7 @@ namespace Library.WebApp.Controllers
         [HttpGet]
         public IActionResult Register() => View(new RegisterViewModel());
 
-        [Authorize(Roles = SuperAdminRoleName)]
+        [Authorize(Roles = SuperAdminRoleName + "," + AdminRoleName)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -69,18 +69,24 @@ namespace Library.WebApp.Controllers
                 }, model.Password, model.Roles);
 
                 if (result.Succeeded)
-                    ViewBag.Success = "მომხმარებელი წარმატებით დაემატა.";
-                else
-                    ViewBag.Error = "ასეთი მომხმარებელი უკვე არსებობს!";
-
+                    return Json(new JsonResponse
+                    {
+                        Succeed = true,
+                        ReturnUrl = "/account/all",
+                        Message = UserCreatedSuccessMessage
+                    });
             }
-            return View(model);
+            return Json(new JsonResponse
+            {
+                Succeed = false,
+                ReturnUrl = string.Empty,
+                Message = UserCreateFailedMessage
+            });
         }
 
         public IActionResult Edit() => View();
 
-        [Authorize]
-        [HttpPost]
+        [HttpPut]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProfile(UserProfileEditViewModel model)
         {
@@ -92,15 +98,23 @@ namespace Library.WebApp.Controllers
                     model.LastName, model.Email);
 
                 if (result.Succeeded)
-                    ViewBag.Success = "პროფილი წარმატებით განახლდა.";
-                else
-                    ViewBag.Error = "პროფილის განახლება ვერ მოხერხდა!";
+                    return Json(new JsonResponse
+                    {
+                        Succeed = true,
+                        Message = UserUpdatedSuccess,
+                        ReturnUrl = "/account/profile"
+                    });
             }
 
-            return View("edit");
+            return Json(new JsonResponse
+            {
+                Succeed = false,
+                Message = "",
+                ReturnUrl = string.Empty
+            });
         }
 
-        [HttpPost]
+        [HttpPut]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPassword(PasswordEditViewModel model)
         {
@@ -112,19 +126,29 @@ namespace Library.WebApp.Controllers
                     .UpdateUserpasswordAsync(user, model.OldPassword, model.NewPassword);
 
                 if (result.Succeeded)
-                    ViewBag.Success = "პაროლი წარმატებით განახლდა.";
-                else
-                    ViewBag.Error = "პაროლის განახლება ვერ მოხერხდა!";
+                    return Json(new JsonResponse
+                    {
+                        Succeed = true,
+                        ReturnUrl = "/account/profile",
+                        Message = PasswordUpdatedSuccessfull
+                    });
             }
 
-            return View("edit");
+            return Json(new JsonResponse
+            {
+                Succeed = false,
+                ReturnUrl = string.Empty,
+                Message = PasswordUpdateFailedErrorMessage
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] AccountFilter filter)
         {
+            Guid.TryParse(User.GetUserId(), out var currentUserId);
 
             var users = from user in await UserService.GetAllUsersList(filter)
+                        where user.Id != currentUserId
                         select new UserListViewModel
                         {
                             Id = user.Id,
@@ -140,26 +164,45 @@ namespace Library.WebApp.Controllers
             return View(await users.ToPagedListAsync(filter.Page, filter.PageSize));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete([FromBody] Guid id)
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete([FromForm] Guid id)
         {
             Guid.TryParse(User.GetUserId(), out var currentUserId);
+
+
 
             var user = await UserService.GetUserByIdAsync(id);
 
             if (id == currentUserId)
-                return Json(new { Success = false, Location = "/account/all" });
+                return Json(new JsonResponse
+                {
+                    Succeed = false,
+                    ReturnUrl = "/account/all",
+                    Message = AuthorizedUserDeleteErrorMessage
+                });
 
 
             var result = await UserService.DeleteUserAsync(user);
 
             if (result.Succeeded)
-                return Json(new { Success = true, Location = "/account/all" });
+                return Json(new JsonResponse
+                {
+                    Succeed = true,
+                    ReturnUrl = "/account/all",
+                    Message = UserDeletedSuccessfull
+                });
 
-            return Json(new { Success = false, Location = string.Empty });
+            return Json(new JsonResponse
+            {
+                Succeed = false,
+                ReturnUrl = string.Empty,
+                Message = UserDeleteFailed
+            });
         }
 
-        [HttpPost]
+        [HttpPut]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([FromForm] UserProfileEditViewModel model)
         {
             if (ModelState.IsValid)
@@ -167,10 +210,10 @@ namespace Library.WebApp.Controllers
                 var existedUser = await UserService.GetUserByIdAsync(model.Id);
 
                 if (existedUser == null)
-                    return Json(new
+                    return Json(new JsonResponse
                     {
-                        Success = false,
-                        Location = string.Empty,
+                        ReturnUrl = string.Empty,
+                        Succeed = false,
                         Message = UserNotFound
                     });
 
@@ -186,11 +229,11 @@ namespace Library.WebApp.Controllers
                         Message = UserProfileUpdateFailed,
                     });
 
-                if ( model.Roles == null || !model.Roles.Any())
+                if (model.Roles == null || !model.Roles.Any())
                     return Json(new JsonResponse
                     {
-                        Succeed= false,
-                        Message  = UserRoleErrorMessage
+                        Succeed = false,
+                        Message = UserRoleErrorMessage
                     });
 
                 await UserService.UpdateUserRoleAsync(existedUser, model.Roles.ToArray());
@@ -209,13 +252,6 @@ namespace Library.WebApp.Controllers
                 ReturnUrl = string.Empty,
                 Message = UserProfileUpdateFailed
             });
-
-            //return Json(new
-            //{
-            //    Success = false,
-            //    Location = string.Empty,
-            //    Message = UserProfileUpdateFailed
-            //});
         }
 
         #endregion

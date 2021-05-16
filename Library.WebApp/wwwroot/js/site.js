@@ -25,18 +25,108 @@ $(document).ready(function () {
     });
 
     const profileEditForm = $('#edit_profile');
+    const passwordUpdateForm = $('#password_update');
+    const userRegisterForm = $('#new_user');
 
     profileEditForm.on('submit', function () {
         event.preventDefault();
+
+        profileEditForm.validate()
+
+        if (profileEditForm.valid() !== true) return;
+
         const action = profileEditForm.attr('action');
 
         const postData = profileEditForm.serialize();
 
-        $.post(action, postData).done(function (data) {
-            console.log(data);
-            alert('test');
-        })
+        $(this).attr('disabled', true);
+
+        $.ajax({
+            type: 'PUT',
+            url: action,
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: 'json',
+            data: postData,
+            success: function (response) {
+                if (response.succeed === true) {
+                    toastr.success("", response.message, {
+                        onHidden: function () {
+                            window.location.href = response.returnUrl;
+                        }
+                    })
+                } else if (response.succeed === false) {
+                    toastr.error("", response.message, {
+                        onHidden: function () {
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+        });
     });
+
+    passwordUpdateForm.on('submit', function () {
+        event.preventDefault();
+
+        passwordUpdateForm.validate();
+
+        if (passwordUpdateForm.valid() !== true) return;
+
+        const action = passwordUpdateForm.attr('action');
+        const postData = passwordUpdateForm.serialize();
+
+
+
+        $.ajax({
+            type: 'PUT',
+            url: action,
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: 'json',
+            data: postData,
+            success: function (response) {
+                if (response.succeed === true) {
+                    toastr.success("", response.message, {
+                        onHidden: function () {
+                            window.location.href = response.returnUrl;
+                        }
+                    })
+                } else if (response.succeed === false) {
+                    toastr.error("", response.message, {
+                        onHidden: function () {
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    userRegisterForm.on('submit', function () {
+        event.preventDefault();
+
+        userRegisterForm.validate();
+
+        console.log('clicked!');
+
+        if (userRegisterForm.valid() !== true) return;
+
+        const action = userRegisterForm.attr('action');
+        const postData = userRegisterForm.serialize();
+
+        $.post(action, postData).done(function (response) {
+            if (response.succeed === true) {
+                toastr.success("", response.message, {
+                    onHidden: function () {
+                        window.location.href = response.returnUrl;
+                    }
+                });
+
+            } else if (response.succeed === false) {
+                toastr.error("", response.message);
+            }
+        });
+    })
+
 });
 
 var updateItem = function (form_id, user_id) {
@@ -48,18 +138,18 @@ var updateItem = function (form_id, user_id) {
     const modal = $('#editUser_' + user_id);
 
     $.ajax({
-        type: 'POST',
+        type: 'PUT',
         url: action,
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         data: formData,
         success: function (response, data) {
             if (response.succeed === true) {
-                modal.modal("hide");
                 toastr.success("", response.message, {
                     fadeOut: 500,
                     messageClass: 'text-11px',
                     onHidden: function () {
+                        modal.modal("hide");
                         window.location.reload();
                     }
                 });
@@ -68,8 +158,6 @@ var updateItem = function (form_id, user_id) {
                     fadeOut: 1000
                 });
             }
-
-            console.log(data);
         },
         error: function (response) {
             if (response.success === false) {
@@ -80,8 +168,14 @@ var updateItem = function (form_id, user_id) {
 }
 
 
-var deleteItem = function (url, uid) {
+var deleteItem = function (uid) {
     event.preventDefault();
+
+    const deleteForm = $('#delete_' + uid);
+    const action = deleteForm.attr('action');
+    const deleteData = deleteForm.serialize();
+
+    console.log(deleteData);
 
     var confirmForm = $.confirm({
         title: '',
@@ -93,26 +187,22 @@ var deleteItem = function (url, uid) {
                 btnClass: 'btn-danger text-12px',
                 action: function () {
                     $.ajax({
-                        type: 'POST',
-                        url: url,
-                        contentType: 'application/json; charset=utf-8',
+                        type: 'DELETE',
+                        url: action,
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                         dataType: 'json',
-                        data: JSON.stringify(uid),
+                        data: deleteData,
                         success: function (data) {
                             console.log(data);
-                            if (data.success === true) {
-                                toastr.success("", "მომხმარებელი წარმატებით წაიშალა.", {
-                                    timeOut: 1000,
-                                    fadeOut: 1500,
+                            if (data.succeed === true) {
+                                toastr.success("", data.message, {
+                                    fadeOut: 500,
                                     onHidden: function () {
-                                        window.location.href = data.location;
+                                        window.location.href = data.returnUrl;
                                     }
                                 });
-                            } else if (data.success == false) {
-                                toastr.warning("ავტორიზებული მომხმარებლის წაშლა შეუძლებელია!");
-                                toastr.options.hideMethod = function () {
-                                    alert("test");
-                                }
+                            } else if (data.succeed == false) {
+                                toastr.warning("", data.message);
                             }
                         },
                         error: function (resp) {

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Library.Data.Entities;
+using Library.Data.Repositories.Abstractions;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using System;
@@ -11,15 +14,16 @@ namespace Library.WebApp.Controllers
     [Authorize]
     public class BooksController : Controller
     {
+        private readonly IRepository<Book> repo;
         #region PRIVATE FIELDS
 
         #endregion
 
         #region CTOR
 
-        public BooksController()
+        public BooksController(IRepository<Book> repo)
         {
-
+            this.repo = repo;
         }
 
         #endregion
@@ -27,9 +31,10 @@ namespace Library.WebApp.Controllers
         #region ACTIONS
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await repo.GetAll();
+            return View(model);
         }
 
         #endregion
