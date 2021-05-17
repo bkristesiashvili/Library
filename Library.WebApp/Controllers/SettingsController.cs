@@ -1,5 +1,4 @@
-﻿using Library.Data.Entities;
-using Library.Data.Repositories.Abstractions;
+﻿using static Library.Common.GlobalVariables;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,11 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Library.Services.Abstractions;
+using Library.WebApp.Controllers.Abstractions;
 
 namespace Library.WebApp.Controllers
 {
-    [Authorize]
-    public class BooksController : Controller
+    [Authorize(Roles = SuperAdminRoleName + "," + AdminRoleName)]
+    public class SettingsController : BaseController
     {
         #region PRIVATE FIELDS
 
@@ -20,20 +21,17 @@ namespace Library.WebApp.Controllers
 
         #region CTOR
 
-        public BooksController()
+        public SettingsController(IFileLogger logger)
+            : base(logger)
         {
+
         }
 
         #endregion
 
-        #region ACTIONS
-
-        [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
-
-        #endregion
     }
 }

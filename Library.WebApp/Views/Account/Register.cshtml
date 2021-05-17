@@ -9,7 +9,7 @@
         <div class="form-text p-3">
             <h4>ახალი მომხმარებლის დამატება.</h4>
         </div>
-        <form method="post">
+        <form method="post" id="new_user" asp-controller="account" asp-action="register" enctype="application/x-www-form-urlencoded">
             <div class="form-group">
                 <input asp-for="FirstName" class="form-control text-13px" placeholder="სახელი" />
                 <span asp-validation-for="FirstName" class="text-danger text-11px"></span>
@@ -51,12 +51,4 @@
 </div>
 @section Scripts{
     @await Html.PartialAsync("/Views/Shared/_ValidationScriptsPartial.cshtml");
-    <script type="text/javascript">
-        $(document).ready(function () {
-            toastr.options.onHidden = function () {
-                window.location.href = '/account/all';
-            }
-            toastr.options.timeOut = 1000;
-        });
-    </script>
 }

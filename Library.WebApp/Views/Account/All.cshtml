@@ -8,7 +8,7 @@
 @model PagedList<UserListViewModel>
 
 @{
-    ViewBag.Title = "მომხმარებლების სია";
+    ViewBag.Title = "პერსონალის სია";
 
     var index = 0;
 
@@ -34,24 +34,30 @@
 <div class="text-13px">
     <div class="row profile-bg text-dark font-weight-bold p-3 rounded-top">
         <div class="col-sm-3 col-md-3">
-            <a asp-controller="account" 
-               asp-action="all" 
-               asp-route-orderby="firstname"
-               asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
-               class="btn btn-sm"><i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING && 
-                                                             ((string)ViewBag.OrderBy).ToLower() == "firstname" 
+            <div class="d-flex">
+                <a asp-controller="account"
+                   asp-action="all"
+                   asp-route-orderby="firstname"
+                   asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+                   class="btn btn-sm">
+                    <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
+                                                             ((string)ViewBag.OrderBy).ToLower() == "firstname"
                                                              ? "up"
-                                                             :"down")">&nbsp;&nbsp;</i>სახელი</a>
+                                                             :"down")">&nbsp;&nbsp;</i>სახელი
+                </a>
+            </div>
         </div>
         <div class="col-sm-4 col-md-4">
             <a asp-controller="account"
                asp-action="all"
                asp-route-orderby="lastname"
                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
-               class="btn btn-sm"><i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING && 
-                                                             ((string)ViewBag.OrderBy).ToLower() == "lastname" 
+               class="btn btn-sm">
+                <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
+                                                             ((string)ViewBag.OrderBy).ToLower() == "lastname"
                                                              ? "up"
-                                                             :"down")">&nbsp;&nbsp;</i>გვარი</a>
+                                                             :"down")">&nbsp;&nbsp;</i>გვარი
+            </a>
         </div>
         <div class="col-sm-3 col-md-3">
             <a asp-controller="account"
@@ -67,7 +73,7 @@
         </div>
         <div class="col-sm-2 col-md-2">
             <div class="text-right">
-                @if (User.IsInRole(DefaultRoles[SystemDefaultRoles.SuperAdmin]) || User.IsInRole(DefaultRoles[SystemDefaultRoles.Admin]))
+                @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
                 {
                     <a asp-controller="account" asp-action="register" class="btn btn-sm btn-success text-12px"><i class="fas fa-plus">&nbsp;</i>დამატება</a>
                 }
@@ -84,35 +90,20 @@
             Email = user.Email
         };
 
-        <div class="row @Html.Raw(index % 2 == 0 ? "grid-header":"") align-middle p-1 text-13px text-left row-hover border @Html.Raw(user.Id == currentId ? "active-user": "")">
+        <div class="row d-flex @Html.Raw(index % 2 == 0 ? "grid-header":"") align-middle p-1 text-13px text-left row-hover border @Html.Raw(user.Id == currentId ? "active-user": "")">
             <div class="col-sm-3 col-md-3">@user.FirstName</div>
             <div class="col-sm-4 col-md-4">@user.LastName</div>
             <div class="col-sm-3 col-md-3">@user.Email</div>
             <div class="col-sm-2 col-md-2">
                 <div class="row float-right">
-                    <div>
-                        <button type="button" class="btn btn-sm text-11px text-dark"><i class="fas fa-eye"></i></button>
-                    </div>
-
                     @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
                     {
-                        <div>
-                            <button type="button" class="btn btn-sm text-primary text-11px" data-toggle="modal" data-target="#editUser_@user.Id"><i class="fas fa-edit"></i></button>
-                        </div>
                         <partial name="_EditUserPartial" model="editModel" />
                     }
 
                     @if (User.IsInRole(DefaultRoles[SuperAdmin]))
                     {
-                        <div>
-                            <form method="post">
-                                <button type="button" onclick="deleteItem('@Url.Action("delete","account")', '@user.Id');" class="btn btn-sm text-11px
-                                        @Html.Raw(user.Id == currentId ? "disabled":"text-danger")"
-                                        @Html.Raw(user.Id == currentId ? "disabled" : "")>
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </div>
+                        <partial name="_DeleteUserFormPartial" model="user" />
                     }
                 </div>
             </div>
@@ -160,25 +151,28 @@
                 <div class="pagination">
 
                     <div class="page-item">
-                        <a asp-controller="account" 
-                           asp-action="all" 
-                           asp-route-page="@(Model.PageNumber - 1)" 
-                           asp-route-search="@ViewBag.Search" 
+                        <a asp-controller="account"
+                           asp-action="all"
+                           asp-route-page="@(Model.PageNumber - 1)"
+                           asp-route-search="@ViewBag.Search"
                            asp-route-orderby="@ViewBag.OrderBy"
                            asp-route-ordering="@ViewBag.Ordering"
-                           class="btn @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
+                           class="page-link @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
                     </div>
                     <div class="page-item">
-                        <a asp-controller="account" 
-                           asp-action="all" 
-                           asp-route-page="@(Model.PageNumber + 1)" 
-                           asp-route-search="@ViewBag.Search" 
+                        <a asp-controller="account"
+                           asp-action="all"
+                           asp-route-page="@(Model.PageNumber + 1)"
+                           asp-route-search="@ViewBag.Search"
                            asp-route-orderby="@ViewBag.OrderBy"
                            asp-route-ordering="@ViewBag.Ordering"
-                           class="btn @Html.Raw(Model.Next ? "" : "disabled") text-12px">წინ&nbsp;<i class="fas fa-chevron-right"></i></a>
+                           class="page-link @Html.Raw(Model.Next ? "" : "disabled") text-12px">წინ&nbsp;<i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+}
+@section Scripts{
+    @await Html.PartialAsync("/Views/Shared/_ValidationScriptsPartial.cshtml")
 }

@@ -1,4 +1,6 @@
-﻿using Library.Data.Entities;
+﻿
+using static Library.Common.GlobalVariables;
+using Library.Data.Entities;
 using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
 using Library.WebApp.Models;
@@ -55,11 +57,9 @@ namespace Library.WebApp.Controllers
                     .SigninAsync(model.Email, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
-                    return RedirectToAction("index", "home");
+                    return Redirect(model.ReturnUrl ?? DefaultUrl);
                 else
                     ViewBag.Error = "არასწორი მომხმარებელი ან პაროლი!";
-
-                //ModelState.AddModelError(string.Empty, "არასწორი მომხმარებელი ან პაროლი!");
             }
 
             return View(model);

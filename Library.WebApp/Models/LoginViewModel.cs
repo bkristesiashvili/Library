@@ -22,5 +22,7 @@ namespace Library.WebApp.Models
 
         [Display(Description = RememberMeDisplayName, Name = RememberMeDisplayName)]
         public bool RememberMe { get; set; }
+
+        public string ReturnUrl { get; set; }
     }
 }
