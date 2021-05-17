@@ -47,31 +47,5 @@
     <script src="~/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
     <script type="text/javascript" src="~/jquery-confirm/jquery-confirm.min.js"></script>
     @RenderSection("Scripts", required: false)
-    @if (ViewBag.Success != null)
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                toastr.options.closeMethod = 'slideUp';
-                toastr.options.hideMethod = 'slideUp';
-                toastr.options.showMethod = 'slideDown';
-                toastr.options.closeDuration = 300;
-                toastr.options.closeEasing = 'swing';
-                toastr.success('@ViewBag.Success');
-            });
-        </script>
-    }
-    else if (ViewBag.Error != null)
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                toastr.options.closeMethod = 'slideUp';
-                toastr.options.hideMethod = 'slideUp';
-                toastr.options.showMethod = 'slideDown';
-                toastr.options.closeDuration = 300;
-                toastr.options.closeEasing = 'swing';
-                toastr.error('@ViewBag.Error');
-            });
-        </script>
-    }
 </body>
 </html>

@@ -90,7 +90,7 @@
             Email = user.Email
         };
 
-        <div class="row @Html.Raw(index % 2 == 0 ? "grid-header":"") align-middle p-1 text-13px text-left row-hover border @Html.Raw(user.Id == currentId ? "active-user": "")">
+        <div class="row d-flex @Html.Raw(index % 2 == 0 ? "grid-header":"") align-middle p-1 text-13px text-left row-hover border @Html.Raw(user.Id == currentId ? "active-user": "")">
             <div class="col-sm-3 col-md-3">@user.FirstName</div>
             <div class="col-sm-4 col-md-4">@user.LastName</div>
             <div class="col-sm-3 col-md-3">@user.Email</div>

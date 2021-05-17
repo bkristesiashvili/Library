@@ -126,7 +126,6 @@ $(document).ready(function () {
             }
         });
     })
-
 });
 
 var updateItem = function (form_id, user_id) {
