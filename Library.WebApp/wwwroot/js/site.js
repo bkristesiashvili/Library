@@ -27,6 +27,12 @@ $(document).ready(function () {
     const profileEditForm = $('#edit_profile');
     const passwordUpdateForm = $('#password_update');
     const userRegisterForm = $('#new_user');
+    const modal = $('.modal');
+
+    modal.modal({
+        backdrop: false,
+        show: false
+    });
 
     profileEditForm.on('submit', function () {
         event.preventDefault();

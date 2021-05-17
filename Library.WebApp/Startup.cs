@@ -3,6 +3,8 @@ using Library.Data;
 using Library.Data.Entities;
 using Library.Data.Repositories;
 using Library.Data.Repositories.Abstractions;
+using Library.Data.Repositories.Uow;
+using Library.Data.Repositories.Uow.Abstractions;
 using Library.Services.Extensions;
 using Library.WebApp.Helpers.Extensions;
 
@@ -60,7 +62,7 @@ namespace Library.WebApp
 
             services.AddFileLogger("Logs");
 
-            services.AddScoped<IRepository<Book>, BooksRepository>();
+            services.AddScoped<IUnitOfWorks, UnitOfWorks>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
