@@ -30,7 +30,7 @@ $(document).ready(function () {
     const modal = $('.modal');
 
     modal.modal({
-        backdrop: false,
+        backdrop: true,
         show: false
     });
 

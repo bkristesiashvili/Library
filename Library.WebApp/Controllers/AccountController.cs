@@ -109,7 +109,7 @@ namespace Library.WebApp.Controllers
             return Json(new JsonResponse
             {
                 Succeed = false,
-                Message = "",
+                Message = UserProfileUpdateFailed,
                 ReturnUrl = string.Empty
             });
         }
