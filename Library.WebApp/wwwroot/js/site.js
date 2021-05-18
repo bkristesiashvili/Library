@@ -28,6 +28,9 @@ $(document).ready(function () {
     const passwordUpdateForm = $('#password_update');
     const userRegisterForm = $('#new_user');
     const modal = $('.modal');
+    const loginForm = $('#login_form');
+
+
 
     modal.modal({
         backdrop: true,
@@ -132,6 +135,33 @@ $(document).ready(function () {
             }
         });
     })
+
+    loginForm.on('submit', function () {
+        event.preventDefault();
+
+        loginForm.validate();
+
+        if (loginForm.valid() === false) return;
+
+        console.log('submited!');
+
+        const action = loginForm.attr('action');
+        const postData = loginForm.serialize();
+
+        $.post(action, postData)
+            .done(function (response) {
+                if (response.succeed === true) {
+                    toastr.success("", response.message, {
+                        onHidden: function () {
+                            window.location.href = response.returnUrl;
+                        }
+                    })
+                }
+                else if (response.succeed === false) {
+                    toastr.warning("", response.message);
+                }
+            });
+    });
 });
 
 var updateItem = function (form_id, user_id) {

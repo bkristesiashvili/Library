@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Library.WebApp.Response;
 
 namespace Library.WebApp.Controllers
 {
@@ -28,7 +29,7 @@ namespace Library.WebApp.Controllers
         #region CTOR
 
         public AuthController(IFileLogger logger, IUserService userService)
-            :base(logger)
+            : base(logger)
         {
             this.userService = userService;
         }
@@ -57,12 +58,19 @@ namespace Library.WebApp.Controllers
                     .SigninAsync(model.Email, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
-                    return Redirect(model.ReturnUrl ?? DefaultUrl);
-                else
-                    ViewBag.Error = "არასწორი მომხმარებელი ან პაროლი!";
+                    return Json(new JsonResponse
+                    {
+                        Succeed = true,
+                        ReturnUrl = model.ReturnUrl ?? DefaultUrl,
+                        Message = AuthorizationSuccess
+                    });
             }
 
-            return View(model);
+            return Json(new JsonResponse
+            {
+                Succeed = false,
+                Message = AuthorizationFailed
+            });
         }
 
         [HttpPost]
