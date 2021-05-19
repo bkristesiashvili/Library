@@ -13,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Library.WebApp.Response;
+using Library.Common.Responses;
 
 namespace Library.WebApp.Controllers
 {
@@ -78,7 +78,12 @@ namespace Library.WebApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await userService.SignOutAsync();
-            return RedirectToAction("login", "auth");
+            return Json(new JsonResponse
+            {
+                Succeed = true,
+                Message = UserSignedOutSuccess,
+                ReturnUrl = "/auth/login"
+            });
         }
 
         [AllowAnonymous]

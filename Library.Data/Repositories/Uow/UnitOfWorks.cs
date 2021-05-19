@@ -19,6 +19,8 @@ namespace Library.Data.Repositories.Uow
         private IRepository<Sector> _sectorsRepo;
         private IRepository<Section> _sectionsRepo;
         private IRepository<BookShelve> _bookShelvessRepo;
+        private IRepository<Customer> _customersRepo;
+        private IRepository<Book> _booksRepo;
 
         #endregion
 
@@ -35,6 +37,8 @@ namespace Library.Data.Repositories.Uow
         {
             get
             {
+                EnsureDependencies();
+
                 if (_authorsRepo == null)
                     _authorsRepo = new AuthorsRepository(_dbContext);
                 return _authorsRepo;
@@ -45,6 +49,8 @@ namespace Library.Data.Repositories.Uow
         {
             get
             {
+                EnsureDependencies();
+
                 if (_genresRepo == null)
                     _genresRepo = new GenresRepository(_dbContext);
                 return _genresRepo;
@@ -55,6 +61,8 @@ namespace Library.Data.Repositories.Uow
         {
             get
             {
+                EnsureDependencies();
+
                 if (_sectorsRepo == null)
                     _sectorsRepo = new SectorsRepository(_dbContext);
                 return _sectorsRepo;
@@ -65,6 +73,8 @@ namespace Library.Data.Repositories.Uow
         {
             get
             {
+                EnsureDependencies();
+
                 if (_sectionsRepo == null)
                     _sectionsRepo = new SectionsRepository(_dbContext);
                 return _sectionsRepo;
@@ -75,10 +85,46 @@ namespace Library.Data.Repositories.Uow
         {
             get
             {
+                EnsureDependencies();
+
                 if (_bookShelvessRepo == null)
                     _bookShelvessRepo = new BookShelvesRepository(_dbContext);
                 return _bookShelvessRepo;
             }
+        }
+
+        public IRepository<Customer> CustomersRepository
+        {
+            get
+            {
+                EnsureDependencies();
+
+                if (_customersRepo == null)
+                    _customersRepo = new CustomersRepository(_dbContext);
+                return _customersRepo;
+            }
+        }
+
+        public IRepository<Book> BooksRepository
+        {
+            get
+            {
+                EnsureDependencies();
+
+                if (_booksRepo == null)
+                    _booksRepo = new BooksRepository(_dbContext);
+                return _booksRepo;
+            }
+        }
+
+        #endregion
+
+        #region PRIVATE METHODS
+
+        private void EnsureDependencies()
+        {
+            if (_dbContext == null)
+                throw new ArgumentNullException("DbContext object null refference exception!");
         }
 
         #endregion

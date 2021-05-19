@@ -1,5 +1,5 @@
-﻿using Library.Data.Entities.Abstractions;
-using Library.Data.Request.Filters.Abstractions;
+﻿using Library.Common.Requests.Filters.Abstractions;
+using Library.Data.Entities.Abstractions;
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,13 @@ namespace Library.Data.Repositories.Abstractions
     public interface IRepository<TEntity> : IDisposable
         where TEntity : BaseEntity, new()
     {
+        #region PROPERTIES
+
         LibraryDbContext DbContext { get; }
+
+        #endregion
+
+        #region METHODS
 
         Task<IQueryable<TEntity>> GetAll(IFilter filter = null);
 
@@ -23,5 +29,7 @@ namespace Library.Data.Repositories.Abstractions
         Task Update(TEntity exitRecord);
 
         Task Delete(TEntity deleteRecord);
+
+        #endregion
     }
 }

@@ -12,6 +12,8 @@ $(document).ready(function () {
     toastr.options.closeEasing = 'swing';
     toastr.options.messageClass = 'text-11px';
     toastr.options.titleClass = 'text-11px';
+    toastr.options.maxOpened = 1;
+    toastr.options.timeOut = 1000;
 
     const rolesDropDown = $('select[id="roles"');
 
@@ -29,8 +31,7 @@ $(document).ready(function () {
     const userRegisterForm = $('#new_user');
     const modal = $('.modal');
     const loginForm = $('#login_form');
-
-
+    const logoutForm = $('#logout');
 
     modal.modal({
         backdrop: true,
@@ -143,13 +144,10 @@ $(document).ready(function () {
 
         if (loginForm.valid() === false) return;
 
-        console.log('submited!');
-
         const action = loginForm.attr('action');
         const postData = loginForm.serialize();
 
-        $.post(action, postData)
-            .done(function (response) {
+        $.post(action, postData).done(function (response) {
                 if (response.succeed === true) {
                     toastr.success("", response.message, {
                         onHidden: function () {
@@ -161,6 +159,22 @@ $(document).ready(function () {
                     toastr.warning("", response.message);
                 }
             });
+    });
+
+    logoutForm.on('submit', function () {
+        event.preventDefault();
+        const postData = logoutForm.serialize();
+        const action = logoutForm.attr('action');
+
+        $.post(action, postData).done(function (response) {
+            if (response.succeed === true) {
+                toastr.success("", response.message, {
+                    onHidden: function () {
+                        window.location.href = response.returnUrl;
+                    }
+                })
+            }
+        });
     });
 });
 

@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Library.Data.Request.Filters.Abstractions
+namespace Library.Common.Requests.Filters.Abstractions
 {
     public interface IFilter
     {
+        #region PROPERTIES
+
         string Search { get; set; }
 
         string OrderBy { get; set; }
 
         string Ordering { get; set; }
+
+        #endregion
     }
 }

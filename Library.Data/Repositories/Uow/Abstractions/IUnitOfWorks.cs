@@ -21,6 +21,10 @@ namespace Library.Data.Repositories.Uow.Abstractions
 
         IRepository<BookShelve> BookShelvesRepository { get; }
 
+        IRepository<Customer> CustomersRepository { get; }
+
+        IRepository<Book> BooksRepository { get; }
+
         #endregion
     }
 }

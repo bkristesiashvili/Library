@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Library.WebApp.Response.Generic
+namespace Library.Common.Responses.Generics
 {
     public sealed class JsonResponse<TObject> : JsonResponse
         where TObject : class
