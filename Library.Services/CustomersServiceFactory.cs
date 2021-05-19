@@ -35,6 +35,8 @@ namespace Library.Services
             return await _unitOfWorks.CustomersRepository.GetAll(filter);
         }
 
+        public void Dispose() => GC.Collect();
+
         #endregion
 
         #region PRIVATE METHODS

@@ -18,13 +18,6 @@ namespace Library.Services
 {
     public sealed class UserServiceFactory : IUserService
     {
-        #region PRIVATE VARIABLES
-
-        private bool _disposed = false;
-        private readonly RoleManager<Role> roleManager;
-
-        #endregion
-
         #region PUBLIC PROPERTIES
 
         public UserManager<User> UserManager { get; }
@@ -41,12 +34,10 @@ namespace Library.Services
 
         public UserServiceFactory(UserManager<User> userManager,
             SignInManager<User> signinManager,
-            RoleManager<Role> roleManager,
             LibraryDbContext context)
         {
             UserManager = userManager;
             SigninManager = signinManager;
-            RoleManager = roleManager;
             DbContext = context;
 
             EnsureDependencies();
@@ -170,21 +161,14 @@ namespace Library.Services
             => UserManager.IsInRoleAsync(user, role).Result;
 
         public void Dispose()
-            => Dispose(true);
+        {
+            UserManager.Dispose();
+            GC.Collect();
+        }
 
         #endregion
 
         #region PRIVATE METHODS
-
-        private void Dispose(bool disposing)
-        {
-            if (_disposed) return;
-            if (disposing)
-            {
-                UserManager.Dispose();
-                GC.Collect();
-            }
-        }
 
         private void EnsureDependencies()
         {
@@ -192,8 +176,6 @@ namespace Library.Services
                 throw new ArgumentNullException(nameof(UserManager));
             if (SigninManager == null)
                 throw new ArgumentNullException(nameof(SigninManager));
-            if (RoleManager == null)
-                throw new ArgumentNullException(nameof(RoleManager));
             if (DbContext == null)
                 throw new ArgumentNullException(nameof(DbContext));
         }

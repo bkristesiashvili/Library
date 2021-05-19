@@ -63,10 +63,11 @@ namespace Library.WebApp
                 options.Cookie.Name = "Library_Web_App_Cookies";
             });
 
-            services.AddFileLogger("Logs");
+            
 
             services.AddScoped<IUnitOfWorks, UnitOfWorks>();
-            services.AddScoped<ICustomersService, CustomersServiceFactory>();
+            services.AddFileLogger(Configuration.GetSection("FileLogger:Dir").Value);
+            services.AddApplicationServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

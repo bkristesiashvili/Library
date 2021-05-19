@@ -22,6 +22,7 @@ namespace Library.Services
 
         private const string ERROR = "ERROR";
 
+
         #endregion
 
         #region PUBLIC PROPERTIES
@@ -68,6 +69,8 @@ namespace Library.Services
             await streamWriter.FlushAsync();
             streamWriter.Close();
         }
+
+        public void Dispose() => GC.Collect();
 
         #endregion
 

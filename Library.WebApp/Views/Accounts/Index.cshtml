@@ -1,7 +1,6 @@
 ﻿@using Library.Common.Collections
 @using Library.Common.Enums
 @using Library.WebApp.Helpers.Extensions
-@using static Library.Common.Types.OrderingTypes;
 
 @model PagedList<UserListViewModel>
 
@@ -34,7 +33,7 @@
         <div class="col-sm-3 col-md-3">
             <div class="d-flex">
                 <a asp-controller="@AccountIndexLink"
-                   asp-action="all"
+                   asp-action="index"
                    asp-route-orderby="firstname"
                    asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
                    class="btn btn-sm">
@@ -47,7 +46,7 @@
         </div>
         <div class="col-sm-4 col-md-4">
             <a asp-controller="@AccountIndexLink"
-               asp-action="all"
+               asp-action="index"
                asp-route-orderby="lastname"
                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
                class="btn btn-sm">
@@ -59,7 +58,7 @@
         </div>
         <div class="col-sm-3 col-md-3">
             <a asp-controller="@AccountIndexLink"
-               asp-action="all"
+               asp-action="index"
                asp-route-orderby="email"
                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
                class="btn btn-sm">
@@ -117,13 +116,16 @@
                     <div class="text-13px">
                         ჩანაწერი ვერ მოიძებნა!
                     </div>
-                    <div class="float-left">
-                        <div class="text-center">
-                            <a asp-controller="account" asp-action="all" class="btn btn-sm btn-outline-danger text-12px">
-                                <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
-                            </a>
+                    @if (!string.IsNullOrEmpty(ViewBag.Search))
+                    {
+                        <div class="float-left">
+                            <div class="text-center">
+                                <a asp-controller="@AccountIndexLink" asp-action="index" class="btn btn-sm btn-outline-danger text-12px">
+                                    <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -137,7 +139,7 @@
             {
                 <div class="float-left">
                     <div class="text-center">
-                        <a asp-controller="account" asp-action="all" class="btn btn-sm btn-outline-danger text-12px">
+                        <a asp-controller="@AccountIndexLink" asp-action="index" class="btn btn-sm btn-outline-danger text-12px">
                             <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
                         </a>
                     </div>
@@ -149,8 +151,8 @@
                 <div class="pagination">
 
                     <div class="page-item">
-                        <a asp-controller="account"
-                           asp-action="all"
+                        <a asp-controller="@AccountIndexLink"
+                           asp-action="index"
                            asp-route-page="@(Model.PageNumber - 1)"
                            asp-route-search="@ViewBag.Search"
                            asp-route-orderby="@ViewBag.OrderBy"
@@ -158,8 +160,8 @@
                            class="page-link @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
                     </div>
                     <div class="page-item">
-                        <a asp-controller="account"
-                           asp-action="all"
+                        <a asp-controller="@AccountIndexLink"
+                           asp-action="index"
                            asp-route-page="@(Model.PageNumber + 1)"
                            asp-route-search="@ViewBag.Search"
                            asp-route-orderby="@ViewBag.OrderBy"

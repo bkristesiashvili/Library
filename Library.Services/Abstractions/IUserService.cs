@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Library.Services.Abstractions
 {
-    public interface IUserService : IDisposable
+    public interface IUserService : IService
     {
         #region PROPERTIES
 

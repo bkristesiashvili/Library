@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Library.Services.Abstractions
 {
-    public interface ICustomersService
+    public interface ICustomersService : IService
     {
         #region METHODS
 

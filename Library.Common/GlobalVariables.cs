@@ -66,5 +66,7 @@ namespace Library.Common
 
         public const string AccountIndexLink = "/accounts";
         public const string AccountProfileLink = "/accounts/profile";
+
+        public const string CustomerIndexLink = "/customers";
     }
 }

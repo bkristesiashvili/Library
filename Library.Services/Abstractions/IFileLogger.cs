@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Library.Services.Abstractions
 {
-    public interface IFileLogger
+    public interface IFileLogger : IService
     {
         #region PROPERTIES
 
