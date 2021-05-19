@@ -22,8 +22,8 @@ namespace Library.WebApp.Controllers.Abstractions
 
         #region CTOR
 
-        public BaseController(IFileLogger loger)
-            => this.Logger = loger;
+        public BaseController(IFileLogger logger)
+            => this.Logger = logger;
 
         #endregion
 

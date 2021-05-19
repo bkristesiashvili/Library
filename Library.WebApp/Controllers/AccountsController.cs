@@ -23,7 +23,7 @@ using Library.Common.Requests.Filters;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
-    public sealed class AccountController : BaseController
+    public sealed class AccountsController : BaseController
     {
         #region PRIVATE READONLY VARIABLES
 
@@ -33,7 +33,7 @@ namespace Library.WebApp.Controllers
 
         #region CTOR
 
-        public AccountController(
+        public AccountsController(
             IFileLogger logger,
             IUserService userService
             )
@@ -72,7 +72,7 @@ namespace Library.WebApp.Controllers
                     return Json(new JsonResponse
                     {
                         Succeed = true,
-                        ReturnUrl = "/account/all",
+                        ReturnUrl = AccountIndexLink,
                         Message = UserCreatedSuccessMessage
                     });
             }
@@ -102,7 +102,7 @@ namespace Library.WebApp.Controllers
                     {
                         Succeed = true,
                         Message = UserUpdatedSuccess,
-                        ReturnUrl = "/account/profile"
+                        ReturnUrl = AccountProfileLink
                     });
             }
 
@@ -129,7 +129,7 @@ namespace Library.WebApp.Controllers
                     return Json(new JsonResponse
                     {
                         Succeed = true,
-                        ReturnUrl = "/account/profile",
+                        ReturnUrl = AccountProfileLink,
                         Message = PasswordUpdatedSuccessfull
                     });
             }
@@ -143,7 +143,7 @@ namespace Library.WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> All([FromQuery] AccountFilter filter)
+        public async Task<IActionResult> Index([FromQuery] AccountFilter filter)
         {
             Guid.TryParse(User.GetUserId(), out var currentUserId);
 
@@ -178,7 +178,7 @@ namespace Library.WebApp.Controllers
                 return Json(new JsonResponse
                 {
                     Succeed = false,
-                    ReturnUrl = "/account/all",
+                    ReturnUrl = AccountIndexLink,
                     Message = AuthorizedUserDeleteErrorMessage
                 });
 
@@ -189,7 +189,7 @@ namespace Library.WebApp.Controllers
                 return Json(new JsonResponse
                 {
                     Succeed = true,
-                    ReturnUrl = "/account/all",
+                    ReturnUrl = AccountIndexLink,
                     Message = UserDeletedSuccessfull
                 });
 
@@ -241,7 +241,7 @@ namespace Library.WebApp.Controllers
                 return Json(new JsonResponse
                 {
                     Succeed = true,
-                    ReturnUrl = "/account/all",
+                    ReturnUrl = AccountIndexLink,
                     Message = UserUpdatedSuccess
                 });
             }

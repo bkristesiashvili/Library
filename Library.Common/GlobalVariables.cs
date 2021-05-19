@@ -63,5 +63,8 @@ namespace Library.Common
 
         public const string Space = "\u0020";
         public const string DefaultUrl = "/";
+
+        public const string AccountIndexLink = "/accounts";
+        public const string AccountProfileLink = "/accounts/profile";
     }
 }

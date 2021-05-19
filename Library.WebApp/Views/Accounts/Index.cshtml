@@ -1,14 +1,12 @@
 ﻿@using Library.Common.Collections
 @using Library.Common.Enums
 @using Library.WebApp.Helpers.Extensions
-@using static Library.Common.GlobalVariables
-@using static Library.Common.Enums.SystemDefaultRoles;
 @using static Library.Common.Types.OrderingTypes;
 
 @model PagedList<UserListViewModel>
 
 @{
-    ViewBag.Title = "პერსონალის სია";
+    ViewBag.Title = "თანამშრომლების სია";
 
     var index = 0;
 
@@ -18,7 +16,7 @@
 <div class="row">
     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
         <div class="text-left pb-1">
-            <form method="get" asp-controller="account" asp-action="all" autocomplete="off">
+            <form method="get" asp-controller="@AccountIndexLink" asp-action="index" autocomplete="off">
                 <div class="input-group">
                     <input type="search" placeholder="ძებნა" name="search" class="form-control text-12px" maxlength="30" />
                     <div class="input-group-append">
@@ -35,7 +33,7 @@
     <div class="row profile-bg text-dark font-weight-bold p-3 rounded-top">
         <div class="col-sm-3 col-md-3">
             <div class="d-flex">
-                <a asp-controller="account"
+                <a asp-controller="@AccountIndexLink"
                    asp-action="all"
                    asp-route-orderby="firstname"
                    asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
@@ -48,7 +46,7 @@
             </div>
         </div>
         <div class="col-sm-4 col-md-4">
-            <a asp-controller="account"
+            <a asp-controller="@AccountIndexLink"
                asp-action="all"
                asp-route-orderby="lastname"
                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
@@ -60,7 +58,7 @@
             </a>
         </div>
         <div class="col-sm-3 col-md-3">
-            <a asp-controller="account"
+            <a asp-controller="@AccountIndexLink"
                asp-action="all"
                asp-route-orderby="email"
                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
@@ -75,7 +73,7 @@
             <div class="text-right">
                 @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
                 {
-                    <a asp-controller="account" asp-action="register" class="btn btn-sm btn-success text-12px"><i class="fas fa-plus">&nbsp;</i>დამატება</a>
+                    <a asp-controller="@AccountIndexLink" asp-action="register" class="btn btn-sm btn-success text-12px"><i class="fas fa-plus">&nbsp;</i>დამატება</a>
                 }
             </div>
         </div>

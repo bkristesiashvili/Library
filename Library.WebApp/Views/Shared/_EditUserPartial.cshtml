@@ -1,6 +1,4 @@
-﻿@using static Library.Common.GlobalVariables
-@using static Library.Common.Enums.SystemDefaultRoles
-@using Library.Services.Abstractions
+﻿@using Library.Services.Abstractions
 
 @inject IUserService UserService
 
@@ -23,7 +21,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <form id="profile_edit_@Model.Id" method="post" asp-controller="account" asp-action="edit" enctype="application/x-www-form-urlencoded">
+                    <form id="profile_edit_@Model.Id" method="post" asp-controller="@AccountIndexLink" asp-action="edit" enctype="application/x-www-form-urlencoded">
                         <div class=" form-group">
                             <input asp-for="Id" value="@Model.Id" id="user_id" />
                         </div>

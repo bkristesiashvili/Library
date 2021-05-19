@@ -1,8 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Library.Data.Entities
-@using Library.Common
-@using Library.Common.Enums
-@using static Library.Common.GlobalVariables
 
 @inject SignInManager<User> SigninManager
 @inject UserManager<User> Usermanager
@@ -20,7 +17,7 @@
                     <span class="text-13px">@string.Concat(authUser.FirstName, Space, authUser.LastName)</span>
                 </button>
                 <div class="dropdown-menu text-12px text-center" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" asp-controller="account" asp-action="profile">პროფილი</a>
+                    <a class="dropdown-item" asp-controller="@AccountIndexLink" asp-action="profile">პროფილი</a>
                     <div class="text-center">
                         <form id="logout" asp-controller="auth" asp-action="logout" method="post">
                             <button type="submit" class="btn btn-sm btn-danger mt-2 text-11px text-light"><i class="fas fa-sign-out-alt">&nbsp;</i>გასვლა</button>

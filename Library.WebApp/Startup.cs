@@ -5,6 +5,8 @@ using Library.Data.Repositories;
 using Library.Data.Repositories.Abstractions;
 using Library.Data.Repositories.Uow;
 using Library.Data.Repositories.Uow.Abstractions;
+using Library.Services;
+using Library.Services.Abstractions;
 using Library.Services.Extensions;
 using Library.WebApp.Helpers.Extensions;
 
@@ -58,11 +60,13 @@ namespace Library.WebApp
                 options.LoginPath = "/auth/login";
                 options.LogoutPath = "/auth/logout";
                 options.AccessDeniedPath = "/auth/accessdenied";
+                options.Cookie.Name = "Library_Web_App_Cookies";
             });
 
             services.AddFileLogger("Logs");
 
             services.AddScoped<IUnitOfWorks, UnitOfWorks>();
+            services.AddScoped<ICustomersService, CustomersServiceFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
