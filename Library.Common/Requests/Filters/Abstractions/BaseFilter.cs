@@ -1,13 +1,12 @@
 ﻿using Library.Common.Types;
-using Library.Data.Request.Filters.Abstractions;
 
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Library.Data.Request.Filters
+namespace Library.Common.Requests.Filters.Abstractions
 {
-    public sealed class AccountFilter : IFilter
+    public abstract class BaseFilter : IFilter
     {
         #region CONSTANTS
 
@@ -60,10 +59,10 @@ namespace Library.Data.Request.Filters
 
         #region CTOR
 
-        public AccountFilter()
+        public BaseFilter()
         {
             Ordering = OrderingTypes.ASCENDING;
-            OrderBy = "firstname";
+            OrderBy = "CreatedAt";
         }
 
         #endregion

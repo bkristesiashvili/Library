@@ -1,6 +1,6 @@
-﻿using Library.Data.Entities;
+﻿using Library.Common.Requests.Filters.Abstractions;
+using Library.Data.Entities;
 using Library.Data.Repositories.Abstractions;
-using Library.Data.Request.Filters.Abstractions;
 
 using System;
 using System.Collections.Generic;
@@ -25,12 +25,9 @@ namespace Library.Data.Repositories
         {
             var results = await base.GetAll(filter);
 
-            var authors = from author in DbContext.AuthoredBooks
-                          select author;
-
             return CheckSearchFilter(filter)
                 ? from record in results
-                  join authoredBy in authors
+                  join authoredBy in DbContext.AuthoredBooks
                   on record.Id equals authoredBy.BookId
                   where record.ISBN.StartsWith(filter.Search) ||
                         record.Title.StartsWith(filter.Search) ||

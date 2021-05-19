@@ -1,5 +1,4 @@
 ﻿using Library.Data.Entities.Abstractions;
-using Library.Data.Request.Filters.Abstractions;
 using Library.Data.Extensions;
 
 using Microsoft.EntityFrameworkCore;
@@ -9,21 +8,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library.Common.Requests.Filters.Abstractions;
 
 namespace Library.Data.Repositories.Abstractions
 {
     public abstract class BaseRepository<TEntity> : IRepository<TEntity>
         where TEntity : BaseEntity, new()
     {
-        public LibraryDbContext DbContext { get; }
+        #region PRIVATE FIELDS
 
         private readonly DbSet<TEntity> Entity;
+
+        #endregion
+
+        #region PUBLIC PROPERTIES
+
+        public LibraryDbContext DbContext { get; }
+
+        #endregion
+
+        #region CTOR
 
         public BaseRepository(LibraryDbContext context)
         {
             DbContext = context;
             Entity = DbContext.Set<TEntity>();
         }
+
+        #endregion
+
+        #region PUBLIC METHODS
 
         public virtual async Task<IQueryable<TEntity>> GetAll(IFilter filter = null)
         {
@@ -72,6 +86,8 @@ namespace Library.Data.Repositories.Abstractions
             DbContext.Dispose();
             GC.SuppressFinalize(this);
         }
+
+        #endregion
 
         #region PRIVATE METHODS
 

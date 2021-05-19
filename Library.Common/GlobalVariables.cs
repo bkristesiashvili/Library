@@ -57,6 +57,10 @@ namespace Library.Common
         public const string UserCreatedSuccessMessage = "მამხმარებელი წარმატებით შეიქმნა.";
         public const string UserCreateFailedMessage = "ასეთი მომხმარებელი უკვე არსებობს!";
 
+        public const string AuthorizationSuccess = "ავტორიზაცია წარმატებით განხორციელდა.";
+        public const string AuthorizationFailed = "არასწორი მომხმარებელი ან პაროლი!";
+        public const string UserSignedOutSuccess = "მომხმარებელი წარმატებით გავიდა სისტემიდან";
+
         public const string Space = "\u0020";
         public const string DefaultUrl = "/";
     }

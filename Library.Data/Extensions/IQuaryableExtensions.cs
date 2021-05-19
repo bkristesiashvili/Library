@@ -1,6 +1,6 @@
 ﻿using Library.Common.Collections;
+using Library.Common.Requests.Filters.Abstractions;
 using Library.Common.Types;
-using Library.Data.Request.Filters.Abstractions;
 
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace Library.Data.Extensions
 
             var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-            var property = properties.FirstOrDefault(p => p.Name.ToLower().Equals(filter.OrderBy)) ??
+            var property = properties.FirstOrDefault(p => p.Name.ToLower().Equals(filter.OrderBy.ToLower())) ??
                 throw new Exception("Invalid Ordering Query!");
 
             var parameter = Expression.Parameter(type, "p");

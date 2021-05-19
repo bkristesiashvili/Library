@@ -1,7 +1,6 @@
 ﻿using Library.Common;
 using Library.Common.Enums;
 using Library.Data.Entities;
-using Library.Data.Request.Filters;
 using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
 using Library.WebApp.Models;
@@ -18,7 +17,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Library.WebApp.Helpers.Extensions;
 using Library.Data.Extensions;
-using Library.WebApp.Response;
+using Library.Common.Responses;
+using Library.Common.Requests.Filters;
 
 namespace Library.WebApp.Controllers
 {
@@ -109,7 +109,7 @@ namespace Library.WebApp.Controllers
             return Json(new JsonResponse
             {
                 Succeed = false,
-                Message = "",
+                Message = UserProfileUpdateFailed,
                 ReturnUrl = string.Empty
             });
         }
