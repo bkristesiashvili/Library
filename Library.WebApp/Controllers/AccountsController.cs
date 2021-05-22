@@ -55,7 +55,7 @@ namespace Library.WebApp.Controllers
         [Authorize(Roles = SuperAdminRoleName + "," + AdminRoleName)]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register([FromForm]RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace Library.WebApp.Controllers
 
         [HttpPut]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProfile(UserProfileEditViewModel model)
+        public async Task<IActionResult> EditProfile([FromForm]UserProfileEditViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -116,7 +116,7 @@ namespace Library.WebApp.Controllers
 
         [HttpPut]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPassword(PasswordEditViewModel model)
+        public async Task<IActionResult> EditPassword([FromForm]PasswordEditViewModel model)
         {
             var user = await UserService.GetAuthenticatedUser(User);
 

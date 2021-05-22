@@ -50,7 +50,7 @@ namespace Library.WebApp.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login([FromForm]LoginViewModel model)
         {
             if (ModelState.IsValid)
             {

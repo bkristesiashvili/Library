@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Library.Common.Requests.Filters.Abstractions;
+using Library.Common.Enums;
 
 namespace Library.Data.Repositories.Abstractions
 {
@@ -71,14 +72,23 @@ namespace Library.Data.Repositories.Abstractions
             });
         }
 
-        public virtual async Task Delete(TEntity deleteRecord)
+        public virtual async Task Delete(TEntity deleteRecord, DeletionType type = DeletionType.Hard)
         {
             EnsureDependencies();
 
-            await Task.Run(() =>
+            if (type == DeletionType.Hard)
+                await Task.Run(() => Entity.Remove(deleteRecord));
+            else if (type == DeletionType.Soft)
             {
-                DbContext.Entry(deleteRecord).State = EntityState.Deleted;  
-            });
+                await Task.Run(() =>
+                {
+                    DbContext.Entry(deleteRecord).State = EntityState.Deleted;
+                });
+
+                deleteRecord.DeletedAt = DateTime.UtcNow;
+            }
+
+
         }
 
         public void Dispose()
@@ -104,7 +114,7 @@ namespace Library.Data.Repositories.Abstractions
 
         #region PROTECTED METHODS
 
-        protected async Task<IQueryable<TEntity>> SortBy(IQueryable<TEntity> records, 
+        protected async Task<IQueryable<TEntity>> SortBy(IQueryable<TEntity> records,
             IFilter filter = null)
         {
             if (records == null)

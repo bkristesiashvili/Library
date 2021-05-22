@@ -140,25 +140,31 @@ $(document).ready(function () {
     loginForm.on('submit', function () {
         event.preventDefault();
 
-        loginForm.validate();
+        loginForm.validate();;
 
         if (loginForm.valid() === false) return;
+
+        var index = window.location.search.indexOf('=') + 1;
+
+        var retUrl = window.location.search.slice(index);
+
+        $('#returnUrl').val(decodeURIComponent(retUrl));
 
         const action = loginForm.attr('action');
         const postData = loginForm.serialize();
 
         $.post(action, postData).done(function (response) {
-                if (response.succeed === true) {
-                    toastr.success("", response.message, {
-                        onHidden: function () {
-                            window.location.href = response.returnUrl;
-                        }
-                    })
-                }
-                else if (response.succeed === false) {
-                    toastr.warning("", response.message);
-                }
-            });
+            if (response.succeed === true) {
+                toastr.success("", response.message, {
+                    onHidden: function () {
+                        window.location.href = response.returnUrl;
+                    }
+                })
+            }
+            else if (response.succeed === false) {
+                toastr.warning("", response.message);
+            }
+        });
     });
 
     logoutForm.on('submit', function () {

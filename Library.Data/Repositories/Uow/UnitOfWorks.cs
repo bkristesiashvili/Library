@@ -119,6 +119,21 @@ namespace Library.Data.Repositories.Uow
 
         #endregion
 
+        #region PUBLIC METHODS
+
+        public void SaveChanges()
+        {
+            try
+            {
+                EnsureDependencies();
+
+                _dbContext.SaveChanges();
+            }
+            catch { throw; }
+        }
+
+        #endregion
+
         #region PRIVATE METHODS
 
         private void EnsureDependencies()

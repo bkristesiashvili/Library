@@ -1,5 +1,6 @@
 ﻿using Library.Common.Enums;
 using Library.Common.Requests.Filters.Abstractions;
+using Library.Common.Responses;
 using Library.Data.Entities;
 
 using System;
@@ -18,11 +19,11 @@ namespace Library.Services.Abstractions
 
         Task<Author> GetAuthorDetailsByIdAsync(Guid id);
 
-        Task CreateNewAuthor(Author newAuthor);
+        Task<ServiceResult> CreateNewAuthorAsync(Author newAuthor);
 
-        Task EditAuthorInfo(Guid id, Author updatedAuthor);
+        Task<ServiceResult> EditAuthorInfoAsync(Guid id, Author updatedAuthor);
 
-        Task DeleteAuthorInfo(Guid id, DeletionType type = DeletionType.Hard);
+        Task<ServiceResult> DeleteAuthorInfoAsync(Guid id, DeletionType type = DeletionType.Hard);
 
         #endregion
     }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Library.Services
 {
-    public class CustomersServiceFactory : ICustomersService
+    public class CustomersServiceFactory : BaseService, ICustomersService
     {
         #region PRIVATE FIELDS
 
@@ -39,12 +39,13 @@ namespace Library.Services
 
         #endregion
 
-        #region PRIVATE METHODS
+        #region PROTECTED OVERRIDED METHODS
 
-        private void EnsureDependencies()
+        protected override void EnsureDependencies()
         {
             if (_unitOfWorks == null)
-                throw new ArgumentNullException("Unit of works object null refference exception!");
+                throw new ArgumentNullException($"{nameof(CustomersServiceFactory)} " +
+                    $"UOW object null refference exception!");
         }
 
         #endregion

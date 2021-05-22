@@ -1,4 +1,5 @@
-﻿using Library.Common.Requests.Filters.Abstractions;
+﻿using Library.Common.Enums;
+using Library.Common.Requests.Filters.Abstractions;
 using Library.Data.Entities.Abstractions;
 
 using System;
@@ -28,7 +29,7 @@ namespace Library.Data.Repositories.Abstractions
 
         Task Update(TEntity exitRecord);
 
-        Task Delete(TEntity deleteRecord);
+        Task Delete(TEntity deleteRecord, DeletionType type = DeletionType.Hard);
 
         #endregion
     }

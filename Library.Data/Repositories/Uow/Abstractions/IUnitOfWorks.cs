@@ -26,5 +26,11 @@ namespace Library.Data.Repositories.Uow.Abstractions
         IRepository<Book> BooksRepository { get; }
 
         #endregion
+
+        #region METHODS
+
+        void SaveChanges();
+
+        #endregion
     }
 }
