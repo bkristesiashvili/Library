@@ -1,5 +1,8 @@
-﻿using Library.Services.Abstractions;
+﻿using Library.Common.Requests.Filters;
+using Library.Data.Extensions;
+using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
+using Library.WebApp.Models;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,9 +36,17 @@ namespace Library.WebApp.Controllers
         #region ACTIONS
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync([FromQuery]AuthorFilter filter)
         {
-            return View();
+            var authors = from author in await authorService.GetAllAuthorsAsync(filter)
+                          select new AuthorListViewModel
+                          {
+                              FirstName = author.FirstName,
+                              Middlename = author.MiddleName,
+                              LastName = author.LastName
+                          };
+
+            return View(await authors.ToPagedListAsync(filter.Page, filter.PageSize));
         }
 
         #endregion
