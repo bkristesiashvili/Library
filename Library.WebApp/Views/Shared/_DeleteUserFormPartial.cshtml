@@ -1,6 +1,6 @@
 ﻿@model UserListViewModel
 <div>
-    <form method="post" id="delete_@Model.Id" asp-controller="account" asp-action="delete" enctype="application/x-www-form-urlencoded">
+    <form method="post" id="delete_@Model.Id" asp-controller="@AccountIndexLink" asp-action="delete" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="id" value="@Model.Id" />
         <button type="submit" onclick="deleteItem('@Model.Id');" class="btn btn-sm text-11px text-danger">
             <i class="fas fa-trash"></i>

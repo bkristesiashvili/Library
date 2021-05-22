@@ -1,7 +1,4 @@
-﻿@using static Library.Common.GlobalVariables;
-@using static Library.Common.Enums.SystemDefaultRoles
-
-<ul class="navbar-nav flex-grow-1 text-12px">
+﻿<ul class="navbar-nav flex-grow-1 text-12px">
     <li class="nav-item">
         <a class="nav-link text-light" asp-area="" asp-controller="home" asp-action="index">მთავარი</a>
     </li>
@@ -15,8 +12,8 @@
             </a>
 
             <div class="dropdown-menu text-12px" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" asp-controller="account" asp-action="all">პერსონალი</a>
-                <a class="dropdown-item" href="#">კლიენტები</a>
+                <a class="dropdown-item" asp-controller="@AccountIndexLink" asp-action="index">თანამშრომლები</a>
+                <a class="dropdown-item" asp-controller="@CustomerIndexLink" asp-action="index">კლიენტები</a>
             </div>
         </div>
     </li>

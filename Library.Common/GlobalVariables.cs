@@ -8,12 +8,12 @@ namespace Library.Common
 {
     public static class GlobalVariables
     {
-        public static readonly IReadOnlyDictionary<SystemDefaultRoles, string> DefaultRoles =
-            new Dictionary<SystemDefaultRoles, string>
+        public static readonly IReadOnlyDictionary<SystemDefaultRole, string> DefaultRoles =
+            new Dictionary<SystemDefaultRole, string>
             {
-                { SystemDefaultRoles.SuperAdmin, SuperAdminRoleName },
-                { SystemDefaultRoles.Admin, AdminRoleName },
-                { SystemDefaultRoles.User, UserRoleName }
+                { SystemDefaultRole.SuperAdmin, SuperAdminRoleName },
+                { SystemDefaultRole.Admin, AdminRoleName },
+                { SystemDefaultRole.User, UserRoleName }
             };
 
         public const string SuperAdminRoleName = "SuperAdmin";
@@ -63,5 +63,10 @@ namespace Library.Common
 
         public const string Space = "\u0020";
         public const string DefaultUrl = "/";
+
+        public const string AccountIndexLink = "/accounts";
+        public const string AccountProfileLink = "/accounts/profile";
+
+        public const string CustomerIndexLink = "/customers";
     }
 }

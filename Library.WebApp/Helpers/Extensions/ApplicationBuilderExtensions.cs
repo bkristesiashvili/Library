@@ -70,12 +70,12 @@ namespace Library.WebApp.Helpers.Extensions
             if(systemUser.Id != null)
             {
                 var inRole = await userManager
-                    .IsInRoleAsync(systemUser, GlobalVariables.DefaultRoles[SystemDefaultRoles.SuperAdmin]);
+                    .IsInRoleAsync(systemUser, GlobalVariables.DefaultRoles[SystemDefaultRole.SuperAdmin]);
 
                 if (!inRole)
                 {
                     var result = await userManager
-                        .AddToRoleAsync(systemUser, GlobalVariables.DefaultRoles[SystemDefaultRoles.SuperAdmin]);
+                        .AddToRoleAsync(systemUser, GlobalVariables.DefaultRoles[SystemDefaultRole.SuperAdmin]);
 
                     if (!result.Succeeded) 
                         throw new OperationCanceledException("Set the role to the system user failed!");

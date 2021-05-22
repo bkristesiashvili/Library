@@ -16,14 +16,14 @@ namespace Library.WebApp.Controllers.Abstractions
     {
         #region PROTECTED PROPERTIES
 
-        protected IFileLogger Logger { get; }
+        protected IFileLoggerService Logger { get; }
 
         #endregion
 
         #region CTOR
 
-        public BaseController(IFileLogger loger)
-            => this.Logger = loger;
+        public BaseController(IFileLoggerService logger)
+            => this.Logger = logger;
 
         #endregion
 
@@ -32,7 +32,7 @@ namespace Library.WebApp.Controllers.Abstractions
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             if (context.Exception != null)
-                Logger.Log(context.Exception.ToString(), context.HttpContext, LoggingTypes.Error);
+                Logger.Log(context.Exception.ToString(), context.HttpContext, LoggingType.Error);
             base.OnActionExecuted(context);
         }
 

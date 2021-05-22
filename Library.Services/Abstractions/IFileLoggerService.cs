@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Library.Services.Abstractions
 {
-    public interface IFileLogger
+    public interface IFileLoggerService : IService
     {
         #region PROPERTIES
 
@@ -19,9 +19,9 @@ namespace Library.Services.Abstractions
 
         #region METHODS
 
-        void Log(string Message, HttpContext httpCOntext, LoggingTypes loggingType = LoggingTypes.Information);
+        void Log(string Message, HttpContext httpCOntext, LoggingType loggingType = LoggingType.Information);
 
-        Task LogAsync(string Message, HttpContext httpCOntext, LoggingTypes loggingType = LoggingTypes.Information);
+        Task LogAsync(string Message, HttpContext httpCOntext, LoggingType loggingType = LoggingType.Information);
 
         #endregion
     }

@@ -1,0 +1,127 @@
+﻿@model PagedList<CustomersListViewModel>
+
+@{
+    ViewBag.Title = "კლიენტების სია";
+
+    var index = 1;
+}
+
+<div class="row">
+    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+        <div class="text-left pb-1">
+            <form method="get" asp-controller="@CustomerIndexLink" asp-action="index" autocomplete="off">
+                <div class="input-group">
+                    <input type="search" placeholder="ძებნა" name="search" class="form-control text-12px" maxlength="30" />
+                    <div class="input-group-append">
+                        <button class="btn btn-success text-12px">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="text-13px">
+    <div class="row profile-bg text-dark font-weight-bold p-3 rounded-top">
+        <div class="col-sm-3 col-md-3">
+            <div class="d-flex">
+                <a asp-controller="@CustomerIndexLink"
+                   asp-action="index"
+                   asp-route-orderby="firstname"
+                   asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+                   class="btn btn-sm">
+                    <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
+                                                             ((string)ViewBag.OrderBy).ToLower() == "firstname"
+                                                             ? "up"
+                                                             :"down")">&nbsp;&nbsp;</i>სახელი
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <a asp-controller="@CustomerIndexLink"
+               asp-action="index"
+               asp-route-orderby="lastname"
+               asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+               class="btn btn-sm">
+                <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
+                                                             ((string)ViewBag.OrderBy).ToLower() == "lastname"
+                                                             ? "up"
+                                                             :"down")">&nbsp;&nbsp;</i>გვარი
+            </a>
+        </div>
+        <div class="col-sm-3 col-md-3">
+            <a asp-controller="@CustomerIndexLink"
+               asp-action="index"
+               asp-route-orderby="email"
+               asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+               class="btn btn-sm">
+                <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
+                                                             ((string)ViewBag.OrderBy).ToLower() == "email"
+                                                             ? "up"
+                                                             :"down")">&nbsp;&nbsp;</i>ელ.ფოსტა
+            </a>
+        </div>
+        <div class="col-sm-2 col-md-2">
+            <div class="text-right">
+                @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
+                {
+                    <partial name="_NewCustomerPartial" />
+                }
+            </div>
+        </div>
+    </div>
+    @foreach (var customer in Model)
+    {
+        var editModel = new UserProfileEditViewModel
+        {
+            Id = customer.Id,
+            FirstName = customer.FirstName,
+            LastName = customer.LastName,
+            Email = customer.Email
+        };
+
+        <div class="row d-flex align-middle p-2 text-13px text-left row-hover border @Html.Raw(index % 2 == 0 ? "grid-header":"")">
+            <div class="col-sm-3 col-md-3">@customer.FirstName</div>
+            <div class="col-sm-4 col-md-4">@customer.LastName</div>
+            <div class="col-sm-3 col-md-3">@customer.Email</div>
+            <div class="col-sm-2 col-md-2">
+                <div class="row float-right">
+                    @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
+                    {
+                        <div>edit</div>
+                    }
+
+                    @if (User.IsInRole(DefaultRoles[SuperAdmin]))
+                    {
+                        <div>delete</div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        index++;
+    }
+    @if (!Model.Any())
+    {
+        <div class="row p-1">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="text-center">
+                    <div class="text-13px">
+                        ჩანაწერი ვერ მოიძებნა!
+                    </div>
+                    @if (!string.IsNullOrEmpty(ViewBag.Search))
+                    {
+                        <div class="float-left">
+                            <div class="text-center">
+                                <a asp-controller="@CustomerIndexLink" asp-action="index" class="btn btn-sm btn-outline-danger text-12px">
+                                    <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

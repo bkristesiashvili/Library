@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Library.Services
 {
-    public sealed class FileLoggerFactory : IFileLogger
+    public sealed class FileLoggerServiceFactory : IFileLoggerService
     {
         #region CONSTANTS
 
@@ -21,6 +21,7 @@ namespace Library.Services
         private const string INFO = "INFO";
 
         private const string ERROR = "ERROR";
+
 
         #endregion
 
@@ -32,7 +33,7 @@ namespace Library.Services
 
         #region CTOR
 
-        public FileLoggerFactory(string directoryName)
+        public FileLoggerServiceFactory(string directoryName)
         {
             LogDirectoryPath = directoryName;
 
@@ -44,7 +45,7 @@ namespace Library.Services
         #region PUBLIC METHODS
 
         public void Log(string Message, HttpContext httpContext, 
-            LoggingTypes loggingType = LoggingTypes.Information)
+            LoggingType loggingType = LoggingType.Information)
         {
             using var fileStream = new FileStream(CreateFileLoggerPath(), FileMode.Append);
             using var streamWriter = new StreamWriter(fileStream);
@@ -57,7 +58,7 @@ namespace Library.Services
         }
 
         public async Task LogAsync(string Message, HttpContext httpContext, 
-            LoggingTypes loggingType = LoggingTypes.Information)
+            LoggingType loggingType = LoggingType.Information)
         {
             using var fileStream = new FileStream(CreateFileLoggerPath(), FileMode.Append);
             using var streamWriter = new StreamWriter(fileStream);
@@ -68,6 +69,8 @@ namespace Library.Services
             await streamWriter.FlushAsync();
             streamWriter.Close();
         }
+
+        public void Dispose() => GC.Collect();
 
         #endregion
 
@@ -92,9 +95,9 @@ namespace Library.Services
         }
 
         private string FormatMessage(string message, HttpContext httpContext, 
-            LoggingTypes loggingType)
+            LoggingType loggingType)
         {
-            var formated = loggingType == LoggingTypes.Information ? INFO : ERROR;
+            var formated = loggingType == LoggingType.Information ? INFO : ERROR;
 
             return $"[{DateTime.Now:hh:mm:ss tt}] ({formated}) - (PATH:{httpContext.Request.Path} " +
                    $"| METHOD:{httpContext.Request.Method})" +
