@@ -21,7 +21,7 @@ namespace Library.WebApp.Controllers
 
         #region CTOR
 
-        public SettingsController(IFileLogger logger)
+        public SettingsController(IFileLoggerService logger)
             : base(logger)
         {
 

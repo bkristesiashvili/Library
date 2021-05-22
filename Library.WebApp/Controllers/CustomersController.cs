@@ -23,7 +23,7 @@ namespace Library.WebApp.Controllers
 
         #region CTOR
 
-        public CustomersController(IFileLogger logger,
+        public CustomersController(IFileLoggerService logger,
             ICustomersService customersService)
             :base(logger) => this.customersService = customersService;
 

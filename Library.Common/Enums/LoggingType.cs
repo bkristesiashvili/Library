@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Library.Common.Enums
 {
-    public enum LoggingTypes
+    public enum LoggingType
     {
         Information,
         Error

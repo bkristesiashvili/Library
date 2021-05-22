@@ -63,10 +63,17 @@ namespace Library.WebApp
                 options.Cookie.Name = "Library_Web_App_Cookies";
             });
 
+            services.AddAntiforgery(options =>
+            {
+                options.Cookie.Name = "Library.AntiForgery";
+            });
+
             
 
             services.AddScoped<IUnitOfWorks, UnitOfWorks>();
+
             services.AddFileLogger(Configuration.GetSection("FileLogger:Dir").Value);
+
             services.AddApplicationServices();
         }
 

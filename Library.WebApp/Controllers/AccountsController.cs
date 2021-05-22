@@ -34,7 +34,7 @@ namespace Library.WebApp.Controllers
         #region CTOR
 
         public AccountsController(
-            IFileLogger logger,
+            IFileLoggerService logger,
             IUserService userService
             )
             : base(logger)

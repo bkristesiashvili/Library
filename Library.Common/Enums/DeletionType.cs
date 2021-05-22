@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Library.Common.Enums
 {
-    public enum SystemDefaultRoles
+    public enum DeletionType
     {
-        SuperAdmin = 1,
-        Admin = 22,
-        User = 333
+        Soft,
+        Hard
     }
 }

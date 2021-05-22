@@ -21,7 +21,7 @@ namespace Library.WebApp.Controllers
     {
         #region CTOR
 
-        public HomeController(IFileLogger logger)
+        public HomeController(IFileLoggerService logger)
             : base(logger) { }
 
         #endregion

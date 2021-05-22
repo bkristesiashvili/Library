@@ -22,22 +22,22 @@ namespace Library.Data.Extensions
                        new Role
                        {
                            Id = Guid.NewGuid(),
-                           Name = GlobalVariables.DefaultRoles[SystemDefaultRoles.SuperAdmin],
-                           NormalizedName = GlobalVariables.DefaultRoles[SystemDefaultRoles.SuperAdmin]
+                           Name = GlobalVariables.DefaultRoles[SystemDefaultRole.SuperAdmin],
+                           NormalizedName = GlobalVariables.DefaultRoles[SystemDefaultRole.SuperAdmin]
                            .ToUpper()
                        },
                        new Role
                        {
                            Id = Guid.NewGuid(),
-                           Name = GlobalVariables.DefaultRoles[SystemDefaultRoles.Admin],
-                           NormalizedName = GlobalVariables.DefaultRoles[SystemDefaultRoles.Admin]
+                           Name = GlobalVariables.DefaultRoles[SystemDefaultRole.Admin],
+                           NormalizedName = GlobalVariables.DefaultRoles[SystemDefaultRole.Admin]
                            .ToUpper()
                        },
                        new Role
                        {
                            Id = Guid.NewGuid(),
-                           Name = GlobalVariables.DefaultRoles[SystemDefaultRoles.User],
-                           NormalizedName = GlobalVariables.DefaultRoles[SystemDefaultRoles.User]
+                           Name = GlobalVariables.DefaultRoles[SystemDefaultRole.User],
+                           NormalizedName = GlobalVariables.DefaultRoles[SystemDefaultRole.User]
                            .ToUpper()
                        },
 

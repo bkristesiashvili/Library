@@ -28,7 +28,7 @@ namespace Library.WebApp.Controllers
 
         #region CTOR
 
-        public AuthController(IFileLogger logger, IUserService userService)
+        public AuthController(IFileLoggerService logger, IUserService userService)
             : base(logger)
         {
             this.userService = userService;

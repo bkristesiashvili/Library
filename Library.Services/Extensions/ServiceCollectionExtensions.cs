@@ -29,8 +29,7 @@ namespace Library.Services.Extensions
             if (string.IsNullOrEmpty(loggingDirectoryPath) || string.IsNullOrWhiteSpace(loggingDirectoryPath))
                 throw new ArgumentNullException("Empty logging directory name!");
 
-            @this.AddSingleton<IFileLogger>(new FileLoggerFactory(loggingDirectoryPath));
-            @this.AddScoped<IUserService, UserServiceFactory>();
+            @this.AddSingleton<IFileLoggerService>(new FileLoggerServiceFactory(loggingDirectoryPath));
         }
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection @this)
@@ -49,7 +48,7 @@ namespace Library.Services.Extensions
 
                 var _interface = serviceType.GetInterface($"I{name}");
 
-                if (_interface.Name == nameof(IFileLogger)) continue;
+                if (_interface.Name == nameof(IFileLoggerService)) continue;
 
                 @this.AddScoped(_interface, serviceType);
             }
