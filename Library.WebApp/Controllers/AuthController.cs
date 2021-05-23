@@ -50,7 +50,7 @@ namespace Library.WebApp.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([FromForm]LoginViewModel model)
+        public async Task<IActionResult> Login([FromForm] LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -58,19 +58,10 @@ namespace Library.WebApp.Controllers
                     .SigninAsync(model.Email, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
-                    return Json(new JsonResponse
-                    {
-                        Succeed = true,
-                        ReturnUrl = model.ReturnUrl ?? DefaultUrl,
-                        Message = AuthorizationSuccess
-                    });
+                    return JsonResponse(true, model.ReturnUrl ?? DefaultUrl, AuthorizationSuccess);
             }
 
-            return Json(new JsonResponse
-            {
-                Succeed = false,
-                Message = AuthorizationFailed
-            });
+            return JsonResponse(false, AuthorizationFailed);
         }
 
         [HttpPost]
@@ -78,12 +69,7 @@ namespace Library.WebApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await userService.SignOutAsync();
-            return Json(new JsonResponse
-            {
-                Succeed = true,
-                Message = UserSignedOutSuccess,
-                ReturnUrl = "/auth/login"
-            });
+            return JsonResponse(true, UserSignedOutSuccess, LoginLink);
         }
 
         [AllowAnonymous]

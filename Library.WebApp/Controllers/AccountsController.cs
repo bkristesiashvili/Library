@@ -55,7 +55,7 @@ namespace Library.WebApp.Controllers
         [Authorize(Roles = SuperAdminRoleName + "," + AdminRoleName)]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([FromForm]RegisterViewModel model)
+        public async Task<IActionResult> Register([FromForm] RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -69,26 +69,16 @@ namespace Library.WebApp.Controllers
                 }, model.Password, model.Roles);
 
                 if (result.Succeeded)
-                    return Json(new JsonResponse
-                    {
-                        Succeed = true,
-                        ReturnUrl = AccountIndexLink,
-                        Message = UserCreatedSuccessMessage
-                    });
+                    return JsonResponse(true, UserCreatedSuccessMessage, AccountIndexLink);
             }
-            return Json(new JsonResponse
-            {
-                Succeed = false,
-                ReturnUrl = string.Empty,
-                Message = UserCreateFailedMessage
-            });
+            return JsonResponse(false, UserCreateFailedMessage);
         }
 
         public IActionResult Edit() => View();
 
         [HttpPut]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProfile([FromForm]UserProfileEditViewModel model)
+        public async Task<IActionResult> EditProfile([FromForm] UserProfileEditViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -98,25 +88,15 @@ namespace Library.WebApp.Controllers
                     model.LastName, model.Email);
 
                 if (result.Succeeded)
-                    return Json(new JsonResponse
-                    {
-                        Succeed = true,
-                        Message = UserUpdatedSuccess,
-                        ReturnUrl = AccountProfileLink
-                    });
+                    return JsonResponse(true, UserUpdatedSuccess, AccountProfileLink);
             }
 
-            return Json(new JsonResponse
-            {
-                Succeed = false,
-                Message = UserProfileUpdateFailed,
-                ReturnUrl = string.Empty
-            });
+            return JsonResponse(false, UserProfileUpdateFailed);
         }
 
         [HttpPut]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPassword([FromForm]PasswordEditViewModel model)
+        public async Task<IActionResult> EditPassword([FromForm] PasswordEditViewModel model)
         {
             var user = await UserService.GetAuthenticatedUser(User);
 
@@ -126,20 +106,10 @@ namespace Library.WebApp.Controllers
                     .UpdateUserpasswordAsync(user, model.OldPassword, model.NewPassword);
 
                 if (result.Succeeded)
-                    return Json(new JsonResponse
-                    {
-                        Succeed = true,
-                        ReturnUrl = AccountProfileLink,
-                        Message = PasswordUpdatedSuccessfull
-                    });
+                    return JsonResponse(true, AccountProfileLink, PasswordUpdatedSuccessfull);
             }
 
-            return Json(new JsonResponse
-            {
-                Succeed = false,
-                ReturnUrl = string.Empty,
-                Message = PasswordUpdateFailedErrorMessage
-            });
+            return JsonResponse(false, PasswordUpdateFailedErrorMessage);
         }
 
         [HttpGet]
@@ -175,30 +145,15 @@ namespace Library.WebApp.Controllers
             var user = await UserService.GetUserByIdAsync(id);
 
             if (id == currentUserId)
-                return Json(new JsonResponse
-                {
-                    Succeed = false,
-                    ReturnUrl = AccountIndexLink,
-                    Message = AuthorizedUserDeleteErrorMessage
-                });
+                return JsonResponse(false, AuthorizedUserDeleteErrorMessage, AccountIndexLink);
 
 
             var result = await UserService.DeleteUserAsync(user);
 
             if (result.Succeeded)
-                return Json(new JsonResponse
-                {
-                    Succeed = true,
-                    ReturnUrl = AccountIndexLink,
-                    Message = UserDeletedSuccessfull
-                });
+                return JsonResponse(true, UserDeletedSuccessfull, AccountIndexLink);
 
-            return Json(new JsonResponse
-            {
-                Succeed = false,
-                ReturnUrl = string.Empty,
-                Message = UserDeleteFailed
-            });
+            return JsonResponse(false, UserDeleteFailed);
         }
 
         [HttpPut]
@@ -210,12 +165,7 @@ namespace Library.WebApp.Controllers
                 var existedUser = await UserService.GetUserByIdAsync(model.Id);
 
                 if (existedUser == null)
-                    return Json(new JsonResponse
-                    {
-                        ReturnUrl = string.Empty,
-                        Succeed = false,
-                        Message = UserNotFound
-                    });
+                    return JsonResponse(false, UserNotFound);
 
                 var result = await UserService.UpdateUserProfileAsync(existedUser, model.FirstName,
                     model.LastName, model.Email);
@@ -223,35 +173,17 @@ namespace Library.WebApp.Controllers
 
 
                 if (!result.Succeeded)
-                    return Json(new JsonResponse
-                    {
-                        Succeed = false,
-                        Message = UserProfileUpdateFailed,
-                    });
+                    return JsonResponse(false, UserProfileUpdateFailed);
 
                 if (model.Roles == null || !model.Roles.Any())
-                    return Json(new JsonResponse
-                    {
-                        Succeed = false,
-                        Message = UserRoleErrorMessage
-                    });
+                    return JsonResponse(false, UserRoleErrorMessage);
 
                 await UserService.UpdateUserRoleAsync(existedUser, model.Roles.ToArray());
 
-                return Json(new JsonResponse
-                {
-                    Succeed = true,
-                    ReturnUrl = AccountIndexLink,
-                    Message = UserUpdatedSuccess
-                });
+                return JsonResponse(true, UserUpdatedSuccess, AccountIndexLink);
             }
 
-            return Json(new JsonResponse
-            {
-                Succeed = false,
-                ReturnUrl = string.Empty,
-                Message = UserProfileUpdateFailed
-            });
+            return JsonResponse(false, UserProfileUpdateFailed);
         }
 
         #endregion

@@ -69,6 +69,10 @@ namespace Library.Common
 
         public const string CustomerIndexLink = "/customers";
 
+        public const string AuthorIndexLink = "/authors";
+
+        public const string LoginLink = "/auth/login";
+
         public const string UOW_ExceptionMessage = "UOW object null refference exception!";
         public const string RecordNotFound = "Record doesn't existed!";
     }

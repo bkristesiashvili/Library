@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
         <div class="text-left pb-1">
-            <form method="get" asp-controller="@AccountIndexLink" asp-action="index" autocomplete="off">
+            <form method="get" asp-controller="@AuthorIndexLink" asp-action="index" autocomplete="off">
                 <div class="input-group">
                     <input type="search" placeholder="ძებნა" name="search" class="form-control text-12px" maxlength="30" />
                     <div class="input-group-append">
@@ -25,7 +25,7 @@
     <div class="row profile-bg text-dark font-weight-bold p-3 rounded-top">
         <div class="col-sm-3 col-md-3">
             <div class="d-flex">
-                <a asp-controller="@AccountIndexLink"
+                <a asp-controller="@AuthorIndexLink"
                    asp-action="index"
                    asp-route-orderby="firstname"
                    asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
@@ -38,25 +38,25 @@
             </div>
         </div>
         <div class="col-sm-4 col-md-4">
-            <a asp-controller="@AccountIndexLink"
+            <a asp-controller="@AuthorIndexLink"
+               asp-action="index"
+               asp-route-orderby="middlename"
+               asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+               class="btn btn-sm">
+                <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
+                                                             ((string)ViewBag.OrderBy).ToLower() == "middlename"
+                                                             ? "up"
+                                                             :"down")">&nbsp;&nbsp;</i>მეორე სახელი
+            </a>
+        </div>
+        <div class="col-sm-3 col-md-3">
+            <a asp-controller="@AuthorIndexLink"
                asp-action="index"
                asp-route-orderby="lastname"
                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
                class="btn btn-sm">
                 <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
                                                              ((string)ViewBag.OrderBy).ToLower() == "lastname"
-                                                             ? "up"
-                                                             :"down")">&nbsp;&nbsp;</i>მეორე სახელი
-            </a>
-        </div>
-        <div class="col-sm-3 col-md-3">
-            <a asp-controller="@AccountIndexLink"
-               asp-action="index"
-               asp-route-orderby="email"
-               asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
-               class="btn btn-sm">
-                <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
-                                                             ((string)ViewBag.OrderBy).ToLower() == "email"
                                                              ? "up"
                                                              :"down")">&nbsp;&nbsp;</i>გვარი
             </a>
@@ -65,7 +65,7 @@
             <div class="text-right">
                 @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
                 {
-                    <a asp-controller="@AccountIndexLink" asp-action="register" class="btn btn-sm btn-success text-12px"><i class="fas fa-plus">&nbsp;</i>დამატება</a>
+                    <partial name="_AddAuthorPartial" />
                 }
             </div>
         </div>
@@ -105,7 +105,7 @@
                     {
                         <div class="float-left">
                             <div class="text-center">
-                                <a asp-controller="@AccountIndexLink" asp-action="index" class="btn btn-sm btn-outline-danger text-12px">
+                                <a asp-controller="@AuthorIndexLink" asp-action="index" class="btn btn-sm btn-outline-danger text-12px">
                                     <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
                                 </a>
                             </div>
@@ -124,7 +124,7 @@
             {
                 <div class="float-left">
                     <div class="text-center">
-                        <a asp-controller="@AccountIndexLink" asp-action="index" class="btn btn-sm btn-outline-danger text-12px">
+                        <a asp-controller="@AuthorIndexLink" asp-action="index" class="btn btn-sm btn-outline-danger text-12px">
                             <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
                         </a>
                     </div>
@@ -136,7 +136,7 @@
                 <div class="pagination">
 
                     <div class="page-item">
-                        <a asp-controller="@AccountIndexLink"
+                        <a asp-controller="@AuthorIndexLink"
                            asp-action="index"
                            asp-route-page="@(Model.PageNumber - 1)"
                            asp-route-search="@ViewBag.Search"
@@ -145,7 +145,7 @@
                            class="page-link @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
                     </div>
                     <div class="page-item">
-                        <a asp-controller="@AccountIndexLink"
+                        <a asp-controller="@AuthorIndexLink"
                            asp-action="index"
                            asp-route-page="@(Model.PageNumber + 1)"
                            asp-route-search="@ViewBag.Search"

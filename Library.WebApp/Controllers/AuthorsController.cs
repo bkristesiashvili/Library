@@ -1,4 +1,6 @@
 ﻿using Library.Common.Requests.Filters;
+using Library.Common.Responses;
+using Library.Data.Entities;
 using Library.Data.Extensions;
 using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
@@ -46,7 +48,33 @@ namespace Library.WebApp.Controllers
                               LastName = author.LastName
                           };
 
+            ViewBag.Search = filter.Search;
+            ViewBag.Ordering = filter.Ordering;
+            ViewBag.OrderBy = filter.OrderBy;
+
             return View(await authors.ToPagedListAsync(filter.Page, filter.PageSize));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddAsync([FromForm]AuthorCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await authorService.CreateNewAuthorAsync(new Author
+                {
+                    FirstName = model.FirstName,
+                    MiddleName = model.MiddleName,
+                    LastName = model.LastName
+                });
+
+                if (!result.Succeed)
+                    return JsonResponse(false, "eror");
+
+                return JsonResponse(true, "daemata", "/authors");
+            }
+
+            return JsonResponse(false, "error");
         }
 
         #endregion

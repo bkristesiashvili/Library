@@ -32,6 +32,7 @@ $(document).ready(function () {
     const modal = $('.modal');
     const loginForm = $('#login_form');
     const logoutForm = $('#logout');
+    const authorCreateForm = $('#create_author');
 
     modal.modal({
         backdrop: true,
@@ -182,6 +183,48 @@ $(document).ready(function () {
             }
         });
     });
+
+    //authorCreateForm.on('submit', function () {
+    //    event.preventDefault();
+
+    //    var action = $(this).attr('action');
+    //    console.log(action);
+    //    var postData = $(this).serialize();
+    //    console.log(postData);
+    //});
+
+    $('button[action-run="save"]').on('click', function () {
+        var action = authorCreateForm.attr('action');
+        var postData = authorCreateForm.serialize();
+
+        $.post(action, postData)
+            .done(function (response) {
+                if (response.succeed === true) {
+
+                    toastr.success("", response.message, {
+                        onHidden: function () {
+                            window.location.href = response.returnUrl;
+                        }
+                    });
+
+                } else if (response.succeed === false) {
+                    toastr.error("", response.message);
+                }
+            })
+            .fail(function (response) {
+                alert('Error: ' + response.status);
+            });
+    });
+
+    //authorCreateForm.on('submit', function () {
+    //    event.preventDefault();
+
+    //    var action = authorCreateForm.attr('action');
+    //    var postData = authorCreateForm.serialize();
+
+    //    console.log(postData);
+    //    console.log(action);
+    //});
 });
 
 var updateItem = function (form_id, user_id) {
