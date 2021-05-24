@@ -168,3 +168,7 @@ a.disabled {
 #toast-container > div {
     opacity: 1 !important;
 }
+/*.form-group.required .control-label:after {
+    content: "*";
+    color: red;
+}*/

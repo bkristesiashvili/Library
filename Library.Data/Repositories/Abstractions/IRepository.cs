@@ -1,4 +1,5 @@
-﻿using Library.Common.Requests.Filters.Abstractions;
+﻿using Library.Common.Enums;
+using Library.Common.Requests.Filters.Abstractions;
 using Library.Data.Entities.Abstractions;
 
 using System;
@@ -22,13 +23,13 @@ namespace Library.Data.Repositories.Abstractions
 
         Task<IQueryable<TEntity>> GetAll(IFilter filter = null);
 
-        Task<TEntity> GetById(Guid id);
+        Task<TEntity> GetByIdAsync(Guid id);
 
-        Task Create(TEntity newRecord);
+        Task CreateAsync(TEntity newRecord);
 
-        Task Update(TEntity exitRecord);
+        Task UpdateAsync(TEntity exitRecord);
 
-        Task Delete(TEntity deleteRecord);
+        Task DeleteAsync(TEntity deleteRecord, DeletionType type = DeletionType.Hard);
 
         #endregion
     }

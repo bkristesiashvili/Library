@@ -61,6 +61,13 @@ namespace Library.Common
         public const string AuthorizationFailed = "არასწორი მომხმარებელი ან პაროლი!";
         public const string UserSignedOutSuccess = "მომხმარებელი წარმატებით გავიდა სისტემიდან";
 
+        public const string AuthorCreatedSuccessMessage = "ავტორი წარმატებით დაემატა";
+        public const string AuthorCreateFailedMessage = "ავტორის დამატება ვერ მოხერხდა!";
+        public const string AuthorDeletedSuccessMessage = "ავტორი წარმატებით წაიშლა.";
+        public const string AuthorDeleteFailedMessage = "ავტორი წაშლა ვერ მოხერხდა!";
+        public const string AuthorEditSuccessMessage = "ავტორი წარმატებით განახლდა.";
+        public const string AuthorEditFailedMessage = "ავტორის განახლება ვერ მოხერხდა!";
+
         public const string Space = "\u0020";
         public const string DefaultUrl = "/";
 
@@ -68,5 +75,12 @@ namespace Library.Common
         public const string AccountProfileLink = "/accounts/profile";
 
         public const string CustomerIndexLink = "/customers";
+
+        public const string AuthorIndexLink = "/authors";
+
+        public const string LoginLink = "/auth/login";
+
+        public const string UOW_ExceptionMessage = "UOW object null refference exception!";
+        public const string RecordNotFound = "Record doesn't existed!";
     }
 }

@@ -17,8 +17,14 @@ namespace Library.Data
     public sealed class LibraryDbContext
         : IdentityDbContext<User, Role, Guid>
     {
+        #region CTOR
+
         public LibraryDbContext(DbContextOptions<LibraryDbContext> options)
             : base(options) { }
+
+        #endregion
+
+        #region OVERRIDED METHODS
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -35,6 +41,8 @@ namespace Library.Data
 
             base.OnModelCreating(builder);
         }
+
+        #endregion
 
         #region DBSETS
 
@@ -62,29 +70,33 @@ namespace Library.Data
 
         #endregion
 
-        public override int SaveChanges()
-        {
-            var entries = ChangeTracker.Entries()
-                .Where(entry => entry.Entity is BaseEntity &&
-                                entry.State == EntityState.Modified ||
-                                entry.State == EntityState.Deleted);
+        #region UNUSED OVERRIDED METHOD
 
-            foreach (var entry in entries)
-            {
-                if (entry.State == EntityState.Modified)
-                {
-                    ((BaseEntity)entry.Entity).UpdatedAt = DateTime.Now;
-                    ((BaseEntity)entry.Entity).CreatedAt = entry.OriginalValues.GetValue<DateTime>("CreatedAt");
-                }
-                else if (entry.State == EntityState.Deleted)
-                {
-                    ((BaseEntity)entry.Entity).CreatedAt = entry.OriginalValues.GetValue<DateTime>("CreatedAt");
-                    ((BaseEntity)entry.Entity).UpdatedAt = entry.OriginalValues.GetValue<DateTime>("UpdatedAt");
-                    ((BaseEntity)entry.Entity).DeletedAt = DateTime.Now;
-                }
-            }
+        //public override int SaveChanges()
+        //{
+        //    //var entries = ChangeTracker.Entries()
+        //    //    .Where(entry => entry.Entity is BaseEntity &&
+        //    //                    entry.State == EntityState.Modified ||
+        //    //                    entry.State == EntityState.Deleted);
 
-            return base.SaveChanges();
-        }
+        //    //foreach (var entry in entries)
+        //    //{
+        //    //    if (entry.State == EntityState.Modified)
+        //    //    {
+        //    //        ((BaseEntity)entry.Entity).UpdatedAt = DateTime.Now;
+        //    //        ((BaseEntity)entry.Entity).CreatedAt = entry.OriginalValues.GetValue<DateTime>("CreatedAt");
+        //    //    }
+        //    //    else if (entry.State == EntityState.Deleted)
+        //    //    {
+        //    //        ((BaseEntity)entry.Entity).CreatedAt = entry.OriginalValues.GetValue<DateTime>("CreatedAt");
+        //    //        ((BaseEntity)entry.Entity).UpdatedAt = entry.OriginalValues.GetValue<DateTime>("UpdatedAt");
+        //    //        ((BaseEntity)entry.Entity).DeletedAt = DateTime.Now;
+        //    //    }
+        //    //}
+
+        //    return base.SaveChanges();
+        //}
+
+        #endregion
     }
 }

@@ -1,5 +1,8 @@
-﻿using Library.Common.Enums;
+﻿using static Library.Common.GlobalVariables;
+
+using Library.Common.Enums;
 using Library.Common.Requests.Filters.Abstractions;
+using Library.Common.Responses;
 using Library.Data.Entities;
 using Library.Data.Repositories.Uow.Abstractions;
 using Library.Services.Abstractions;
@@ -12,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Library.Services
 {
-    public sealed class AuthorServiceFactory : IAuthorService
+    public sealed class AuthorServiceFactory : BaseService, IAuthorService
     {
         #region PRIVATE FIELDS
 
@@ -29,32 +32,124 @@ namespace Library.Services
 
         #region PUBLIC METHODS
 
-        public Task<IQueryable<Author>> GetAllAuthorsAsync(IFilter filter = null)
+        public async Task<IQueryable<Author>> GetAllAuthorsAsync(IFilter filter = null)
         {
-            throw new NotImplementedException();
+            EnsureDependencies();
+
+            return await _unitOfWorks.AuthorsRepository.GetAll(filter);
         }
 
-        public Task<Author> GetAuthorDetailsByIdAsync(Guid id)
+        public async Task<Author> GetAuthorDetailsByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            EnsureDependencies();
+
+            return await _unitOfWorks.AuthorsRepository.GetByIdAsync(id);
         }
 
-        public Task CreateNewAuthor(Author newAuthor)
+        public async Task<ServiceResult> CreateNewAuthorAsync(Author newAuthor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                EnsureDependencies();
+
+                await _unitOfWorks.AuthorsRepository.CreateAsync(newAuthor);
+                _unitOfWorks.SaveChanges();
+
+                return new ServiceResult
+                {
+                    Succeed = true
+                };
+            }
+            catch(Exception e)
+            {
+                return new ServiceResult
+                {
+                    Succeed = false,
+                    Error = e
+                };
+            }
         }
 
-        public Task EditAuthorInfo(Guid id, Author updatedAuthor)
+        public async Task<ServiceResult> EditAuthorInfoAsync(Guid id, Author updatedAuthor)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+
+                var existed = await GetAuthorDetailsByIdAsync(id);
+
+                if (existed == null) return new ServiceResult
+                {
+                    Succeed = false,
+                    Error = new Exception(RecordNotFound)
+                };
+
+                existed.FirstName = updatedAuthor.FirstName;
+                existed.MiddleName = updatedAuthor.MiddleName;
+                existed.LastName = updatedAuthor.LastName;
+                existed.UpdatedAt = DateTime.UtcNow;
+
+                await _unitOfWorks.AuthorsRepository.UpdateAsync(existed);
+                _unitOfWorks.SaveChanges();
+
+                return new ServiceResult
+                {
+                    Succeed = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResult
+                {
+                    Succeed = false,
+                    Error = e
+                };
+            }
         }
 
-        public Task DeleteAuthorInfo(Guid id, DeletionType type = DeletionType.Hard)
+        public async Task<ServiceResult> DeleteAuthorInfoAsync(Guid id, DeletionType type = DeletionType.Hard)
         {
-            throw new NotImplementedException();
+            try
+            {
+                EnsureDependencies();
+
+                var existed = await GetAuthorDetailsByIdAsync(id);
+
+                if (existed == null) return new ServiceResult
+                {
+                    Succeed = false,
+                    Error = new Exception(RecordNotFound)
+                };
+
+                await _unitOfWorks.AuthorsRepository.DeleteAsync(existed, type);
+                _unitOfWorks.SaveChanges();
+
+                return new ServiceResult
+                {
+                    Succeed = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResult
+                {
+                    Succeed = false,
+                    Error = e
+                };
+            }
         }
 
         public void Dispose() => GC.Collect();
+
+        #endregion
+
+        #region PROTECTED OVERRIDED METHODS
+
+        protected override void EnsureDependencies()
+        {
+            if (_unitOfWorks == null)
+                throw new ArgumentNullException($"{nameof(AuthorServiceFactory)} { UOW_ExceptionMessage }");
+        }
 
         #endregion
     }

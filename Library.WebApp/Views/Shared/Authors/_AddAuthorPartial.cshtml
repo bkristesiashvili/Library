@@ -1,0 +1,41 @@
+﻿@model AuthorCreateViewModel
+<div class="text-right">
+    <button type="button" class="btn btn-sm btn-success text-white text-12px" data-toggle="modal" data-target="#add_author">
+    <i class="fas fa-plus">&nbsp;</i>დამატება
+    </button>
+</div>
+<div class="modal fade" id="add_author" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="exampleModalLabel">ავტორის დამატება</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form data-create-author="new" method="post" asp-controller="@AuthorIndexLink" asp-action="add" enctype="application/x-www-form-urlencoded">
+                        <div class="form-group">
+                            <input asp-for="FirstName" value="" placeholder="სახელი" class="form-control text-13px" />
+                            <span asp-validation-for="FirstName" class="text-danger text-11px"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="MiddleName" value="" placeholder="მეორე სახელი" class="form-control text-13px" />
+                            <span asp-validation-for="MiddleName" class="text-danger text-11px"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="LastName" value="" placeholder="გვარი" class="form-control text-13px" />
+                            <span asp-validation-for="LastName" class="text-danger text-11px"></span>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary text-12px" data-dismiss="modal">გაუქმება</button>
+                <button type="button" onclick="authorCreate()" class="btn btn-sm btn-success text-12px">დამახსოვრება</button>
+            </div>
+        </div>
+    </div>
+</div>
