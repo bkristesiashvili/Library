@@ -44,11 +44,15 @@ namespace Library.Data.Repositories.Abstractions
         {
             EnsureDependencies();
 
-            return await SortBy(Entity, filter);
+            var entities = from entity in Entity
+                           where !entity.DeletedAt.HasValue
+                           select entity;
+
+            return await SortBy(entities, filter);
 
         }
 
-        public virtual async Task<TEntity> GetById(Guid id)
+        public virtual async Task<TEntity> GetByIdAsync(Guid id)
         {
             EnsureDependencies();
 
@@ -56,14 +60,14 @@ namespace Library.Data.Repositories.Abstractions
                 .FirstOrDefaultAsync(entity => entity.Id.Equals(id));
         }
 
-        public virtual async Task Create(TEntity newRecord)
+        public virtual async Task CreateAsync(TEntity newRecord)
         {
             EnsureDependencies();
 
             await Entity.AddAsync(newRecord);
         }
 
-        public virtual async Task Update(TEntity exitRecord)
+        public virtual async Task UpdateAsync(TEntity exitRecord)
         {
             EnsureDependencies();
             await Task.Run(() =>
@@ -72,23 +76,12 @@ namespace Library.Data.Repositories.Abstractions
             });
         }
 
-        public virtual async Task Delete(TEntity deleteRecord, DeletionType type = DeletionType.Hard)
+        public virtual async Task DeleteAsync(TEntity deleteRecord, DeletionType type = DeletionType.Hard)
         {
-            EnsureDependencies();
-
-            if (type == DeletionType.Hard)
-                await Task.Run(() => Entity.Remove(deleteRecord));
-            else if (type == DeletionType.Soft)
+            await Task.Run(() =>
             {
-                await Task.Run(() =>
-                {
-                    DbContext.Entry(deleteRecord).State = EntityState.Deleted;
-                });
-
-                deleteRecord.DeletedAt = DateTime.UtcNow;
-            }
-
-
+                Delete(deleteRecord, type);
+            });
         }
 
         public void Dispose()
@@ -137,6 +130,19 @@ namespace Library.Data.Repositories.Abstractions
                  !string.IsNullOrWhiteSpace(filter?.Search));
 
             return filtered;
+        }
+
+        protected void Delete(TEntity deleteRecord, DeletionType type = DeletionType.Hard)
+        {
+            EnsureDependencies();
+
+            if (type == DeletionType.Hard)
+                Entity.Remove(deleteRecord);
+            else if (type == DeletionType.Soft)
+            {
+                //DbContext.Entry<TEntity>(deleteRecord).State = EntityState.Deleted;
+                deleteRecord.DeletedAt = DateTime.UtcNow;
+            }
         }
 
         #endregion

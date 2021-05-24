@@ -43,6 +43,7 @@ namespace Library.WebApp.Controllers
             var authors = from author in await authorService.GetAllAuthorsAsync(filter)
                           select new AuthorListViewModel
                           {
+                              Id = author.Id,
                               FirstName = author.FirstName,
                               Middlename = author.MiddleName,
                               LastName = author.LastName
@@ -75,6 +76,17 @@ namespace Library.WebApp.Controllers
             }
 
             return JsonResponse(false, "error");
+        }
+
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteAsync([FromForm] Guid id)
+        {
+            var result = await authorService.DeleteAuthorInfoAsync(id, Common.Enums.DeletionType.Soft);
+
+            if (result.Succeed)
+                return JsonResponse(true, "წაიშალა", "authors");
+            return JsonResponse(false, "ვერ წაიშალა!");
         }
 
         #endregion

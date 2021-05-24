@@ -43,7 +43,7 @@ namespace Library.Services
         {
             EnsureDependencies();
 
-            return await _unitOfWorks.AuthorsRepository.GetById(id);
+            return await _unitOfWorks.AuthorsRepository.GetByIdAsync(id);
         }
 
         public async Task<ServiceResult> CreateNewAuthorAsync(Author newAuthor)
@@ -52,7 +52,7 @@ namespace Library.Services
             {
                 EnsureDependencies();
 
-                await _unitOfWorks.AuthorsRepository.Create(newAuthor);
+                await _unitOfWorks.AuthorsRepository.CreateAsync(newAuthor);
                 _unitOfWorks.SaveChanges();
 
                 return new ServiceResult
@@ -89,7 +89,7 @@ namespace Library.Services
                 existed.LastName = updatedAuthor.LastName;
                 existed.UpdatedAt = DateTime.UtcNow;
 
-                await _unitOfWorks.AuthorsRepository.Update(existed);
+                await _unitOfWorks.AuthorsRepository.UpdateAsync(existed);
                 _unitOfWorks.SaveChanges();
 
                 return new ServiceResult
@@ -121,7 +121,7 @@ namespace Library.Services
                     Error = new Exception(RecordNotFound)
                 };
 
-                await _unitOfWorks.AuthorsRepository.Delete(existed, type);
+                await _unitOfWorks.AuthorsRepository.DeleteAsync(existed, type);
                 _unitOfWorks.SaveChanges();
 
                 return new ServiceResult

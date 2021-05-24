@@ -95,12 +95,12 @@
                 <div class="row float-right">
                     @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
                     {
-                        <partial name="_EditUserPartial" model="editModel" />
+                        <partial name="Accounts/_EditUserPartial" model="editModel" />
                     }
 
                     @if (User.IsInRole(DefaultRoles[SuperAdmin]))
                     {
-                        <partial name="_DeleteUserFormPartial" model="user" />
+                        <partial name="Accounts/_DeleteUserFormPartial" model="user" />
                     }
                 </div>
             </div>

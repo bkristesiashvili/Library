@@ -184,15 +184,6 @@ $(document).ready(function () {
         });
     });
 
-    //authorCreateForm.on('submit', function () {
-    //    event.preventDefault();
-
-    //    var action = $(this).attr('action');
-    //    console.log(action);
-    //    var postData = $(this).serialize();
-    //    console.log(postData);
-    //});
-
     $('button[action-run="save"]').on('click', function () {
         var action = authorCreateForm.attr('action');
         var postData = authorCreateForm.serialize();
@@ -215,16 +206,6 @@ $(document).ready(function () {
                 alert('Error: ' + response.status);
             });
     });
-
-    //authorCreateForm.on('submit', function () {
-    //    event.preventDefault();
-
-    //    var action = authorCreateForm.attr('action');
-    //    var postData = authorCreateForm.serialize();
-
-    //    console.log(postData);
-    //    console.log(action);
-    //});
 });
 
 var updateItem = function (form_id, user_id) {
@@ -264,7 +245,6 @@ var updateItem = function (form_id, user_id) {
         }
     });
 }
-
 
 var deleteItem = function (uid) {
     event.preventDefault();
@@ -313,5 +293,56 @@ var deleteItem = function (uid) {
                 confirmForm.close();
             }
         }
+    });
+}
+
+var deleteAuthor = function (aid) {
+    const authorDeleteForm = $('form[data-delete="' + aid + '"]');
+    const action = authorDeleteForm.attr('action');
+
+    authorDeleteForm.on('submit', function () {
+        event.preventDefault();
+
+        const deleteData = $(this).serialize();
+
+        var confirmForm = $.confirm({
+            title: '',
+            content: 'ნამდვილად გსურთ წაშლა?',
+            type: 'red',
+            columnClass: 'col-sm-4 col-md-offset-4 text-12px',
+            buttons: {
+                დიახ: {
+                    btnClass: 'btn-danger text-12px',
+                    action: function () {
+                        $.ajax({
+                            type: 'DELETE',
+                            url: action,
+                            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                            dataType: 'json',
+                            data: deleteData,
+                            success: function (data) {
+                                console.log(data);
+                                if (data.succeed === true) {
+                                    toastr.success("", data.message, {
+                                        fadeOut: 500,
+                                        onHidden: function () {
+                                            window.location.href = data.returnUrl;
+                                        }
+                                    });
+                                } else if (data.succeed == false) {
+                                    toastr.warning("", data.message);
+                                }
+                            },
+                            error: function (resp) {
+                                toastr.error(resp.message);
+                            }
+                        });
+                    }
+                },
+                არა: function () {
+                    confirmForm.close();
+                }
+            }
+        });
     });
 }

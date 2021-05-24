@@ -65,7 +65,7 @@
             <div class="text-right">
                 @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
                 {
-                    <partial name="_AddAuthorPartial" />
+                    <partial name="Authors/_AddAuthorPartial" />
                 }
             </div>
         </div>
@@ -80,12 +80,12 @@
                 <div class="row float-right">
                     @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
                     {
-                        <span>edit partial</span>
+                        <partial name="Authors/_AuthorEditPartial" />
                     }
 
                     @if (User.IsInRole(DefaultRoles[SuperAdmin]))
                     {
-                        <span>delete partial</span>
+                        <partial name="Authors/_AuthorDeletePartial"  model="author"/>
                     }
                 </div>
             </div>
