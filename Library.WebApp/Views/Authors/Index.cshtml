@@ -4,6 +4,8 @@
     ViewBag.Title = "ყველა ავტორი";
 
     var index = 1;
+
+    var authorEdit = default(AuthorEditViewModel);
 }
 <div class="row">
     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
@@ -62,16 +64,21 @@
             </a>
         </div>
         <div class="col-sm-2 col-md-2">
-            <div class="text-right">
-                @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
-                {
-                    <partial name="Authors/_AddAuthorPartial" />
-                }
-            </div>
+            @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
+            {
+                <partial name="Authors/_AddAuthorPartial" model="null" />
+            }
         </div>
     </div>
     @foreach (var author in Model)
     {
+        authorEdit = new AuthorEditViewModel
+        {
+            Id = author.Id,
+            FirstName = author.FirstName,
+            MiddleName = author.Middlename,
+            LastName = author.LastName
+        };
         <div class="row d-flex align-middle p-2 text-13px text-left row-hover border @Html.Raw(index % 2 == 0 ? "grid-header":"")">
             <div class="col-sm-3 col-md-3">@author.FirstName</div>
             <div class="col-sm-4 col-md-4">@author.Middlename</div>
@@ -80,12 +87,12 @@
                 <div class="row float-right">
                     @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
                     {
-                        <partial name="Authors/_AuthorEditPartial" />
+                        <partial name="Authors/_AuthorEditPartial" model="authorEdit" />
                     }
 
                     @if (User.IsInRole(DefaultRoles[SuperAdmin]))
                     {
-                        <partial name="Authors/_AuthorDeletePartial"  model="author"/>
+                        <partial name="Authors/_AuthorDeletePartial" model="author" />
                     }
                 </div>
             </div>

@@ -1,4 +1,6 @@
-﻿using Library.Common.Requests.Filters;
+﻿using static Library.Common.GlobalVariables;
+
+using Library.Common.Requests.Filters;
 using Library.Common.Responses;
 using Library.Data.Entities;
 using Library.Data.Extensions;
@@ -38,7 +40,7 @@ namespace Library.WebApp.Controllers
         #region ACTIONS
 
         [HttpGet]
-        public async Task<IActionResult> IndexAsync([FromQuery]AuthorFilter filter)
+        public async Task<IActionResult> IndexAsync([FromQuery] AuthorFilter filter)
         {
             var authors = from author in await authorService.GetAllAuthorsAsync(filter)
                           select new AuthorListViewModel
@@ -58,7 +60,7 @@ namespace Library.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddAsync([FromForm]AuthorCreateViewModel model)
+        public async Task<IActionResult> AddAsync([FromForm] AuthorCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -69,13 +71,29 @@ namespace Library.WebApp.Controllers
                     LastName = model.LastName
                 });
 
-                if (!result.Succeed)
-                    return JsonResponse(false, "eror");
-
-                return JsonResponse(true, "daemata", "/authors");
+                if (result.Succeed)
+                    return JsonResponse(true, AuthorCreatedSuccessMessage, AuthorIndexLink);
             }
 
-            return JsonResponse(false, "error");
+            return JsonResponse(false, AuthorCreateFailedMessage);
+        }
+
+        public async Task<IActionResult> EditAsync([FromForm] AuthorEditViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                var result = await authorService.EditAuthorInfoAsync(model.Id, new Author
+                {
+                    FirstName = model.FirstName,
+                    MiddleName = model.MiddleName,
+                    LastName = model.LastName
+                });
+
+                if (result.Succeed)
+                    return JsonResponse(true, AuthorEditSuccessMessage, AuthorIndexLink);
+            }
+
+            return JsonResponse(false, AuthorEditFailedMessage);
         }
 
         [HttpDelete]
@@ -85,8 +103,8 @@ namespace Library.WebApp.Controllers
             var result = await authorService.DeleteAuthorInfoAsync(id, Common.Enums.DeletionType.Soft);
 
             if (result.Succeed)
-                return JsonResponse(true, "წაიშალა", "authors");
-            return JsonResponse(false, "ვერ წაიშალა!");
+                return JsonResponse(true, AuthorDeletedSuccessMessage, AuthorIndexLink);
+            return JsonResponse(false, AuthorDeleteFailedMessage);
         }
 
         #endregion

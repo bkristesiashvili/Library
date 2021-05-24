@@ -3,7 +3,7 @@
     <div>
         <form method="post" data-delete="@Model.Id" asp-controller="authors" asp-action="delete" enctype="application/x-www-form-urlencoded">
             <input asp-for="Id" />
-            <button type="submit" onclick="deleteAuthor('@Model.Id')" class="btn btn-sm text-11px text-danger">
+            <button type="button" onclick="deleteAuthor('@Model.Id')" class="btn btn-sm text-11px text-danger">
                 <i class="fas fa-trash"></i>
             </button>
         </form>
