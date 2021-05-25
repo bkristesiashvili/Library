@@ -58,7 +58,7 @@ namespace Library.WebApp.Controllers
                     .SigninAsync(model.Email, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
-                    return JsonResponse(true, model.ReturnUrl ?? DefaultUrl, AuthorizationSuccess);
+                    return JsonResponse(true, AuthorizationSuccess, model.ReturnUrl ?? DefaultUrl);
             }
 
             return JsonResponse(false, AuthorizationFailed);

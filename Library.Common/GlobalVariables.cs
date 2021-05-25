@@ -68,6 +68,14 @@ namespace Library.Common
         public const string AuthorEditSuccessMessage = "ავტორი წარმატებით განახლდა.";
         public const string AuthorEditFailedMessage = "ავტორის განახლება ვერ მოხერხდა!";
 
+        public const string GenreNameReuiredMessage = "ჟანრის დასახელება აუცილებელია!";
+        public const string GenreCreatedSuccessMessage = "ჟანრი წარმატებით დაემატა.";
+        public const string GenreCreateFailedMessage = "ჟანრის დამატება ვერ მოხერხდა!";
+        public const string GenreEditSuccessMessage = "განახლება წარმატებით შესრულდა.";
+        public const string GenreEditFailedMessage = "განახლება ვერ მოხერხდა!";
+        public const string GenreRecordDeleteSuccess = "ჩანაწერი წარმატებით წაიშალა.";
+        public const string GenreRecordDeleteFailed = "ჩანაწრის წაშლა ვერ მოხერხდა!";
+
         public const string Space = "\u0020";
         public const string DefaultUrl = "/";
 
@@ -77,6 +85,8 @@ namespace Library.Common
         public const string CustomerIndexLink = "/customers";
 
         public const string AuthorIndexLink = "/authors";
+
+        public const string GenreIndexLink = "/genres";
 
         public const string LoginLink = "/auth/login";
 

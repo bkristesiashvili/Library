@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Library.Services
 {
-    public sealed class AuthorServiceFactory : BaseService, IAuthorService
+    public sealed class GenreServiceFactory : BaseService, IGenreService
     {
         #region PRIVATE FIELDS
 
@@ -25,71 +25,20 @@ namespace Library.Services
 
         #region CTOR
 
-        public AuthorServiceFactory(IUnitOfWorks uow)
+        public GenreServiceFactory(IUnitOfWorks uow)
             => _unitOfWorks = uow;
 
         #endregion
 
         #region PUBLIC METHODS
 
-        public async Task<IQueryable<Author>> GetAllAuthorsAsync(IFilter filter = null)
-        {
-            EnsureDependencies();
-
-            return await _unitOfWorks.AuthorsRepository.GetAll(filter);
-        }
-
-        public async Task<Author> GetAuthorDetailsByIdAsync(Guid id)
-        {
-            EnsureDependencies();
-
-            return await _unitOfWorks.AuthorsRepository.GetByIdAsync(id);
-        }
-
-        public async Task<ServiceResult> CreateNewAuthorAsync(Author newAuthor)
+        public async Task<ServiceResult> CreateGenreAsync(Genre newGenre)
         {
             try
             {
                 EnsureDependencies();
 
-                await _unitOfWorks.AuthorsRepository.CreateAsync(newAuthor);
-                _unitOfWorks.SaveChanges();
-
-                return new ServiceResult
-                {
-                    Succeed = true
-                };
-            }
-            catch(Exception e)
-            {
-                return new ServiceResult
-                {
-                    Succeed = false,
-                    Error = e
-                };
-            }
-        }
-
-        public async Task<ServiceResult> EditAuthorInfoAsync(Guid id, Author updatedAuthor)
-        {
-            try
-            {
-
-
-                var existed = await GetAuthorDetailsByIdAsync(id);
-
-                if (existed == null) return new ServiceResult
-                {
-                    Succeed = false,
-                    Error = new Exception(RecordNotFound)
-                };
-
-                existed.FirstName = updatedAuthor.FirstName;
-                existed.MiddleName = updatedAuthor.MiddleName;
-                existed.LastName = updatedAuthor.LastName;
-                existed.UpdatedAt = DateTime.UtcNow;
-
-                await _unitOfWorks.AuthorsRepository.UpdateAsync(existed);
+                await _unitOfWorks.GenresRepository.CreateAsync(newGenre);
                 _unitOfWorks.SaveChanges();
 
                 return new ServiceResult
@@ -99,6 +48,7 @@ namespace Library.Services
             }
             catch (Exception e)
             {
+
                 return new ServiceResult
                 {
                     Succeed = false,
@@ -107,18 +57,18 @@ namespace Library.Services
             }
         }
 
-        public async Task<ServiceResult> DeleteAuthorInfoAsync(Guid id, DeletionType type = DeletionType.Soft)
+        public async Task<ServiceResult> DeleteGenreAsync(Guid id, DeletionType type = DeletionType.Soft)
         {
             try
             {
                 EnsureDependencies();
 
-                var existed = await GetAuthorDetailsByIdAsync(id);
+                var genre = await GetGenreDetailByIdAsync(id);
 
-                if (existed == null)
+                if (genre == null)
                     throw new Exception(RecordNotFound);
 
-                await _unitOfWorks.AuthorsRepository.DeleteAsync(existed, type);
+                await _unitOfWorks.GenresRepository.DeleteAsync(genre, type);
                 _unitOfWorks.SaveChanges();
 
                 return new ServiceResult
@@ -128,12 +78,60 @@ namespace Library.Services
             }
             catch (Exception e)
             {
+
                 return new ServiceResult
                 {
                     Succeed = false,
                     Error = e
                 };
             }
+        }
+
+        public async Task<ServiceResult> EditGenreAsync(Guid id, Genre updatedGenre)
+        {
+            try
+            {
+                EnsureDependencies();
+
+                var genre = await _unitOfWorks.GenresRepository.GetByIdAsync(id);
+
+                if (genre == null)
+                    throw new Exception(RecordNotFound);
+
+                genre.Name = updatedGenre.Name;
+                genre.UpdatedAt = DateTime.UtcNow;
+
+                await _unitOfWorks.GenresRepository.UpdateAsync(genre);
+                _unitOfWorks.SaveChanges();
+
+                return new ServiceResult
+                {
+                    Succeed = true
+                };
+            }
+            catch (Exception e)
+            {
+
+                return new ServiceResult
+                {
+                    Succeed = false,
+                    Error = e
+                };
+            }
+        }
+
+        public async Task<IQueryable<Genre>> GetAllGenresAsync(IFilter filter = null)
+        {
+            EnsureDependencies();
+
+            return await _unitOfWorks.GenresRepository.GetAll(filter);
+        }
+
+        public async Task<Genre> GetGenreDetailByIdAsync(Guid id)
+        {
+            EnsureDependencies();
+
+            return await _unitOfWorks.GenresRepository.GetByIdAsync(id);
         }
 
         public void Dispose() => GC.Collect();
@@ -145,7 +143,7 @@ namespace Library.Services
         protected override void EnsureDependencies()
         {
             if (_unitOfWorks == null)
-                throw new ArgumentNullException($"{nameof(AuthorServiceFactory)} { UOW_ExceptionMessage }");
+                throw new ArgumentNullException(UOW_ExceptionMessage);
         }
 
         #endregion

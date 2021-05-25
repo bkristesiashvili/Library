@@ -392,3 +392,62 @@ var authorCreate = function () {
             toastr.error('Error: ' + response.status);
         });
 }
+
+var genreCreate = function () {
+    event.preventDefault();
+    const genreCreateForm = $('form[data-create-genre="new"]');
+    const action = genreCreateForm.attr('action');
+    const postData = genreCreateForm.serialize();
+
+    genreCreateForm.validate();
+
+    if (genreCreateForm.valid() !== true) return;
+
+    $.post(action, postData)
+        .done(function (response) {
+            if (response.succeed === true) {
+                toastr.success('', response.message, {
+                    onHidden: function () {
+                        window.location.href = response.returnUrl;
+                    }
+                })
+            } else if (response.succeed === false) {
+                toastr.warning('', response.message);
+            }
+        })
+        .fail(function (response) {
+            toastr.error('ERROR: ' + response.status);
+        });
+}
+
+var genreEdit = function (gid) {
+    const genreEditForm = $('form[data-genre-edit="' + gid + '"]');
+    const action = genreEditForm.attr('action');
+    const postData = genreEditForm.serialize();
+
+    genreEditForm.validate();
+    if (genreEditForm.valid() !== true) return;
+
+    $.ajax({
+        type: 'PUT',
+        url: action,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        data: postData,
+        success: function (response) {
+            if (response.succeed === true) {
+                toastr.success('', response.message, {
+                    onHidden: function () {
+                        window.location.href = response.returnUrl;
+                    }
+                });
+
+            } else if (response.succeed === false) {
+                toastr.warning('', response.message);
+            }
+        },
+        error: function (response) {
+            toastr.error('ERROR: ' + response.status);
+        }
+    })
+}

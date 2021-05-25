@@ -42,14 +42,23 @@ namespace Library.Data.Repositories.Abstractions
 
         public virtual async Task<IQueryable<TEntity>> GetAll(IFilter filter = null)
         {
-            EnsureDependencies();
+            var entities = default(IQueryable<TEntity>);
 
-            var entities = from entity in Entity
-                           where !entity.DeletedAt.HasValue
-                           select entity;
+            try
+            {
+                EnsureDependencies();
 
-            return await SortBy(entities, filter);
+                entities = from entity in Entity
+                               where !entity.DeletedAt.HasValue
+                               select entity;
 
+                return await SortBy(entities, filter);
+            }
+            catch
+            {
+
+                return entities;
+            }
         }
 
         public virtual async Task<TEntity> GetByIdAsync(Guid id)
