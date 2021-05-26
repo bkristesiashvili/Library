@@ -82,10 +82,11 @@ namespace Library.Data.Repositories.Abstractions
             await Task.Run(() =>
             {
                 DbContext.Entry(exitRecord).State = EntityState.Modified;
+                exitRecord.UpdatedAt = DateTime.UtcNow;
             });
         }
 
-        public virtual async Task DeleteAsync(TEntity deleteRecord, DeletionType type = DeletionType.Hard)
+        public virtual async Task DeleteAsync(TEntity deleteRecord, DeletionType type = DeletionType.Soft)
         {
             await Task.Run(() =>
             {
@@ -141,7 +142,7 @@ namespace Library.Data.Repositories.Abstractions
             return filtered;
         }
 
-        protected void Delete(TEntity deleteRecord, DeletionType type = DeletionType.Hard)
+        protected void Delete(TEntity deleteRecord, DeletionType type = DeletionType.Soft)
         {
             EnsureDependencies();
 

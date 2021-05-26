@@ -45,6 +45,7 @@ namespace Library.WebApp.Controllers
             var genreList = from genre in await genreService.GetAllGenresAsync(filter)
                             select new GenreListViewModel
                             {
+                                Id = genre.Id,
                                 Name = genre.Name,
                                 CreateDate = genre.CreatedAt.ToString("dd/MM/yyyy")
                             };

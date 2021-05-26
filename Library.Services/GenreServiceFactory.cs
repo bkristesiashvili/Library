@@ -17,16 +17,10 @@ namespace Library.Services
 {
     public sealed class GenreServiceFactory : BaseService, IGenreService
     {
-        #region PRIVATE FIELDS
-
-        private readonly IUnitOfWorks _unitOfWorks;
-
-        #endregion
-
         #region CTOR
 
         public GenreServiceFactory(IUnitOfWorks uow)
-            => _unitOfWorks = uow;
+            : base(uow) { }
 
         #endregion
 
@@ -38,8 +32,8 @@ namespace Library.Services
             {
                 EnsureDependencies();
 
-                await _unitOfWorks.GenresRepository.CreateAsync(newGenre);
-                _unitOfWorks.SaveChanges();
+                await UnitOfWorks.GenresRepository.CreateAsync(newGenre);
+                UnitOfWorks.SaveChanges();
 
                 return new ServiceResult
                 {
@@ -68,8 +62,8 @@ namespace Library.Services
                 if (genre == null)
                     throw new Exception(RecordNotFound);
 
-                await _unitOfWorks.GenresRepository.DeleteAsync(genre, type);
-                _unitOfWorks.SaveChanges();
+                await UnitOfWorks.GenresRepository.DeleteAsync(genre, type);
+                UnitOfWorks.SaveChanges();
 
                 return new ServiceResult
                 {
@@ -93,16 +87,15 @@ namespace Library.Services
             {
                 EnsureDependencies();
 
-                var genre = await _unitOfWorks.GenresRepository.GetByIdAsync(id);
+                var genre = await UnitOfWorks.GenresRepository.GetByIdAsync(id);
 
                 if (genre == null)
                     throw new Exception(RecordNotFound);
 
                 genre.Name = updatedGenre.Name;
-                genre.UpdatedAt = DateTime.UtcNow;
 
-                await _unitOfWorks.GenresRepository.UpdateAsync(genre);
-                _unitOfWorks.SaveChanges();
+                await UnitOfWorks.GenresRepository.UpdateAsync(genre);
+                UnitOfWorks.SaveChanges();
 
                 return new ServiceResult
                 {
@@ -124,14 +117,14 @@ namespace Library.Services
         {
             EnsureDependencies();
 
-            return await _unitOfWorks.GenresRepository.GetAll(filter);
+            return await UnitOfWorks.GenresRepository.GetAll(filter);
         }
 
         public async Task<Genre> GetGenreDetailByIdAsync(Guid id)
         {
             EnsureDependencies();
 
-            return await _unitOfWorks.GenresRepository.GetByIdAsync(id);
+            return await UnitOfWorks.GenresRepository.GetByIdAsync(id);
         }
 
         public void Dispose() => GC.Collect();
@@ -142,7 +135,7 @@ namespace Library.Services
 
         protected override void EnsureDependencies()
         {
-            if (_unitOfWorks == null)
+            if (UnitOfWorks == null)
                 throw new ArgumentNullException(UOW_ExceptionMessage);
         }
 

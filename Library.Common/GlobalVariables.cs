@@ -92,5 +92,6 @@ namespace Library.Common
 
         public const string UOW_ExceptionMessage = "UOW object null refference exception!";
         public const string RecordNotFound = "Record doesn't existed!";
+        public const string DataLostMessage = "{0} წაშლა შეუძლებელია!";
     }
 }

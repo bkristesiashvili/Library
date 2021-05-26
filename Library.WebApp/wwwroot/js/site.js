@@ -322,7 +322,6 @@ var deleteAuthor = function (aid) {
             }
         }
     });
-
 }
 
 var authorEdit = function (aid) {
@@ -450,4 +449,50 @@ var genreEdit = function (gid) {
             toastr.error('ERROR: ' + response.status);
         }
     })
+}
+
+var genreDelete = function (gid) {
+    const deleteForm = $('form[data-delete-genre="' + gid + '"]');
+    const action = deleteForm.attr('action');
+    const deleteData = deleteForm.serialize();
+
+    var confirmForm = $.confirm({
+        title: '',
+        content: 'ნამდვილად გსურთ წაშლა?',
+        type: 'red',
+        columnClass: 'col-sm-4 col-md-offset-4 text-12px',
+        buttons: {
+            დიახ: {
+                btnClass: 'btn-danger text-12px',
+                action: function () {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: action,
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        dataType: 'json',
+                        data: deleteData,
+                        success: function (data) {
+                            console.log(data);
+                            if (data.succeed === true) {
+                                toastr.success("", data.message, {
+                                    fadeOut: 500,
+                                    onHidden: function () {
+                                        window.location.href = data.returnUrl;
+                                    }
+                                });
+                            } else if (data.succeed == false) {
+                                toastr.warning("", data.message);
+                            }
+                        },
+                        error: function (resp) {
+                            toastr.error('Error: ' + resp.status);
+                        }
+                    });
+                }
+            },
+            არა: function () {
+                confirmForm.close();
+            }
+        }
+    });
 }

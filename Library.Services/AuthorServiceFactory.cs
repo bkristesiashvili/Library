@@ -17,16 +17,10 @@ namespace Library.Services
 {
     public sealed class AuthorServiceFactory : BaseService, IAuthorService
     {
-        #region PRIVATE FIELDS
-
-        private readonly IUnitOfWorks _unitOfWorks;
-
-        #endregion
-
         #region CTOR
 
         public AuthorServiceFactory(IUnitOfWorks uow)
-            => _unitOfWorks = uow;
+            : base(uow) { }
 
         #endregion
 
@@ -36,14 +30,14 @@ namespace Library.Services
         {
             EnsureDependencies();
 
-            return await _unitOfWorks.AuthorsRepository.GetAll(filter);
+            return await UnitOfWorks.AuthorsRepository.GetAll(filter);
         }
 
         public async Task<Author> GetAuthorDetailsByIdAsync(Guid id)
         {
             EnsureDependencies();
 
-            return await _unitOfWorks.AuthorsRepository.GetByIdAsync(id);
+            return await UnitOfWorks.AuthorsRepository.GetByIdAsync(id);
         }
 
         public async Task<ServiceResult> CreateNewAuthorAsync(Author newAuthor)
@@ -52,21 +46,14 @@ namespace Library.Services
             {
                 EnsureDependencies();
 
-                await _unitOfWorks.AuthorsRepository.CreateAsync(newAuthor);
-                _unitOfWorks.SaveChanges();
+                await UnitOfWorks.AuthorsRepository.CreateAsync(newAuthor);
+                UnitOfWorks.SaveChanges();
 
-                return new ServiceResult
-                {
-                    Succeed = true
-                };
+                return ServiceResult(true);
             }
             catch(Exception e)
             {
-                return new ServiceResult
-                {
-                    Succeed = false,
-                    Error = e
-                };
+                return ServiceResult(false, e);
             }
         }
 
@@ -78,32 +65,21 @@ namespace Library.Services
 
                 var existed = await GetAuthorDetailsByIdAsync(id);
 
-                if (existed == null) return new ServiceResult
-                {
-                    Succeed = false,
-                    Error = new Exception(RecordNotFound)
-                };
+                if (existed == null)
+                    throw new Exception(RecordNotFound);
 
                 existed.FirstName = updatedAuthor.FirstName;
                 existed.MiddleName = updatedAuthor.MiddleName;
                 existed.LastName = updatedAuthor.LastName;
-                existed.UpdatedAt = DateTime.UtcNow;
 
-                await _unitOfWorks.AuthorsRepository.UpdateAsync(existed);
-                _unitOfWorks.SaveChanges();
+                await UnitOfWorks.AuthorsRepository.UpdateAsync(existed);
+                UnitOfWorks.SaveChanges();
 
-                return new ServiceResult
-                {
-                    Succeed = true
-                };
+                return ServiceResult(true);
             }
             catch (Exception e)
             {
-                return new ServiceResult
-                {
-                    Succeed = false,
-                    Error = e
-                };
+                return ServiceResult(false, e);
             }
         }
 
@@ -118,21 +94,14 @@ namespace Library.Services
                 if (existed == null)
                     throw new Exception(RecordNotFound);
 
-                await _unitOfWorks.AuthorsRepository.DeleteAsync(existed, type);
-                _unitOfWorks.SaveChanges();
+                await UnitOfWorks.AuthorsRepository.DeleteAsync(existed, type);
+                UnitOfWorks.SaveChanges();
 
-                return new ServiceResult
-                {
-                    Succeed = true
-                };
+                return ServiceResult(true);
             }
             catch (Exception e)
             {
-                return new ServiceResult
-                {
-                    Succeed = false,
-                    Error = e
-                };
+                return ServiceResult(false, e);
             }
         }
 
@@ -144,7 +113,7 @@ namespace Library.Services
 
         protected override void EnsureDependencies()
         {
-            if (_unitOfWorks == null)
+            if (UnitOfWorks == null)
                 throw new ArgumentNullException($"{nameof(AuthorServiceFactory)} { UOW_ExceptionMessage }");
         }
 

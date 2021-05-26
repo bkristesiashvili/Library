@@ -29,7 +29,7 @@ namespace Library.Data.Repositories.Abstractions
 
         Task UpdateAsync(TEntity exitRecord);
 
-        Task DeleteAsync(TEntity deleteRecord, DeletionType type = DeletionType.Hard);
+        Task DeleteAsync(TEntity deleteRecord, DeletionType type = DeletionType.Soft);
 
         #endregion
     }
