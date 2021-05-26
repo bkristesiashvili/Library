@@ -110,14 +110,16 @@ namespace Library.Services
             }
         }
 
-        #endregion                                                                                                                                                                                                #region PROTECTED METHODS
+        #endregion
 
-                                                                                                                                                                                                        protected override void EnsureDependencies()
-                                                                                                                                                                                                        {
-                                                                                                                                                                                                            if (UnitOfWorks == null)
-                                                                                                                                                                                                                throw new ArgumentNullException(UOW_ExceptionMessage);
-                                                                                                                                                                                                        }
+        #region PROTECTED METHODS
 
-                                                                                                                                                                                                        #endregion
+        protected override void EnsureDependencies()
+        {
+            if (UnitOfWorks == null)
+                throw new ArgumentNullException(UOW_ExceptionMessage);
+        }
+
+        #endregion
     }
 }

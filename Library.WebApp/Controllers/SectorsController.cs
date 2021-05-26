@@ -33,11 +33,6 @@ namespace Library.WebApp.Controllers
 
         public IActionResult Index()
         {
-            sectorService.DeleteSectorAsync(new Library.Data.Entities.Sector
-            {
-                Name = "test"
-            });
-
             return View();
         }
 

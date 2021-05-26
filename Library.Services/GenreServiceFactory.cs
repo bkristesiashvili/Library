@@ -35,19 +35,12 @@ namespace Library.Services
                 await UnitOfWorks.GenresRepository.CreateAsync(newGenre);
                 UnitOfWorks.SaveChanges();
 
-                return new ServiceResult
-                {
-                    Succeed = true
-                };
+                return ServiceResult(true);
             }
             catch (Exception e)
             {
 
-                return new ServiceResult
-                {
-                    Succeed = false,
-                    Error = e
-                };
+                return ServiceResult(false, e);
             }
         }
 
@@ -65,19 +58,11 @@ namespace Library.Services
                 await UnitOfWorks.GenresRepository.DeleteAsync(genre, type);
                 UnitOfWorks.SaveChanges();
 
-                return new ServiceResult
-                {
-                    Succeed = true
-                };
+                return ServiceResult(true);
             }
             catch (Exception e)
             {
-
-                return new ServiceResult
-                {
-                    Succeed = false,
-                    Error = e
-                };
+                return ServiceResult(false, e);
             }
         }
 
@@ -97,19 +82,12 @@ namespace Library.Services
                 await UnitOfWorks.GenresRepository.UpdateAsync(genre);
                 UnitOfWorks.SaveChanges();
 
-                return new ServiceResult
-                {
-                    Succeed = true
-                };
+                return ServiceResult(true);
             }
             catch (Exception e)
             {
 
-                return new ServiceResult
-                {
-                    Succeed = false,
-                    Error = e
-                };
+                return ServiceResult(false, e);
             }
         }
 
