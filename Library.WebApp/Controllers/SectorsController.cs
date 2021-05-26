@@ -1,4 +1,6 @@
-﻿using Library.Services.Abstractions;
+﻿using Library.Common.Requests.Filters;
+using Library.Data.Extensions;
+using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
 
 using Microsoft.AspNetCore.Mvc;
@@ -31,9 +33,13 @@ namespace Library.WebApp.Controllers
 
         #region ACTIONS
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> IndexAsync([FromQuery] SectorFilter filter)
         {
-            return View();
+            var sectors = from sector in await sectorService.GetAllSectorsAsync(filter)
+                          select sector;
+
+            return View(await sectors.ToPagedListAsync(filter.Page, filter.PageSize));
         }
 
         #endregion
