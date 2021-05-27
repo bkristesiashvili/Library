@@ -88,6 +88,8 @@ namespace Library.Common
 
         public const string GenreIndexLink = "/genres";
 
+        public const string SectorIndexLink = "/sectors";
+
         public const string LoginLink = "/auth/login";
 
         public const string UOW_ExceptionMessage = "UOW object null refference exception!";

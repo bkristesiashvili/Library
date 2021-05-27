@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Library.WebApp.Helpers.Extensions;
 
 namespace Library.WebApp.Controllers
 {
@@ -47,7 +48,7 @@ namespace Library.WebApp.Controllers
                             {
                                 Id = genre.Id,
                                 Name = genre.Name,
-                                CreateDate = genre.CreatedAt.ToString("dd/MM/yyyy")
+                                CreateDate = genre.CreatedAt.ToDateString()
                             };
 
             ViewBag.Search = filter.Search;

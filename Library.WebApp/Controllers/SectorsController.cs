@@ -2,6 +2,8 @@
 using Library.Data.Extensions;
 using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
+using Library.WebApp.Helpers.Extensions;
+using Library.WebApp.Models;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +39,16 @@ namespace Library.WebApp.Controllers
         public async Task<IActionResult> IndexAsync([FromQuery] SectorFilter filter)
         {
             var sectors = from sector in await sectorService.GetAllSectorsAsync(filter)
-                          select sector;
+                          select new SectorListViewModel
+                          {
+                              Id = sector.Id,
+                              Name = sector.Name,
+                              CreateDate = sector.CreatedAt.ToDateString()
+                          };
+
+            ViewBag.Search = filter.Search;
+            ViewBag.Ordering = filter.Ordering;
+            ViewBag.OrderBy = filter.OrderBy;
 
             return View(await sectors.ToPagedListAsync(filter.Page, filter.PageSize));
         }
