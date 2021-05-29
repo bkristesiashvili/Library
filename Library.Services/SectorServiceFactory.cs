@@ -42,13 +42,13 @@ namespace Library.Services
             return await UnitOfWorks.SectorsRepository.GetByIdAsync(id);
         }
 
-        public async Task<ServiceResult> UpdateSectorAsync(Sector updatedSector)
+        public async Task<ServiceResult> UpdateSectorAsync(Guid id, Sector updatedSector)
         {
             try
             {
                 EnsureDependencies();
 
-                var sector = await GetsSectorDetailsByIdAsync(updatedSector.Id);
+                var sector = await GetsSectorDetailsByIdAsync(id);
 
                 if (sector == null)
                     throw new Exception(RecordNotFound);
@@ -85,13 +85,13 @@ namespace Library.Services
             }
         }
 
-        public async Task<ServiceResult> DeleteSectorAsync(Sector deleteSector, DeletionType type = DeletionType.Soft)
+        public async Task<ServiceResult> DeleteSectorAsync(Guid id, DeletionType type = DeletionType.Soft)
         {
             try
             {
                 EnsureDependencies();
 
-                var sector = await GetsSectorDetailsByIdAsync(deleteSector.Id);
+                var sector = await GetsSectorDetailsByIdAsync(id);
 
                 if (sector == null)
                     throw new Exception(RecordNotFound);

@@ -15,7 +15,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <form data-create-genre="new" method="post" asp-controller="@GenreIndexLink" asp-action="add" enctype="application/x-www-form-urlencoded">
+                    <form onsubmit="return false;" data-create-genre="new" method="post" asp-controller="@GenreIndexLink" asp-action="add" enctype="application/x-www-form-urlencoded">
                         <div class="form-group">
                             <input asp-for="Name" value="" placeholder="სახელი" class="form-control text-13px" />
                             <span asp-validation-for="Name" class="text-danger text-11px"></span>

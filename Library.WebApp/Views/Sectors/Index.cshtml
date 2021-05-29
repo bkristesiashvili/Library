@@ -54,21 +54,27 @@
         }
     </div>
 </div>
-@foreach (var genre in Model)
+@foreach (var sector in Model)
 {
+    var editModel = new SectorEditViewModel
+    {
+        Id = sector.Id,
+        Name = sector.Name
+    };
+
     <div class="row d-flex align-middle p-2 text-13px text-left row-hover border @Html.Raw(index % 2 == 0 ? "grid-header":"")">
-        <div class="col-sm-5 col-md-5">@genre.Name</div>
-        <div class="col-sm-5 col-md-5">@genre.CreateDate</div>
+        <div class="col-sm-5 col-md-5">@sector.Name</div>
+        <div class="col-sm-5 col-md-5">@sector.CreateDate</div>
         <div class="col-sm-2 col-md-2">
             <div class="row float-right">
                 @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
                 {
-                    <b>edit</b>
+                    <partial name="Sectors/_SectorEditPartial" model="editModel" />
                 }
 
                 @if (User.IsInRole(DefaultRoles[SuperAdmin]))
                 {
-                    <b>delete</b>
+                    <partial name="Sectors/_SectorDeletePartial" model="sector" />
                 }
             </div>
         </div>

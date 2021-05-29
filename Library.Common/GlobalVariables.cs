@@ -76,6 +76,15 @@ namespace Library.Common
         public const string GenreRecordDeleteSuccess = "ჩანაწერი წარმატებით წაიშალა.";
         public const string GenreRecordDeleteFailed = "ჩანაწრის წაშლა ვერ მოხერხდა!";
 
+        public const string SectorNameRequiredMessage = "სექტორის დასახელება აუცილებელია!";
+        public const string SectorCreateSuccessMessage = "სექტორი წარმატებით დაემატა.";
+        public const string SectorCreateFaieldMessage = "სექტორის დამატება ვერ მოხერხდა!";
+        public const string SectorEditSuccessMessage = "სექტორის განახლება წარმატებით შესრულდა.";
+        public const string SectorEditFailedMessage = "სექტორის განახლება ვერ მოხერხდა!";
+        public const string SectorDeleteSuccessMessage = "სექტორი წარმატებით წაიშალა";
+        public const string SectorDeleteFailedMessage = "სექტორის წაშლა ვერ მოხერხდა!";
+
+
         public const string Space = "\u0020";
         public const string DefaultUrl = "/";
 

@@ -1,7 +1,7 @@
 ﻿@model AuthorListViewModel
 <div>
     <div>
-        <form method="post" data-delete="@Model.Id" asp-controller="authors" asp-action="delete" enctype="application/x-www-form-urlencoded">
+        <form onsubmit="return false;" method="post" data-delete="@Model.Id" asp-controller="authors" asp-action="delete" enctype="application/x-www-form-urlencoded">
             <input asp-for="Id" />
             <button type="button" onclick="deleteAuthor('@Model.Id')" class="btn btn-sm text-11px text-danger">
                 <i class="fas fa-trash"></i>

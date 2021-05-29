@@ -1,9 +1,12 @@
 ﻿using Library.Common.Requests.Filters;
+using Library.Data.Entities;
 using Library.Data.Extensions;
 using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
 using Library.WebApp.Helpers.Extensions;
 using Library.WebApp.Models;
+
+using static Library.Common.GlobalVariables;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,6 +54,54 @@ namespace Library.WebApp.Controllers
             ViewBag.OrderBy = filter.OrderBy;
 
             return View(await sectors.ToPagedListAsync(filter.Page, filter.PageSize));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddAsync([FromForm] SectorCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await sectorService.CreateSectorAsync(new Sector
+                {
+                    Name = model.Name
+                });
+
+                if (result.Succeed)
+                    return JsonResponse(true, SectorCreateSuccessMessage, SectorIndexLink);
+            }
+
+            return JsonResponse(false, SectorCreateFaieldMessage);
+        }
+
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAsync([FromForm]SectorEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await sectorService.UpdateSectorAsync(model.Id, new Sector
+                {
+                    Name = model.Name
+                });
+
+                if (result.Succeed)
+                    return JsonResponse(true, SectorEditSuccessMessage, SectorIndexLink);
+            }
+
+            return JsonResponse(false, SectorEditFailedMessage);
+        }
+
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteAsync([FromForm]Guid id)
+        {
+            var result = await sectorService.DeleteSectorAsync(id);
+
+            if (result.Succeed)
+                return JsonResponse(true, SectorDeleteSuccessMessage, SectorIndexLink);
+
+            return JsonResponse(false, SectorDeleteFailedMessage);
         }
 
         #endregion

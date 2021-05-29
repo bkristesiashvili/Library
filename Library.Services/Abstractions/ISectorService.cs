@@ -21,9 +21,9 @@ namespace Library.Services.Abstractions
 
         Task<ServiceResult> CreateSectorAsync(Sector newSector);
 
-        Task<ServiceResult> UpdateSectorAsync(Sector updatedSector);
+        Task<ServiceResult> UpdateSectorAsync(Guid id, Sector updatedSector);
 
-        Task<ServiceResult> DeleteSectorAsync(Sector deleteSector, DeletionType type = DeletionType.Soft);
+        Task<ServiceResult> DeleteSectorAsync(Guid id, DeletionType type = DeletionType.Soft);
 
         #endregion
     }

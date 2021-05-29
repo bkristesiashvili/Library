@@ -1,4 +1,4 @@
-﻿@model GenreCreateViewModel
+﻿@model SectorCreateViewModel
 <div class="text-right">
     <button type="button" class="btn btn-sm btn-success text-white text-12px" data-toggle="modal" data-target="#add_sector">
         <i class="fas fa-plus">&nbsp;</i>დამატება
@@ -15,7 +15,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <form data-create-genre="new" method="post" asp-controller="@SectorIndexLink" asp-action="add" enctype="application/x-www-form-urlencoded">
+                    <form onsubmit="return false;" data-create-sector="new" onsubmit="return false;" method="post" asp-controller="@SectorIndexLink" asp-action="add" enctype="application/x-www-form-urlencoded">
                         <div class="form-group">
                             <input asp-for="Name" value="" placeholder="სახელი" class="form-control text-13px" />
                             <span asp-validation-for="Name" class="text-danger text-11px"></span>
@@ -25,7 +25,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-secondary text-12px" data-dismiss="modal">გაუქმება</button>
-                <button type="button" onclick="genreCreate()" class="btn btn-sm btn-success text-12px">დამახსოვრება</button>
+                <button type="button" onclick="sectorCreate()" class="btn btn-sm btn-success text-12px">დამახსოვრება</button>
             </div>
         </div>
     </div>

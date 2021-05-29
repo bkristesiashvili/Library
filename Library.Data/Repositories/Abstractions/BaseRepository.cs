@@ -49,8 +49,8 @@ namespace Library.Data.Repositories.Abstractions
                 EnsureDependencies();
 
                 entities = from entity in Entity
-                               where !entity.DeletedAt.HasValue
-                               select entity;
+                           where !entity.DeletedAt.HasValue
+                           select entity;
 
                 return await SortBy(entities, filter);
             }
@@ -82,7 +82,7 @@ namespace Library.Data.Repositories.Abstractions
             await Task.Run(() =>
             {
                 DbContext.Entry(exitRecord).State = EntityState.Modified;
-                exitRecord.UpdatedAt = DateTime.UtcNow;
+                exitRecord.UpdatedAt = DateTime.Now;
             });
         }
 
@@ -149,10 +149,7 @@ namespace Library.Data.Repositories.Abstractions
             if (type == DeletionType.Hard)
                 Entity.Remove(deleteRecord);
             else if (type == DeletionType.Soft)
-            {
-                //DbContext.Entry<TEntity>(deleteRecord).State = EntityState.Deleted;
-                deleteRecord.DeletedAt = DateTime.UtcNow;
-            }
+                deleteRecord.DeletedAt = DateTime.Now;
         }
 
         #endregion
