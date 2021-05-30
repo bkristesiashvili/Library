@@ -9,12 +9,19 @@ namespace Library.Common.Requests.Filters
 {
     public sealed class GenreFilter : BaseFilter
     {
+        #region PUBLIC PROPERTIES
+
+        public bool SelectDeleted { get; set; }
+
+        #endregion
+
         #region CTOR
 
         public GenreFilter()
         {
             OrderBy = "Name";
             Ordering = OrderingTypes.ASCENDING;
+            SelectDeleted = false;
         }
 
         #endregion

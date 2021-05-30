@@ -16,6 +16,14 @@ namespace Library.Common
                 { SystemDefaultRole.User, UserRoleName }
             };
 
+        public static readonly IReadOnlyDictionary<string, string> RoleNames =
+            new Dictionary<string, string>
+            {
+                { SuperAdminRoleName, "მენეჯერი" },
+                { AdminRoleName, "ადმინისტრატორი" },
+                { UserRoleName, "ბიბლიოთეკარი" }
+            };
+
         public const string SuperAdminRoleName = "SuperAdmin";
         public const string AdminRoleName = "Admin";
         public const string UserRoleName = "User";
@@ -75,6 +83,8 @@ namespace Library.Common
         public const string GenreEditFailedMessage = "განახლება ვერ მოხერხდა!";
         public const string GenreRecordDeleteSuccess = "ჩანაწერი წარმატებით წაიშალა.";
         public const string GenreRecordDeleteFailed = "ჩანაწრის წაშლა ვერ მოხერხდა!";
+        public const string GenreRestoreSuccessMessage = "ჟანრის აღდგენა წარმატეით შესრულდა.";
+        public const string GenreRestoreFailedMessage = "ჟანრის აღდგენა ვერ მოხერხდა!";
 
         public const string SectorNameRequiredMessage = "სექტორის დასახელება აუცილებელია!";
         public const string SectorCreateSuccessMessage = "სექტორი წარმატებით დაემატა.";

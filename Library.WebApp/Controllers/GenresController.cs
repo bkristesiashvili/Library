@@ -43,24 +43,29 @@ namespace Library.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> IndexAsync([FromQuery] GenreFilter filter)
         {
-            var genreList = from genre in await genreService.GetAllGenresAsync(filter)
+            if (!User.IsInRole(DefaultRoles[Common.Enums.SystemDefaultRole.SuperAdmin]))
+                filter.SelectDeleted = false;
+
+            var genreList = from genre in await genreService.GetAllGenresAsync(filter, filter.SelectDeleted)
                             select new GenreListViewModel
                             {
                                 Id = genre.Id,
                                 Name = genre.Name,
-                                CreateDate = genre.CreatedAt.ToDateString()
+                                CreateDate = genre.CreatedAt.ToDateString(),
+                                IsDeleted = genre.DeletedAt.HasValue
                             };
 
             ViewBag.Search = filter.Search;
             ViewBag.Ordering = filter.Ordering;
             ViewBag.OrderBy = filter.OrderBy;
+            ViewBag.SelectDeleted = filter.SelectDeleted;
 
             return View(await genreList.ToPagedListAsync(filter.Page, filter.PageSize));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddAsync([FromForm]GenreCreateViewModel model)
+        public async Task<IActionResult> AddAsync([FromForm] GenreCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -101,6 +106,18 @@ namespace Library.WebApp.Controllers
             if (result.Succeed)
                 return JsonResponse(true, GenreRecordDeleteSuccess, GenreIndexLink);
             return JsonResponse(false, GenreRecordDeleteFailed);
+        }
+
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RestoreAsync([FromForm] Guid id)
+        {
+            var result = await genreService.RestoreGenreAsync(id);
+
+            if (result.Succeed)
+                return JsonResponse(true, GenreRestoreSuccessMessage, GenreIndexLink);
+
+            return JsonResponse(false, GenreRestoreFailedMessage);
         }
 
         #endregion

@@ -39,16 +39,16 @@
                         </div>
                         @if (User.IsInRole(DefaultRoles[SuperAdmin]))
                         {
-                            <select id="roles" asp-for="Roles" class="form-control text-13px">
+                            <select id="roles" asp-for="Roles" class="form-control text-12px">
                                 @foreach (var role in await UserService.GetAvailableRolesAsync())
                                 {
                                     if (UserService.UserIsInRole(user, role.Name))
                                     {
-                                        <option class="text-13px" value="@role.Name" selected>@role.Name</option>
+                                        <option class="text-12px" value="@role.Name" selected>@RoleNames[role.Name]</option>
                                     }
                                     else
                                     {
-                                        <option class="text-13px" value="@role.Name">@role.Name</option>
+                                        <option class="text-12px" value="@role.Name">@RoleNames[role.Name]</option>
                                     }
                                 }
                             </select>
