@@ -25,6 +25,8 @@ namespace Library.Services.Abstractions
 
         Task<ServiceResult> DeleteGenreAsync(Guid id, DeletionType type = DeletionType.Soft);
 
+        Task<ServiceResult> RestoreGenreAsync(Guid id);
+
         #endregion
     }
 }

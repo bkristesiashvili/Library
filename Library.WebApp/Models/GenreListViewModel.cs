@@ -18,6 +18,8 @@ namespace Library.WebApp.Models
 
         public string CreateDate { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         #endregion
     }
 }

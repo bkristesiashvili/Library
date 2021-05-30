@@ -110,6 +110,30 @@ namespace Library.Services
             return await UnitOfWorks.GenresRepository.GetByIdAsync(id);
         }
 
+        public async Task<ServiceResult> RestoreGenreAsync(Guid id)
+        {
+            try
+            {
+                EnsureDependencies();
+
+                var genre = await GetGenreDetailByIdAsync(id);
+
+                if (genre == null)
+                    throw new Exception(RecordNotFound);
+
+                genre.DeletedAt = null;
+
+                await UnitOfWorks.GenresRepository.UpdateAsync(genre);
+                UnitOfWorks.SaveChanges();
+
+                return ServiceResult(true);
+            }
+            catch (Exception e)
+            {
+                return ServiceResult(false, e);
+            }
+        }
+
         public void Dispose() => GC.Collect();
 
         #endregion

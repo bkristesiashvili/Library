@@ -33,6 +33,8 @@ $(document).ready(() => {
         nonSelectedText: 'ცარიელი',
         allSelectedText: 'ყველა როლი',
         buttonWidth: 'relative',
+        numberDisplayed: 1,
+        nSelectedText: 'მონიშნული'
     });
 
     modal.modal({
@@ -497,6 +499,51 @@ var genreDelete = (gid) => {
                         },
                         error: function (resp) {
                             toastr.error('Error: ' + resp.status);
+                        }
+                    });
+                }
+            },
+            არა: function () {
+                confirmForm.close();
+            }
+        }
+    });
+}
+
+var genreRestore = (gid) => {
+    const sectorDeleteForm = $('form[data-restore-genre="' + gid + '"]');
+    const action = sectorDeleteForm.attr('action');
+    const postData = sectorDeleteForm.serialize();
+
+    var confirmForm = $.confirm({
+        title: '',
+        content: 'ნამდვილად გსურთ აღდგენა?',
+        type: 'green',
+        columnClass: 'col-sm-4 col-md-offset-4 text-12px',
+        buttons: {
+            დიახ: {
+                btnClass: 'btn-success text-12px',
+                action: function () {
+                    $.ajax({
+                        type: 'PUT',
+                        url: action,
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        dataType: 'json',
+                        data: postData,
+                        success: function (response) {
+                            if (response.succeed === true) {
+                                toastr.success('', response.message, {
+                                    onHidden: function () {
+                                        window.location.href = response.returnUrl;
+                                    }
+                                });
+
+                            } else if (response.succeed === false) {
+                                toastr.warning('', response.message);
+                            }
+                        },
+                        error: function (response) {
+                            toastr.error('ERROR: ' + response.status);
                         }
                     });
                 }
