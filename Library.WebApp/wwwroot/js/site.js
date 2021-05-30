@@ -10,8 +10,9 @@ const modal = $('.modal');
 const loginForm = $('#login_form');
 const logoutForm = $('#logout');
 const rolesDropDown = $('select[id="roles"');
+const selectAllForm = $('form[data-select-all]');
 
-$(document).ready(function () {
+$(document).ready(() => {
 
     toastr.options.closeMethod = 'slideUp';
     toastr.options.hideMethod = 'slideUp';
@@ -22,6 +23,8 @@ $(document).ready(function () {
     toastr.options.titleClass = 'text-11px';
     toastr.options.maxOpened = 1;
     toastr.options.timeOut = 1000;
+
+    const checkBox = $('input[type="checkbox"]');
 
     rolesDropDown.multiselect({
         selectAllText: 'ყველას არჩევა',
@@ -136,7 +139,7 @@ $(document).ready(function () {
         });
     })
 
-    loginForm.on('submit', function () {
+    loginForm.on('submit', () => {
         event.preventDefault();
 
         loginForm.validate();;
@@ -166,7 +169,7 @@ $(document).ready(function () {
         });
     });
 
-    logoutForm.on('submit', function () {
+    logoutForm.on('submit', () => {
         event.preventDefault();
         const postData = logoutForm.serialize();
         const action = logoutForm.attr('action');
@@ -181,9 +184,17 @@ $(document).ready(function () {
             }
         });
     });
+
+    checkBox.on('change', () => {
+        var checked = checkBox.prop('checked');
+        var action = selectAllForm.attr('action');
+
+        window.location.href = action + '?selectdeleted=' + checked;
+        
+    });
 });
 
-var updateItem = function (form_id, user_id) {
+var updateItem = (form_id, user_id) => {
     event.preventDefault();
 
     const form = $('#' + form_id + '_' + user_id);
@@ -224,7 +235,7 @@ var updateItem = function (form_id, user_id) {
     });
 }
 
-var deleteItem = function (uid) {
+var deleteItem = (uid) => {
     event.preventDefault();
 
     const deleteForm = $('#delete_' + uid);
@@ -274,7 +285,7 @@ var deleteItem = function (uid) {
     });
 }
 
-var deleteAuthor = function (aid) {
+var deleteAuthor = (aid) => {
     event.preventDefault();
 
     authorDeleteForm = $('form[data-delete="' + aid + '"]');
@@ -322,10 +333,9 @@ var deleteAuthor = function (aid) {
             }
         }
     });
-
 }
 
-var authorEdit = function (aid) {
+var authorEdit = (aid) => {
     const authorEditForm = $('form[data-edit="' + aid + '"]');
 
     const action = authorEditForm.attr('action');
@@ -363,7 +373,7 @@ var authorEdit = function (aid) {
     });
 }
 
-var authorCreate = function () {
+var authorCreate = () => {
     const authorCreateForm = $('form[data-create-author="new"]');
     const action = authorCreateForm.attr('action');
 
@@ -391,4 +401,255 @@ var authorCreate = function () {
         .fail(function (response) {
             toastr.error('Error: ' + response.status);
         });
+}
+
+var genreCreate = () => {
+    event.preventDefault();
+    const genreCreateForm = $('form[data-create-genre="new"]');
+    const action = genreCreateForm.attr('action');
+    const postData = genreCreateForm.serialize();
+
+    genreCreateForm.validate();
+
+    if (genreCreateForm.valid() !== true) return;
+
+    $.post(action, postData)
+        .done(function (response) {
+            if (response.succeed === true) {
+                toastr.success('', response.message, {
+                    onHidden: function () {
+                        window.location.href = response.returnUrl;
+                    }
+                })
+            } else if (response.succeed === false) {
+                toastr.warning('', response.message);
+            }
+        })
+        .fail(function (response) {
+            toastr.error('ERROR: ' + response.status);
+        });
+}
+
+var genreEdit = (gid) => {
+    const genreEditForm = $('form[data-genre-edit="' + gid + '"]');
+    const action = genreEditForm.attr('action');
+    const postData = genreEditForm.serialize();
+
+    genreEditForm.validate();
+    if (genreEditForm.valid() !== true) return;
+
+    $.ajax({
+        type: 'PUT',
+        url: action,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        data: postData,
+        success: function (response) {
+            if (response.succeed === true) {
+                toastr.success('', response.message, {
+                    onHidden: function () {
+                        window.location.href = response.returnUrl;
+                    }
+                });
+
+            } else if (response.succeed === false) {
+                toastr.warning('', response.message);
+            }
+        },
+        error: function (response) {
+            toastr.error('ERROR: ' + response.status);
+        }
+    });
+}
+
+var genreDelete = (gid) => {
+    const deleteForm = $('form[data-delete-genre="' + gid + '"]');
+    const action = deleteForm.attr('action');
+    const deleteData = deleteForm.serialize();
+
+    var confirmForm = $.confirm({
+        title: '',
+        content: 'ნამდვილად გსურთ წაშლა?',
+        type: 'red',
+        columnClass: 'col-sm-4 col-md-offset-4 text-12px',
+        buttons: {
+            დიახ: {
+                btnClass: 'btn-danger text-12px',
+                action: function () {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: action,
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        dataType: 'json',
+                        data: deleteData,
+                        success: function (data) {
+                            console.log(data);
+                            if (data.succeed === true) {
+                                toastr.success("", data.message, {
+                                    fadeOut: 500,
+                                    onHidden: function () {
+                                        window.location.href = data.returnUrl;
+                                    }
+                                });
+                            } else if (data.succeed == false) {
+                                toastr.warning("", data.message);
+                            }
+                        },
+                        error: function (resp) {
+                            toastr.error('Error: ' + resp.status);
+                        }
+                    });
+                }
+            },
+            არა: function () {
+                confirmForm.close();
+            }
+        }
+    });
+}
+
+var sectorCreate = () => {
+    const sectorCreateForm = $('form[data-create-sector="new"]');
+    const action = sectorCreateForm.attr('action');
+    const postData = sectorCreateForm.serialize();
+
+    sectorCreateForm.validate();
+
+    if (sectorCreateForm.valid() !== true) return;
+
+    $.post(action, postData)
+        .done((response) => {
+            if (response.succeed === true) {
+                toastr.success('', response.message, {
+                    onHidden: () => {
+                        window.location.href = response.returnUrl;
+                    }
+                })
+            } else if (response.succeed === false) {
+                toastr.error('', response.message);
+            }
+        })
+        .fail((response) => {
+            toastr.error('ERROR: ' + response.status);
+        });
+}
+
+var sectorDelete = (sid) => {
+    const sectorDeleteForm = $('form[data-delete-sector="' + sid + '"]');
+    const action = sectorDeleteForm.attr('action');
+    const postData = sectorDeleteForm.serialize();
+
+    var confirmForm = $.confirm({
+        title: '',
+        content: 'ნამდვილად გსურთ წაშლა?',
+        type: 'red',
+        columnClass: 'col-sm-4 col-md-offset-4 text-12px',
+        buttons: {
+            დიახ: {
+                btnClass: 'btn-danger text-12px',
+                action: function () {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: action,
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        dataType: 'json',
+                        data: postData,
+                        success: function (data) {
+                            console.log(data);
+                            if (data.succeed === true) {
+                                toastr.success("", data.message, {
+                                    fadeOut: 500,
+                                    onHidden: function () {
+                                        window.location.href = data.returnUrl;
+                                    }
+                                });
+                            } else if (data.succeed == false) {
+                                toastr.warning("", data.message);
+                            }
+                        },
+                        error: function (resp) {
+                            toastr.error('Error: ' + resp.status);
+                        }
+                    });
+                }
+            },
+            არა: function () {
+                confirmForm.close();
+            }
+        }
+    });
+}
+
+var sectorEdit = (sid) => {
+    const sectorDeleteForm = $('form[data-sector-edit="' + sid + '"]');
+    const action = sectorDeleteForm.attr('action');
+    const postData = sectorDeleteForm.serialize();
+
+    $.ajax({
+        type: 'PUT',
+        url: action,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        data: postData,
+        success: function (response) {
+            if (response.succeed === true) {
+                toastr.success('', response.message, {
+                    onHidden: function () {
+                        window.location.href = response.returnUrl;
+                    }
+                });
+
+            } else if (response.succeed === false) {
+                toastr.warning('', response.message);
+            }
+        },
+        error: function (response) {
+            toastr.error('ERROR: ' + response.status);
+        }
+    });
+}
+
+var sectorRestore = (sid) => {
+    const sectorDeleteForm = $('form[data-restore-sector="' + sid + '"]');
+    const action = sectorDeleteForm.attr('action');
+    const postData = sectorDeleteForm.serialize();
+
+    var confirmForm = $.confirm({
+        title: '',
+        content: 'ნამდვილად გსურთ აღდგენა?',
+        type: 'green',
+        columnClass: 'col-sm-4 col-md-offset-4 text-12px',
+        buttons: {
+            დიახ: {
+                btnClass: 'btn-success text-12px',
+                action: function () {
+                    $.ajax({
+                        type: 'PUT',
+                        url: action,
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        dataType: 'json',
+                        data: postData,
+                        success: function (response) {
+                            if (response.succeed === true) {
+                                toastr.success('', response.message, {
+                                    onHidden: function () {
+                                        window.location.href = response.returnUrl;
+                                    }
+                                });
+
+                            } else if (response.succeed === false) {
+                                toastr.warning('', response.message);
+                            }
+                        },
+                        error: function (response) {
+                            toastr.error('ERROR: ' + response.status);
+                        }
+                    });
+                }
+            },
+            არა: function () {
+                confirmForm.close();
+            }
+        }
+    });
 }

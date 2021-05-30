@@ -19,7 +19,7 @@ namespace Library.Data.Repositories
 
         #endregion
 
-        #region OVERRIDED METHODS
+         #region OVERRIDED METHODS
 
         public override async Task<IQueryable<Genre>> GetAll(IFilter filter = null)
         {

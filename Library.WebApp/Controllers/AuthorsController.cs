@@ -78,6 +78,8 @@ namespace Library.WebApp.Controllers
             return JsonResponse(false, AuthorCreateFailedMessage);
         }
 
+        [HttpPut]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAsync([FromForm] AuthorEditViewModel model)
         {
             if(ModelState.IsValid)

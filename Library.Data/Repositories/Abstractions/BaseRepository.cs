@@ -42,14 +42,17 @@ namespace Library.Data.Repositories.Abstractions
 
         public virtual async Task<IQueryable<TEntity>> GetAll(IFilter filter = null)
         {
-            EnsureDependencies();
+            try
+            {
+                EnsureDependencies();
 
-            var entities = from entity in Entity
-                           where !entity.DeletedAt.HasValue
-                           select entity;
+                return await SortBy(Entity, filter);
+            }
+            catch
+            {
 
-            return await SortBy(entities, filter);
-
+                return Entity;
+            }
         }
 
         public virtual async Task<TEntity> GetByIdAsync(Guid id)
@@ -57,7 +60,7 @@ namespace Library.Data.Repositories.Abstractions
             EnsureDependencies();
 
             return await Entity
-                .FirstOrDefaultAsync(entity => entity.Id.Equals(id));
+                .SingleOrDefaultAsync(entity => entity.Id.Equals(id));
         }
 
         public virtual async Task CreateAsync(TEntity newRecord)
@@ -73,10 +76,11 @@ namespace Library.Data.Repositories.Abstractions
             await Task.Run(() =>
             {
                 DbContext.Entry(exitRecord).State = EntityState.Modified;
+                exitRecord.UpdatedAt = DateTime.Now;
             });
         }
 
-        public virtual async Task DeleteAsync(TEntity deleteRecord, DeletionType type = DeletionType.Hard)
+        public virtual async Task DeleteAsync(TEntity deleteRecord, DeletionType type = DeletionType.Soft)
         {
             await Task.Run(() =>
             {
@@ -132,17 +136,14 @@ namespace Library.Data.Repositories.Abstractions
             return filtered;
         }
 
-        protected void Delete(TEntity deleteRecord, DeletionType type = DeletionType.Hard)
+        protected void Delete(TEntity deleteRecord, DeletionType type = DeletionType.Soft)
         {
             EnsureDependencies();
 
             if (type == DeletionType.Hard)
                 Entity.Remove(deleteRecord);
             else if (type == DeletionType.Soft)
-            {
-                //DbContext.Entry<TEntity>(deleteRecord).State = EntityState.Deleted;
-                deleteRecord.DeletedAt = DateTime.UtcNow;
-            }
+                deleteRecord.DeletedAt = DateTime.Now;
         }
 
         #endregion

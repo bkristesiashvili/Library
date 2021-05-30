@@ -15,7 +15,7 @@ namespace Library.Services.Abstractions
     {
         #region METHODS
 
-        Task<IQueryable<Author>> GetAllAuthorsAsync(IFilter filter = null);
+        Task<IQueryable<Author>> GetAllAuthorsAsync(IFilter filter = null, bool selectDeleted = false);
 
         Task<Author> GetAuthorDetailsByIdAsync(Guid id);
 
@@ -23,7 +23,7 @@ namespace Library.Services.Abstractions
 
         Task<ServiceResult> EditAuthorInfoAsync(Guid id, Author updatedAuthor);
 
-        Task<ServiceResult> DeleteAuthorInfoAsync(Guid id, DeletionType type = DeletionType.Hard);
+        Task<ServiceResult> DeleteAuthorInfoAsync(Guid id, DeletionType type = DeletionType.Soft);
 
         #endregion
     }

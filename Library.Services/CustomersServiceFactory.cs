@@ -13,26 +13,25 @@ namespace Library.Services
 {
     public class CustomersServiceFactory : BaseService, ICustomersService
     {
-        #region PRIVATE FIELDS
-
-        private readonly IUnitOfWorks _unitOfWorks;
-
-        #endregion
-
         #region CTOR
 
         public CustomersServiceFactory(IUnitOfWorks uow)
-            => _unitOfWorks = uow;
+            : base(uow) { }
 
         #endregion
 
         #region PUBLIC METHODS
 
-        public async Task<IQueryable<Customer>> GetAllCustomers(IFilter filter = null)
+        public async Task<IQueryable<Customer>> GetAllCustomers(IFilter filter = null,
+            bool selectDeleted = false)
         {
             EnsureDependencies();
 
-            return await _unitOfWorks.CustomersRepository.GetAll(filter);
+            return selectDeleted 
+                ? await UnitOfWorks.CustomersRepository.GetAll(filter)
+                : from customer in await UnitOfWorks.CustomersRepository.GetAll(filter)
+                  where !customer.DeletedAt.HasValue
+                  select customer;
         }
 
         public void Dispose() => GC.Collect();
@@ -43,7 +42,7 @@ namespace Library.Services
 
         protected override void EnsureDependencies()
         {
-            if (_unitOfWorks == null)
+            if (UnitOfWorks == null)
                 throw new ArgumentNullException($"{nameof(CustomersServiceFactory)} " +
                     $"UOW object null refference exception!");
         }

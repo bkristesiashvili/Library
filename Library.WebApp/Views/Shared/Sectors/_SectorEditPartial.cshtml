@@ -1,0 +1,34 @@
+﻿@model SectorEditViewModel
+<div class="text-right">
+    <button type="button" class="btn btn-sm text-primary text-12px" data-toggle="modal" data-target="#edit_sector_@Model.Id">
+        <i class="fas fa-edit">&nbsp;</i>
+    </button>
+</div>
+<div class="modal fade" id="edit_sector_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="exampleModalLabel">სექტორის განახლება</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form onsubmit="return false;" data-sector-edit="@Model.Id" method="post" asp-controller="@SectorIndexLink" asp-action="edit" enctype="application/x-www-form-urlencoded">
+                        <input asp-for="Id" />
+                        <input asp-for="IsDeleted" />
+                        <div class="form-group">
+                            <input asp-for="Name" class="form-control text-13px" />
+                            <span asp-validation-for="Name" class="text-danger text-11px"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary text-12px" data-dismiss="modal">გაუქმება</button>
+                <button type="button" onclick="sectorEdit('@Model.Id')" class="btn btn-sm btn-success text-12px">დამახსოვრება</button>
+            </div>
+        </div>
+    </div>
+</div>

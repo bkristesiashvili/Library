@@ -68,6 +68,25 @@ namespace Library.Common
         public const string AuthorEditSuccessMessage = "ავტორი წარმატებით განახლდა.";
         public const string AuthorEditFailedMessage = "ავტორის განახლება ვერ მოხერხდა!";
 
+        public const string GenreNameReuiredMessage = "ჟანრის დასახელება აუცილებელია!";
+        public const string GenreCreatedSuccessMessage = "ჟანრი წარმატებით დაემატა.";
+        public const string GenreCreateFailedMessage = "ჟანრის დამატება ვერ მოხერხდა!";
+        public const string GenreEditSuccessMessage = "განახლება წარმატებით შესრულდა.";
+        public const string GenreEditFailedMessage = "განახლება ვერ მოხერხდა!";
+        public const string GenreRecordDeleteSuccess = "ჩანაწერი წარმატებით წაიშალა.";
+        public const string GenreRecordDeleteFailed = "ჩანაწრის წაშლა ვერ მოხერხდა!";
+
+        public const string SectorNameRequiredMessage = "სექტორის დასახელება აუცილებელია!";
+        public const string SectorCreateSuccessMessage = "სექტორი წარმატებით დაემატა.";
+        public const string SectorCreateFaieldMessage = "სექტორის დამატება ვერ მოხერხდა!";
+        public const string SectorEditSuccessMessage = "სექტორის განახლება წარმატებით შესრულდა.";
+        public const string SectorEditFailedMessage = "სექტორის განახლება ვერ მოხერხდა!";
+        public const string SectorDeleteSuccessMessage = "სექტორი წარმატებით წაიშალა";
+        public const string SectorDeleteFailedMessage = "სექტორის წაშლა ვერ მოხერხდა!";
+        public const string SectorRestoreSuccessMessage = "სექტორის აღდგენა წარმატეით შესრულდა.";
+        public const string SectorRestoreFailedMessage = "სექტორის აღდგენა ვერ მოხერხდა!";
+
+
         public const string Space = "\u0020";
         public const string DefaultUrl = "/";
 
@@ -78,9 +97,14 @@ namespace Library.Common
 
         public const string AuthorIndexLink = "/authors";
 
+        public const string GenreIndexLink = "/genres";
+
+        public const string SectorIndexLink = "/sectors";
+
         public const string LoginLink = "/auth/login";
 
         public const string UOW_ExceptionMessage = "UOW object null refference exception!";
         public const string RecordNotFound = "Record doesn't existed!";
+        public const string DataLostMessage = "{0} წაშლა შეუძლებელია!";
     }
 }
