@@ -10,6 +10,7 @@ const modal = $('.modal');
 const loginForm = $('#login_form');
 const logoutForm = $('#logout');
 const rolesDropDown = $('select[id="roles"');
+const selectAllForm = $('form[data-select-all]');
 
 $(document).ready(() => {
 
@@ -22,6 +23,8 @@ $(document).ready(() => {
     toastr.options.titleClass = 'text-11px';
     toastr.options.maxOpened = 1;
     toastr.options.timeOut = 1000;
+
+    const checkBox = $('input[type="checkbox"]');
 
     rolesDropDown.multiselect({
         selectAllText: 'ყველას არჩევა',
@@ -180,6 +183,14 @@ $(document).ready(() => {
                 })
             }
         });
+    });
+
+    checkBox.on('change', () => {
+        var checked = checkBox.prop('checked');
+        var action = selectAllForm.attr('action');
+
+        window.location.href = action + '?selectdeleted=' + checked;
+        
     });
 });
 
@@ -594,6 +605,51 @@ var sectorEdit = (sid) => {
         },
         error: function (response) {
             toastr.error('ERROR: ' + response.status);
+        }
+    });
+}
+
+var sectorRestore = (sid) => {
+    const sectorDeleteForm = $('form[data-restore-sector="' + sid + '"]');
+    const action = sectorDeleteForm.attr('action');
+    const postData = sectorDeleteForm.serialize();
+
+    var confirmForm = $.confirm({
+        title: '',
+        content: 'ნამდვილად გსურთ აღდგენა?',
+        type: 'green',
+        columnClass: 'col-sm-4 col-md-offset-4 text-12px',
+        buttons: {
+            დიახ: {
+                btnClass: 'btn-success text-12px',
+                action: function () {
+                    $.ajax({
+                        type: 'PUT',
+                        url: action,
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        dataType: 'json',
+                        data: postData,
+                        success: function (response) {
+                            if (response.succeed === true) {
+                                toastr.success('', response.message, {
+                                    onHidden: function () {
+                                        window.location.href = response.returnUrl;
+                                    }
+                                });
+
+                            } else if (response.succeed === false) {
+                                toastr.warning('', response.message);
+                            }
+                        },
+                        error: function (response) {
+                            toastr.error('ERROR: ' + response.status);
+                        }
+                    });
+                }
+            },
+            არა: function () {
+                confirmForm.close();
+            }
         }
     });
 }

@@ -28,11 +28,16 @@ namespace Library.Services
 
         public void Dispose() => GC.Collect();
 
-        public async Task<IQueryable<Sector>> GetAllSectorsAsync(IFilter filter = null)
+        public async Task<IQueryable<Sector>> GetAllSectorsAsync(IFilter filter = null,
+            bool selectDeleted = false)
         {
             EnsureDependencies();
 
-            return await UnitOfWorks.SectorsRepository.GetAll(filter);
+            return selectDeleted
+                ? await UnitOfWorks.SectorsRepository.GetAll(filter)
+                : from sector in await UnitOfWorks.SectorsRepository.GetAll(filter)
+                  where !sector.DeletedAt.HasValue
+                  select sector;
         }
 
         public async Task<Sector> GetsSectorDetailsByIdAsync(Guid id)
@@ -106,6 +111,31 @@ namespace Library.Services
             }
             catch (Exception e)
             {
+                return ServiceResult(false, e);
+            }
+        }
+
+        public async Task<ServiceResult> RestoreSectoreAsync(Guid id)
+        {
+            try
+            {
+                EnsureDependencies();
+
+                var deletedSector = await GetsSectorDetailsByIdAsync(id);
+
+                if (deletedSector == null)
+                    throw new Exception(RecordNotFound);
+
+                deletedSector.DeletedAt = null;
+
+                await UnitOfWorks.SectorsRepository.UpdateAsync(deletedSector);
+                UnitOfWorks.SaveChanges();
+
+                return ServiceResult(true);
+            }
+            catch (Exception e)
+            {
+
                 return ServiceResult(false, e);
             }
         }

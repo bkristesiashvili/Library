@@ -13,7 +13,7 @@ namespace Library.Services.Abstractions
     {
         #region METHODS
 
-        Task<IQueryable<Customer>> GetAllCustomers(IFilter filter = null);
+        Task<IQueryable<Customer>> GetAllCustomers(IFilter filter = null, bool selectDeleted = false);
 
         #endregion
     }

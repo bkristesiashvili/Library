@@ -22,11 +22,16 @@ namespace Library.Services
 
         #region PUBLIC METHODS
 
-        public async Task<IQueryable<Customer>> GetAllCustomers(IFilter filter = null)
+        public async Task<IQueryable<Customer>> GetAllCustomers(IFilter filter = null,
+            bool selectDeleted = false)
         {
             EnsureDependencies();
 
-            return await UnitOfWorks.CustomersRepository.GetAll(filter);
+            return selectDeleted 
+                ? await UnitOfWorks.CustomersRepository.GetAll(filter)
+                : from customer in await UnitOfWorks.CustomersRepository.GetAll(filter)
+                  where !customer.DeletedAt.HasValue
+                  select customer;
         }
 
         public void Dispose() => GC.Collect();

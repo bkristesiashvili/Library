@@ -17,6 +17,8 @@ namespace Library.WebApp.Helpers.Extensions
 {
     internal static class ApplicationBuilderExtensions
     {
+        #region EXTENSION METHODS
+
         internal static IApplicationBuilder UseDatabaseMigration(this IApplicationBuilder Builder)
         {
             if (Builder == null) throw new ArgumentNullException(nameof(Builder));
@@ -82,5 +84,7 @@ namespace Library.WebApp.Helpers.Extensions
                 }
             }
         }
+
+        #endregion
     }
 }

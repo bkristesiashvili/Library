@@ -42,22 +42,16 @@ namespace Library.Data.Repositories.Abstractions
 
         public virtual async Task<IQueryable<TEntity>> GetAll(IFilter filter = null)
         {
-            var entities = default(IQueryable<TEntity>);
-
             try
             {
                 EnsureDependencies();
 
-                entities = from entity in Entity
-                           where !entity.DeletedAt.HasValue
-                           select entity;
-
-                return await SortBy(entities, filter);
+                return await SortBy(Entity, filter);
             }
             catch
             {
 
-                return entities;
+                return Entity;
             }
         }
 
@@ -66,7 +60,7 @@ namespace Library.Data.Repositories.Abstractions
             EnsureDependencies();
 
             return await Entity
-                .FirstOrDefaultAsync(entity => entity.Id.Equals(id));
+                .SingleOrDefaultAsync(entity => entity.Id.Equals(id));
         }
 
         public virtual async Task CreateAsync(TEntity newRecord)

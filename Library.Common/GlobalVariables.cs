@@ -83,6 +83,8 @@ namespace Library.Common
         public const string SectorEditFailedMessage = "სექტორის განახლება ვერ მოხერხდა!";
         public const string SectorDeleteSuccessMessage = "სექტორი წარმატებით წაიშალა";
         public const string SectorDeleteFailedMessage = "სექტორის წაშლა ვერ მოხერხდა!";
+        public const string SectorRestoreSuccessMessage = "სექტორის აღდგენა წარმატეით შესრულდა.";
+        public const string SectorRestoreFailedMessage = "სექტორის აღდგენა ვერ მოხერხდა!";
 
 
         public const string Space = "\u0020";

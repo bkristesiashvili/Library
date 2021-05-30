@@ -15,7 +15,7 @@ namespace Library.Services.Abstractions
     {
         #region METHODS
 
-        Task<IQueryable<Sector>> GetAllSectorsAsync(IFilter filter = null);
+        Task<IQueryable<Sector>> GetAllSectorsAsync(IFilter filter = null, bool selectDeleted = false);
 
         Task<Sector> GetsSectorDetailsByIdAsync(Guid id);
 
@@ -24,6 +24,8 @@ namespace Library.Services.Abstractions
         Task<ServiceResult> UpdateSectorAsync(Guid id, Sector updatedSector);
 
         Task<ServiceResult> DeleteSectorAsync(Guid id, DeletionType type = DeletionType.Soft);
+
+        Task<ServiceResult> RestoreSectoreAsync(Guid id);
 
         #endregion
     }

@@ -15,7 +15,7 @@ namespace Library.Services.Abstractions
     {
         #region METHODS
 
-        Task<IQueryable<Genre>> GetAllGenresAsync(IFilter filter = null);
+        Task<IQueryable<Genre>> GetAllGenresAsync(IFilter filter = null, bool selectDeleted = false);
 
         Task<Genre> GetGenreDetailByIdAsync(Guid id);
 

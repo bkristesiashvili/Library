@@ -91,11 +91,16 @@ namespace Library.Services
             }
         }
 
-        public async Task<IQueryable<Genre>> GetAllGenresAsync(IFilter filter = null)
+        public async Task<IQueryable<Genre>> GetAllGenresAsync(IFilter filter = null,
+            bool selectDeleted = false)
         {
             EnsureDependencies();
 
-            return await UnitOfWorks.GenresRepository.GetAll(filter);
+            return selectDeleted
+                ? await UnitOfWorks.GenresRepository.GetAll(filter)
+                : from genre in await UnitOfWorks.GenresRepository.GetAll(filter)
+                  where !genre.DeletedAt.HasValue
+                  select genre;
         }
 
         public async Task<Genre> GetGenreDetailByIdAsync(Guid id)

@@ -41,17 +41,22 @@ namespace Library.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> IndexAsync([FromQuery] SectorFilter filter)
         {
-            var sectors = from sector in await sectorService.GetAllSectorsAsync(filter)
+            if (!User.IsInRole(DefaultRoles[Common.Enums.SystemDefaultRole.SuperAdmin]))
+                filter.SelectDeleted = false;
+
+            var sectors = from sector in await sectorService.GetAllSectorsAsync(filter, filter.SelectDeleted)
                           select new SectorListViewModel
                           {
                               Id = sector.Id,
                               Name = sector.Name,
-                              CreateDate = sector.CreatedAt.ToDateString()
+                              CreateDate = sector.CreatedAt.ToDateString(),
+                              IsDeleted = sector.DeletedAt.HasValue
                           };
 
             ViewBag.Search = filter.Search;
             ViewBag.Ordering = filter.Ordering;
             ViewBag.OrderBy = filter.OrderBy;
+            ViewBag.SelectDeleted = filter.SelectDeleted;
 
             return View(await sectors.ToPagedListAsync(filter.Page, filter.PageSize));
         }
@@ -102,6 +107,18 @@ namespace Library.WebApp.Controllers
                 return JsonResponse(true, SectorDeleteSuccessMessage, SectorIndexLink);
 
             return JsonResponse(false, SectorDeleteFailedMessage);
+        }
+
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RestoreAsync([FromForm]Guid id)
+        {
+            var result = await sectorService.RestoreSectoreAsync(id);
+
+            if (result.Succeed)
+                return JsonResponse(true, SectorRestoreSuccessMessage, SectorIndexLink);
+
+            return JsonResponse(false, SectorRestoreFailedMessage);
         }
 
         #endregion

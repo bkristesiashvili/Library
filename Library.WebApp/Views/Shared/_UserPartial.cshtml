@@ -14,7 +14,7 @@
         <li class="nav-item">
             <div class="dropdown">
                 <button class="btn btn-sm text-light mt-2 naviblue-menu dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-13px">@string.Concat(authUser.FirstName, Space, authUser.LastName)</span>
+                    <span class="text-13px">@string.Concat(authUser?.FirstName, Space, authUser?.LastName)</span>
                 </button>
                 <div class="dropdown-menu text-12px text-center" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" asp-controller="@AccountIndexLink" asp-action="profile">პროფილი</a>

@@ -19,6 +19,8 @@ namespace Library.WebApp.Models
         [Required(ErrorMessage = SectorNameRequiredMessage)]
         public string Name { get; set; }
 
+        [HiddenInput]
+        public bool IsDeleted { get; set; }
 
         #endregion
     }

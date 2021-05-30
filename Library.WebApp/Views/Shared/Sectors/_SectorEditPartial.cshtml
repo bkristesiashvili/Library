@@ -17,6 +17,7 @@
                 <div class="container">
                     <form onsubmit="return false;" data-sector-edit="@Model.Id" method="post" asp-controller="@SectorIndexLink" asp-action="edit" enctype="application/x-www-form-urlencoded">
                         <input asp-for="Id" />
+                        <input asp-for="IsDeleted" />
                         <div class="form-group">
                             <input asp-for="Name" class="form-control text-13px" />
                             <span asp-validation-for="Name" class="text-danger text-11px"></span>

@@ -26,11 +26,16 @@ namespace Library.Services
 
         #region PUBLIC METHODS
 
-        public async Task<IQueryable<Author>> GetAllAuthorsAsync(IFilter filter = null)
+        public async Task<IQueryable<Author>> GetAllAuthorsAsync(IFilter filter = null
+            , bool selectDeleted = false)
         {
             EnsureDependencies();
 
-            return await UnitOfWorks.AuthorsRepository.GetAll(filter);
+            return selectDeleted
+                ? await UnitOfWorks.AuthorsRepository.GetAll(filter)
+                : from author in await UnitOfWorks.AuthorsRepository.GetAll(filter)
+                  where !author.DeletedAt.HasValue
+                  select author;
         }
 
         public async Task<Author> GetAuthorDetailsByIdAsync(Guid id)

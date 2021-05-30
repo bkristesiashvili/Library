@@ -15,7 +15,7 @@ namespace Library.Services.Abstractions
     {
         #region METHODS
 
-        Task<IQueryable<Author>> GetAllAuthorsAsync(IFilter filter = null);
+        Task<IQueryable<Author>> GetAllAuthorsAsync(IFilter filter = null, bool selectDeleted = false);
 
         Task<Author> GetAuthorDetailsByIdAsync(Guid id);
 
