@@ -2,6 +2,7 @@
 using Library.Data.Entities;
 using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
+using Library.WebApp.Helpers.Attributes;
 using Library.WebApp.Models;
 
 using Microsoft.AspNetCore.Authorization;
@@ -17,6 +18,7 @@ using System.Threading.Tasks;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
+    [ValidUser]
     public class HomeController : BaseController
     {
         #region CTOR
@@ -25,6 +27,8 @@ namespace Library.WebApp.Controllers
             : base(logger) { }
 
         #endregion
+
+        #region ACTIONS
 
         public IActionResult Index()
         {
@@ -36,5 +40,7 @@ namespace Library.WebApp.Controllers
         {
             return View();
         }
+
+        #endregion
     }
 }

@@ -19,10 +19,12 @@ using Library.WebApp.Helpers.Extensions;
 using Library.Data.Extensions;
 using Library.Common.Responses;
 using Library.Common.Requests.Filters;
+using Library.WebApp.Helpers.Attributes;
 
 namespace Library.WebApp.Controllers
 {
     [Authorize]
+    [ValidUser]
     public sealed class AccountsController : BaseController
     {
         #region PRIVATE READONLY VARIABLES

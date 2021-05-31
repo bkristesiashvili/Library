@@ -14,9 +14,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Library.WebApp.Helpers.Attributes;
 
 namespace Library.WebApp.Controllers
 {
+    [Authorize]
+    [ValidUser]
     public class SectorsController : BaseController
     {
         #region PRIVATE FIELDS

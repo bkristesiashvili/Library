@@ -1,5 +1,5 @@
-﻿using Library.Data.Entities;
-using Library.Data.Repositories.Abstractions;
+﻿using Library.Services.Abstractions;
+using Library.WebApp.Controllers.Abstractions;
 using Library.WebApp.Helpers.Attributes;
 
 using Microsoft.AspNetCore.Authorization;
@@ -14,24 +14,21 @@ namespace Library.WebApp.Controllers
 {
     [Authorize]
     [ValidUser]
-    public class BooksController : Controller
+    public class SectionsController : BaseController
     {
-        #region PRIVATE FIELDS
-
-        #endregion
-
         #region CTOR
 
-        public BooksController()
+        public SectionsController(IFileLoggerService logger)
+            : base(logger)
         {
+
         }
 
         #endregion
 
         #region ACTIONS
 
-        [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }

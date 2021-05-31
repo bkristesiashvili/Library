@@ -15,10 +15,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Library.WebApp.Helpers.Attributes;
 
 namespace Library.WebApp.Controllers
 {
     [Authorize]
+    [ValidUser]
     public class AuthorsController : BaseController
     {
         #region PRIVATE FIELDS
