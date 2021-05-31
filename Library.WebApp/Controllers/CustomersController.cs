@@ -2,8 +2,10 @@
 using Library.Data.Extensions;
 using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
+using Library.WebApp.Helpers.Attributes;
 using Library.WebApp.Models;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using System;
@@ -13,6 +15,8 @@ using System.Threading.Tasks;
 
 namespace Library.WebApp.Controllers
 {
+    [Authorize]
+    [ValidUser]
     public sealed class CustomersController : BaseController
     {
         #region PRIVATE FIELDS

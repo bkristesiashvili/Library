@@ -1,3 +1,5 @@
+using static Library.Common.GlobalVariables;
+
 using Library.Common;
 using Library.Data;
 using Library.Data.Entities;
@@ -61,12 +63,12 @@ namespace Library.WebApp
                 options.LoginPath = "/auth/login";
                 options.LogoutPath = "/auth/logout";
                 options.AccessDeniedPath = "/auth/accessdenied";
-                options.Cookie.Name = "Library_Web_App_Cookies";
+                options.Cookie.Name = LibraryWebCookieName;
             });
 
             services.AddAntiforgery(options =>
             {
-                options.Cookie.Name = "Library.AntiForgery";
+                options.Cookie.Name = AntiForgeryCoockieName;
             });
 
             
