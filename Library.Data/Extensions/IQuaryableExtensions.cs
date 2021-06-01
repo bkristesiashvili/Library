@@ -36,11 +36,12 @@ namespace Library.Data.Extensions
             return @this.Provider.CreateQuery<TObject>(resultExp);
         }
 
-        public async static Task<PagedList<TObject>> ToPagedListAsync<TObject>(this IQueryable<TObject> @this, 
-            int pageNumber, 
+        public async static Task<PagedList<TObject>> ToPagedListAsync<TObject>(this IQueryable<TObject> @this,
+            int pageNumber,
+            string url,
             int pageSize = 15)
             where TObject : class
-        => await PagedList<TObject>.CreatePagedListAsync(@this, pageNumber, pageSize);
+        => await PagedList<TObject>.CreatePagedListAsync(@this, url, pageNumber, pageSize);
 
         #endregion
 
@@ -56,7 +57,7 @@ namespace Library.Data.Extensions
                 new Type[] { type, property.PropertyType },
                 @this.Expression,
                 Expression.Quote(expression));
-            else 
+            else
                 return Expression.Call(typeof(Queryable), "OrderBy",
                 new Type[] { type, property.PropertyType },
                 @this.Expression,

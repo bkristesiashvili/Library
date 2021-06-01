@@ -75,6 +75,8 @@ namespace Library.Common
         public const string AuthorDeleteFailedMessage = "ავტორი წაშლა ვერ მოხერხდა!";
         public const string AuthorEditSuccessMessage = "ავტორი წარმატებით განახლდა.";
         public const string AuthorEditFailedMessage = "ავტორის განახლება ვერ მოხერხდა!";
+        public const string AuthorRestoreSuccessMessage = "ავტორის აღდგენა წარმატებით შესრულდა.";
+        public const string AuthorRestoreFailedMessage = "ავტორის აღდგენა ვერ მოხერხდა!";
 
         public const string GenreNameReuiredMessage = "ჟანრის დასახელება აუცილებელია!";
         public const string GenreCreatedSuccessMessage = "ჟანრი წარმატებით დაემატა.";

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace Library.WebApp.Helpers.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property)]
-    public sealed class ValidUserAttribute :TypeFilterAttribute
+    public sealed class ValidateUserAttribute :TypeFilterAttribute
     {
         #region CTOR
 
-        public ValidUserAttribute()
+        public ValidateUserAttribute()
             : base(typeof(UserAuthorizedFilter)) { }
 
         #endregion

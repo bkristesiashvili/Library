@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
-    [ValidUser]
+    [ValidateUser]
     public class BooksController : Controller
     {
         #region PRIVATE FIELDS

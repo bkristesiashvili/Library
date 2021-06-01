@@ -15,8 +15,9 @@
 <div class="row">
     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
         <div class="text-left pb-1">
-            <form method="get" asp-controller="@AccountIndexLink" asp-action="index" autocomplete="off">
+            <form method="get" asp-controller="@Model.Url" asp-action="index" autocomplete="off">
                 <div class="input-group">
+                    <input type="hidden" name="pagesize" value="@ViewBag.PageSize" />
                     <input type="search" placeholder="ძებნა" name="search" class="form-control text-12px" maxlength="30" />
                     <div class="input-group-append">
                         <button class="btn btn-success text-12px">
@@ -32,10 +33,11 @@
     <div class="row profile-bg text-dark font-weight-bold p-3 rounded-top">
         <div class="col-sm-3 col-md-3">
             <div class="d-flex">
-                <a asp-controller="@AccountIndexLink"
+                <a asp-controller="@Model.Url"
                    asp-action="index"
                    asp-route-orderby="firstname"
                    asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+                   asp-route-pagesize="@ViewBag.PageSize"
                    class="btn btn-sm">
                     <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
                                                              ((string)ViewBag.OrderBy).ToLower() == "firstname"
@@ -45,10 +47,11 @@
             </div>
         </div>
         <div class="col-sm-4 col-md-4">
-            <a asp-controller="@AccountIndexLink"
+            <a asp-controller="@Model.Url"
                asp-action="index"
                asp-route-orderby="lastname"
                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+               asp-route-pagesize="@ViewBag.PageSize"
                class="btn btn-sm">
                 <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
                                                              ((string)ViewBag.OrderBy).ToLower() == "lastname"
@@ -57,10 +60,11 @@
             </a>
         </div>
         <div class="col-sm-3 col-md-3">
-            <a asp-controller="@AccountIndexLink"
+            <a asp-controller="@Model.Url"
                asp-action="index"
                asp-route-orderby="email"
                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+               asp-route-pagesize="@ViewBag.PageSize"
                class="btn btn-sm">
                 <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
                                                              ((string)ViewBag.OrderBy).ToLower() == "email"
@@ -72,7 +76,7 @@
             <div class="text-right">
                 @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
                 {
-                    <a asp-controller="@AccountIndexLink" asp-action="register" class="btn btn-sm btn-success text-12px"><i class="fas fa-plus">&nbsp;</i>დამატება</a>
+                    <a asp-controller="@Model.Url" asp-action="register" class="btn btn-sm btn-success text-12px"><i class="fas fa-plus">&nbsp;</i>დამატება</a>
                 }
             </div>
         </div>
@@ -120,7 +124,9 @@
                     {
                         <div class="float-left">
                             <div class="text-center">
-                                <a asp-controller="@AccountIndexLink" asp-action="index" class="btn btn-sm btn-outline-danger text-12px">
+                                <a asp-controller="@Model.Url" 
+                                   asp-action="index"
+                                   asp-route-pagesize="@ViewBag.PageSize" class="btn btn-sm btn-outline-danger text-12px">
                                     <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
                                 </a>
                             </div>
@@ -139,7 +145,9 @@
             {
                 <div class="float-left">
                     <div class="text-center">
-                        <a asp-controller="@AccountIndexLink" asp-action="index" class="btn btn-sm btn-outline-danger text-12px">
+                        <a asp-controller="@Model.Url" 
+                           asp-action="index"
+                           asp-route-pagesize="@ViewBag.PageSize" class="btn btn-sm btn-outline-danger text-12px">
                             <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
                         </a>
                     </div>
@@ -147,29 +155,78 @@
             }
         </div>
         <div class="col-sm-8 col-md-6 col-lg-6 col-xl-6">
-            <div class="float-right">
-                <div class="pagination">
-
-                    <div class="page-item">
-                        <a asp-controller="@AccountIndexLink"
-                           asp-action="index"
-                           asp-route-page="@(Model.PageNumber - 1)"
-                           asp-route-search="@ViewBag.Search"
-                           asp-route-orderby="@ViewBag.OrderBy"
-                           asp-route-ordering="@ViewBag.Ordering"
-                           class="page-link @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
+            <div class="row">
+                <div class="col-sm-4 col-md-4"></div>
+                <div class="col-sm-4 col-md-4">
+                    <div class="dropdown show float-right">
+                        <a class="btn btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @ViewBag.PageSize
+                        </a>
+                        <div class="dropdown-menu text-12px">
+                            <a asp-controller="@Model.Url"
+                               asp-action="index"
+                               asp-route-page="@(Model.PageNumber - 1)"
+                               asp-route-search="@ViewBag.Search"
+                               asp-route-orderby="@ViewBag.OrderBy"
+                               asp-route-ordering="@ViewBag.Ordering"
+                               asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                               asp-route-pagesize="5" class="dropdown-item">5</a>
+                            <a asp-controller="@Model.Url"
+                               asp-action="index"
+                               asp-route-page="@(Model.PageNumber - 1)"
+                               asp-route-search="@ViewBag.Search"
+                               asp-route-orderby="@ViewBag.OrderBy"
+                               asp-route-ordering="@ViewBag.Ordering"
+                               asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                               asp-route-pagesize="10" class="dropdown-item">10</a>
+                            <a asp-controller="@Model.Url"
+                               asp-action="index"
+                               asp-route-page="@(Model.PageNumber - 1)"
+                               asp-route-search="@ViewBag.Search"
+                               asp-route-orderby="@ViewBag.OrderBy"
+                               asp-route-ordering="@ViewBag.Ordering"
+                               asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                               asp-route-pagesize="15" class="dropdown-item">15</a>
+                            <a asp-controller="@Model.Url"
+                               asp-action="index"
+                               asp-route-page="@(Model.PageNumber - 1)"
+                               asp-route-search="@ViewBag.Search"
+                               asp-route-orderby="@ViewBag.OrderBy"
+                               asp-route-ordering="@ViewBag.Ordering"
+                               asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                               asp-route-pagesize="20" class="dropdown-item">20</a>
+                        </div>
                     </div>
-                    <div class="page-item">
-                        <a asp-controller="@AccountIndexLink"
-                           asp-action="index"
-                           asp-route-page="@(Model.PageNumber + 1)"
-                           asp-route-search="@ViewBag.Search"
-                           asp-route-orderby="@ViewBag.OrderBy"
-                           asp-route-ordering="@ViewBag.Ordering"
-                           class="page-link @Html.Raw(Model.Next ? "" : "disabled") text-12px">წინ&nbsp;<i class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <div class="float-right">
+                        <div class="pagination">
+
+                            <div class="page-item">
+                                <a asp-controller="@Model.Url"
+                                   asp-action="index"
+                                   asp-route-page="@(Model.PageNumber - 1)"
+                                   asp-route-search="@ViewBag.Search"
+                                   asp-route-orderby="@ViewBag.OrderBy"
+                                   asp-route-ordering="@ViewBag.Ordering"
+                                   asp-route-pagesize="@ViewBag.PageSize"
+                                   class="page-link @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
+                            </div>
+                            <div class="page-item">
+                                <a asp-controller="@Model.Url"
+                                   asp-action="index"
+                                   asp-route-page="@(Model.PageNumber + 1)"
+                                   asp-route-search="@ViewBag.Search"
+                                   asp-route-orderby="@ViewBag.OrderBy"
+                                   asp-route-ordering="@ViewBag.Ordering"
+                                   asp-route-pagesize="@ViewBag.PageSize"
+                                   class="page-link @Html.Raw(Model.Next ? "" : "disabled") text-12px">წინ&nbsp;<i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 }

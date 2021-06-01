@@ -11,6 +11,7 @@ const loginForm = $('#login_form');
 const logoutForm = $('#logout');
 const rolesDropDown = $('select[id="roles"');
 const selectAllForm = $('form[data-select-all]');
+const pageSizeSelect = $('select[data-page-size]');
 
 $(document).ready(() => {
 
@@ -193,6 +194,10 @@ $(document).ready(() => {
 
         window.location.href = action + '?selectdeleted=' + checked;
         
+    });
+
+    pageSizeSelect.on('change', () => {
+        alert(pageSizeSelect.val());
     });
 });
 
@@ -403,6 +408,51 @@ var authorCreate = () => {
         .fail(function (response) {
             toastr.error('Error: ' + response.status);
         });
+}
+
+var authorRestore = (aid) => {
+    const authorDeleteForm = $('form[data-restore-author="' + aid + '"]');
+    const action = authorDeleteForm.attr('action');
+    const postData = authorDeleteForm.serialize();
+
+    var confirmForm = $.confirm({
+        title: '',
+        content: 'ნამდვილად გსურთ აღდგენა?',
+        type: 'green',
+        columnClass: 'col-sm-4 col-md-offset-4 text-12px',
+        buttons: {
+            დიახ: {
+                btnClass: 'btn-success text-12px',
+                action: function () {
+                    $.ajax({
+                        type: 'PUT',
+                        url: action,
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        dataType: 'json',
+                        data: postData,
+                        success: function (response) {
+                            if (response.succeed === true) {
+                                toastr.success('', response.message, {
+                                    onHidden: function () {
+                                        window.location.href = response.returnUrl;
+                                    }
+                                });
+
+                            } else if (response.succeed === false) {
+                                toastr.warning('', response.message);
+                            }
+                        },
+                        error: function (response) {
+                            toastr.error('ERROR: ' + response.status);
+                        }
+                    });
+                }
+            },
+            არა: function () {
+                confirmForm.close();
+            }
+        }
+    });
 }
 
 var genreCreate = () => {
