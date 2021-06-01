@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
-    [ValidUser]
+    [ValidateUser]
     public class SectionsController : BaseController
     {
         #region CTOR

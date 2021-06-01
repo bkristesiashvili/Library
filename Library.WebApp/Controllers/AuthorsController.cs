@@ -20,7 +20,7 @@ using Library.WebApp.Helpers.Attributes;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
-    [ValidUser]
+    [ValidateUser]
     public class AuthorsController : BaseController
     {
         #region PRIVATE FIELDS
@@ -44,20 +44,25 @@ namespace Library.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> IndexAsync([FromQuery] AuthorFilter filter)
         {
-            var authors = from author in await authorService.GetAllAuthorsAsync(filter)
+            if (!User.IsInRole(DefaultRoles[Common.Enums.SystemDefaultRole.SuperAdmin]))
+                filter.SelectDeleted = false;
+
+            var authors = from author in await authorService.GetAllAuthorsAsync(filter, filter.SelectDeleted)
                           select new AuthorListViewModel
                           {
                               Id = author.Id,
                               FirstName = author.FirstName,
                               Middlename = author.MiddleName,
-                              LastName = author.LastName
+                              LastName = author.LastName,
+                              IsDeleted = author.DeletedAt.HasValue
                           };
 
             ViewBag.Search = filter.Search;
             ViewBag.Ordering = filter.Ordering;
             ViewBag.OrderBy = filter.OrderBy;
+            ViewBag.SelectDeleted = filter.SelectDeleted;
 
-            return View(await authors.ToPagedListAsync(filter.Page, filter.PageSize));
+            return View(await authors.ToPagedListAsync(filter.Page, AuthorIndexLink, filter.PageSize));
         }
 
         [HttpPost]
@@ -109,6 +114,18 @@ namespace Library.WebApp.Controllers
             if (result.Succeed)
                 return JsonResponse(true, AuthorDeletedSuccessMessage, AuthorIndexLink);
             return JsonResponse(false, AuthorDeleteFailedMessage);
+        }
+
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RestoreAsync([FromForm]Guid id)
+        {
+            var result = await authorService.RestoreAuthorAsync(id);
+
+            if (result.Succeed)
+                return JsonResponse(true, AuthorRestoreSuccessMessage, AuthorIndexLink);
+
+            return JsonResponse(false, AuthorRestoreFailedMessage);
         }
 
         #endregion

@@ -24,7 +24,7 @@ using Library.WebApp.Helpers.Attributes;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
-    [ValidUser]
+    [ValidateUser]
     public sealed class AccountsController : BaseController
     {
         #region PRIVATE READONLY VARIABLES
@@ -132,8 +132,9 @@ namespace Library.WebApp.Controllers
             ViewBag.Search = filter.Search;
             ViewBag.Ordering = filter.Ordering;
             ViewBag.OrderBy = filter.OrderBy;
+            ViewBag.PageSize = filter.PageSize;
 
-            return View(await users.ToPagedListAsync(filter.Page, filter.PageSize));
+            return View(await users.ToPagedListAsync(filter.Page, AccountIndexLink, filter.PageSize));
         }
 
         [HttpDelete]

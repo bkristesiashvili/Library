@@ -110,6 +110,30 @@ namespace Library.Services
             }
         }
 
+        public async Task<ServiceResult> RestoreAuthorAsync(Guid id)
+        {
+            try
+            {
+                EnsureDependencies();
+
+                var author = await GetAuthorDetailsByIdAsync(id);
+
+                if (author == null)
+                    throw new Exception(RecordNotFound);
+
+                author.DeletedAt = null;
+
+                await UnitOfWorks.AuthorsRepository.UpdateAsync(author);
+                UnitOfWorks.SaveChanges();
+
+                return ServiceResult(true);
+            }
+            catch (Exception e)
+            {
+                return ServiceResult(false, e);
+            }
+        }
+
         public void Dispose() => GC.Collect();
 
         #endregion

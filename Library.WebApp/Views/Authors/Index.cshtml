@@ -12,6 +12,7 @@
         <div class="text-left pb-1">
             <form method="get" asp-controller="@AuthorIndexLink" asp-action="index" autocomplete="off">
                 <div class="input-group">
+                    <input type="hidden" name="selectdeleted" value="@($"{ViewBag.SelectDeleted}")" />
                     <input type="search" placeholder="ძებნა" name="search" class="form-control text-12px" maxlength="30" />
                     <div class="input-group-append">
                         <button class="btn btn-success text-12px">
@@ -25,12 +26,13 @@
 </div>
 <div class="text-13px">
     <div class="row profile-bg text-dark font-weight-bold p-3 rounded-top">
-        <div class="col-sm-3 col-md-3">
+        <div class="col-sm-2 col-md-2">
             <div class="d-flex">
                 <a asp-controller="@AuthorIndexLink"
                    asp-action="index"
                    asp-route-orderby="firstname"
                    asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+                   asp-route-selectdeleted="@ViewBag.SelectDeleted"
                    class="btn btn-sm">
                     <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
                                                              ((string)ViewBag.OrderBy).ToLower() == "firstname"
@@ -39,11 +41,12 @@
                 </a>
             </div>
         </div>
-        <div class="col-sm-4 col-md-4">
+        <div class="col-sm-3 col-md-3">
             <a asp-controller="@AuthorIndexLink"
                asp-action="index"
                asp-route-orderby="middlename"
                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+               asp-route-selectdeleted="@ViewBag.SelectDeleted"
                class="btn btn-sm">
                 <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
                                                              ((string)ViewBag.OrderBy).ToLower() == "middlename"
@@ -56,12 +59,16 @@
                asp-action="index"
                asp-route-orderby="lastname"
                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+               asp-route-selectdeleted="@ViewBag.SelectDeleted"
                class="btn btn-sm">
                 <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
                                                              ((string)ViewBag.OrderBy).ToLower() == "lastname"
                                                              ? "up"
                                                              :"down")">&nbsp;&nbsp;</i>გვარი
             </a>
+        </div>
+        <div class="col-sm-2 col-md-2 text-center">
+            <a href="#" class="btn btn-sm">სტატუსი</a>
         </div>
         <div class="col-sm-2 col-md-2">
             @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
@@ -80,19 +87,61 @@
             LastName = author.LastName
         };
         <div class="row d-flex align-middle p-2 text-13px text-left row-hover border @Html.Raw(index % 2 == 0 ? "grid-header":"")">
-            <div class="col-sm-3 col-md-3">@author.FirstName</div>
-            <div class="col-sm-4 col-md-4">@author.Middlename</div>
+            <div class="col-sm-2 col-md-2">@author.FirstName</div>
+            <div class="col-sm-3 col-md-3">@author.Middlename</div>
             <div class="col-sm-3 col-md-3">@author.LastName</div>
+            <div class="col-sm-2 col-md-2 text-center">
+                @if (!author.IsDeleted)
+                {
+                    <i class="fas fa-check-circle text-success text-14px opacity-80"></i>
+                }
+                else
+                {
+                    <i class="fas fa-minus-circle text-danger text-14px opacity-80"></i>
+                }
+            </div>
             <div class="col-sm-2 col-md-2">
                 <div class="row float-right">
                     @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
                     {
-                        <partial name="Authors/_AuthorEditPartial" model="authorEdit" />
+                        if (!author.IsDeleted)
+                        {
+                            <partial name="Authors/_AuthorEditPartial" model="authorEdit" />
+                        }
+                        else
+                        {
+                            <button type="button" disabled class="btn btn-sm text-secondary text-12px">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        }
                     }
 
                     @if (User.IsInRole(DefaultRoles[SuperAdmin]))
                     {
-                        <partial name="Authors/_AuthorDeletePartial" model="author" />
+                        if (!author.IsDeleted)
+                        {
+                            <partial name="Authors/_AuthorDeletePartial" model="author" />
+                        }
+                        else
+                        {
+                            <button type="button" disabled class="btn btn-sm text-11px text-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        }
+                    }
+
+                    @if (User.IsInRole(DefaultRoles[SuperAdmin]))
+                    {
+                        if (author.IsDeleted)
+                        {
+                            <partial name="Authors/_AuthorRestorePartial" model="author" />
+                        }
+                        else
+                        {
+                            <button type="button" disabled class="btn btn-sm text-11px text-secondary">
+                                <i class="fas fa-trash-restore"></i>
+                            </button>
+                        }
                     }
                 </div>
             </div>
@@ -112,7 +161,9 @@
                     {
                         <div class="float-left">
                             <div class="text-center">
-                                <a asp-controller="@AuthorIndexLink" asp-action="index" class="btn btn-sm btn-outline-danger text-12px">
+                                <a asp-controller="@AuthorIndexLink" 
+                                   asp-action="index" 
+                                   asp-route-selectdeleted="@ViewBag.SelectDeleted" class="btn btn-sm btn-outline-danger text-12px">
                                     <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
                                 </a>
                             </div>
@@ -131,7 +182,9 @@
             {
                 <div class="float-left">
                     <div class="text-center">
-                        <a asp-controller="@AuthorIndexLink" asp-action="index" class="btn btn-sm btn-outline-danger text-12px">
+                        <a asp-controller="@AuthorIndexLink" 
+                           asp-action="index" 
+                           asp-route-selectdeleted="@ViewBag.SelectDeleted" class="btn btn-sm btn-outline-danger text-12px">
                             <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
                         </a>
                     </div>
@@ -139,26 +192,48 @@
             }
         </div>
         <div class="col-sm-8 col-md-6 col-lg-6 col-xl-6">
-            <div class="float-right">
-                <div class="pagination">
+            <div class="row">
+                <div class="col-sm-4 col-md-4 col-lg-4"></div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    @if (User.IsInRole(DefaultRoles[SuperAdmin]))
+                    {
+                        <div class="float-right">
+                            <form data-select-all onsubmit="return false;"
+                                  asp-controller="@AuthorIndexLink"
+                                  asp-action="index" method="get">
+                                <label class="text-12px">
+                                    <input type="checkbox" name="selectdeleted"
+                                           value="false" checked="@ViewBag.SelectDeleted" />&nbsp;ყველა სტატუსი
+                                </label>
+                            </form>
+                        </div>
+                    }
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <div class="float-right">
+                        <div class="pagination">
 
-                    <div class="page-item">
-                        <a asp-controller="@AuthorIndexLink"
-                           asp-action="index"
-                           asp-route-page="@(Model.PageNumber - 1)"
-                           asp-route-search="@ViewBag.Search"
-                           asp-route-orderby="@ViewBag.OrderBy"
-                           asp-route-ordering="@ViewBag.Ordering"
-                           class="page-link @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
-                    </div>
-                    <div class="page-item">
-                        <a asp-controller="@AuthorIndexLink"
-                           asp-action="index"
-                           asp-route-page="@(Model.PageNumber + 1)"
-                           asp-route-search="@ViewBag.Search"
-                           asp-route-orderby="@ViewBag.OrderBy"
-                           asp-route-ordering="@ViewBag.Ordering"
-                           class="page-link @Html.Raw(Model.Next ? "" : "disabled") text-12px">წინ&nbsp;<i class="fas fa-chevron-right"></i></a>
+                            <div class="page-item">
+                                <a asp-controller="@AuthorIndexLink"
+                                   asp-action="index"
+                                   asp-route-page="@(Model.PageNumber - 1)"
+                                   asp-route-search="@ViewBag.Search"
+                                   asp-route-orderby="@ViewBag.OrderBy"
+                                   asp-route-ordering="@ViewBag.Ordering"
+                                   asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                                   class="page-link @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
+                            </div>
+                            <div class="page-item">
+                                <a asp-controller="@AuthorIndexLink"
+                                   asp-action="index"
+                                   asp-route-page="@(Model.PageNumber + 1)"
+                                   asp-route-search="@ViewBag.Search"
+                                   asp-route-orderby="@ViewBag.OrderBy"
+                                   asp-route-ordering="@ViewBag.Ordering"
+                                   asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                                   class="page-link @Html.Raw(Model.Next ? "" : "disabled") text-12px">წინ&nbsp;<i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

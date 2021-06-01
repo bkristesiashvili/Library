@@ -1,4 +1,6 @@
-﻿using Library.Common.Requests.Filters;
+﻿using static Library.Common.GlobalVariables;
+
+using Library.Common.Requests.Filters;
 using Library.Data.Extensions;
 using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
@@ -16,7 +18,7 @@ using System.Threading.Tasks;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
-    [ValidUser]
+    [ValidateUser]
     public sealed class CustomersController : BaseController
     {
         #region PRIVATE FIELDS
@@ -52,7 +54,7 @@ namespace Library.WebApp.Controllers
             ViewBag.Ordering = filter.Ordering;
             ViewBag.OrderBy = filter.OrderBy;
 
-            return View(await customers.ToPagedListAsync(filter.Page, filter.PageSize));
+            return View(await customers.ToPagedListAsync(filter.Page, CustomerIndexLink, filter.PageSize));
         }
 
         #endregion

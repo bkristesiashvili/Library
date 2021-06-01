@@ -19,6 +19,8 @@ namespace Library.WebApp.Models
 
         public string LastName { get; set; }
 
+        public bool IsDeleted { get; set; }
+
 
         #endregion
     }

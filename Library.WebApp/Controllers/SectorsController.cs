@@ -20,7 +20,7 @@ using Library.WebApp.Helpers.Attributes;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
-    [ValidUser]
+    [ValidateUser]
     public class SectorsController : BaseController
     {
         #region PRIVATE FIELDS
@@ -61,8 +61,9 @@ namespace Library.WebApp.Controllers
             ViewBag.Ordering = filter.Ordering;
             ViewBag.OrderBy = filter.OrderBy;
             ViewBag.SelectDeleted = filter.SelectDeleted;
+            ViewBag.PageSize = filter.PageSize;
 
-            return View(await sectors.ToPagedListAsync(filter.Page, filter.PageSize));
+            return View(await sectors.ToPagedListAsync(filter.Page, SectorIndexLink, filter.PageSize));
         }
 
         [HttpPost]

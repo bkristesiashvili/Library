@@ -20,7 +20,7 @@ using Library.WebApp.Helpers.Attributes;
 namespace Library.WebApp.Controllers
 {
     [Authorize]
-    [ValidUser]
+    [ValidateUser]
     public class GenresController : BaseController
     {
         #region PRIVATE FIELDS
@@ -62,7 +62,7 @@ namespace Library.WebApp.Controllers
             ViewBag.OrderBy = filter.OrderBy;
             ViewBag.SelectDeleted = filter.SelectDeleted;
 
-            return View(await genreList.ToPagedListAsync(filter.Page, filter.PageSize));
+            return View(await genreList.ToPagedListAsync(filter.Page, GenreIndexLink, filter.PageSize));
         }
 
         [HttpPost]

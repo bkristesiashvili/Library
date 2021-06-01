@@ -11,6 +11,8 @@ namespace Library.Common.Collections
     {
         #region PUBLIC PROPERTIES
 
+        public string Url { get; private set; }
+
         public int TotalPages { get; private set; }
 
         public int PageNumber { get; private set; }
@@ -23,10 +25,11 @@ namespace Library.Common.Collections
 
         #region CTOR
 
-        private PagedList(IList<TObject> data, int count, int pageNumber, int pageSize)
+        private PagedList(IList<TObject> data, string url, int count, int pageNumber, int pageSize)
         {
             this.PageNumber = pageNumber;
             this.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            this.Url = url;
 
             this.AddRange(data);
         }
@@ -37,15 +40,14 @@ namespace Library.Common.Collections
 
         public static async Task<PagedList<TObject>> CreatePagedListAsync(
             IQueryable<TObject> data, 
+            string url,
             int pageNumber, 
             int pageSize = 15)
         {
             var count = await Task.FromResult(data.Count());
             var items = await Task.FromResult(CollectionPagination(data, pageNumber, pageSize));
 
-
-
-            return new PagedList<TObject>(items, count, pageNumber, pageSize);
+            return new PagedList<TObject>(items, url, count, pageNumber, pageSize);
         }
 
         #endregion
