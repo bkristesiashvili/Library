@@ -750,3 +750,29 @@ var sectorRestore = (sid) => {
         }
     });
 }
+
+var sectionCreate = (sid) => {
+    const sectorCreateForm = $('form[data-create-section="new"]');
+    const action = sectorCreateForm.attr('action');
+    const postData = sectorCreateForm.serialize();
+
+    sectorCreateForm.validate();
+
+    if (sectorCreateForm.valid() !== true) return;
+
+    $.post(action, postData)
+        .done((response) => {
+            if (response.succeed === true) {
+                toastr.success('', response.message, {
+                    onHidden: () => {
+                        window.location.href = response.returnUrl;
+                    }
+                })
+            } else if (response.succeed === false) {
+                toastr.error('', response.message);
+            }
+        })
+        .fail((response) => {
+            toastr.error('ERROR: ' + response.status);
+        });
+}
