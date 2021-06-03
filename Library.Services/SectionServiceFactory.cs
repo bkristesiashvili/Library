@@ -80,6 +80,7 @@ namespace Library.Services
                     throw new Exception(RecordNotFound);
 
                 section.Name = updatedSection.Name;
+                section.SectorId = updatedSection.SectorId;
 
                 await UnitOfWorks.SectionsRepository.UpdateAsync(section);
                 UnitOfWorks.SaveChanges();

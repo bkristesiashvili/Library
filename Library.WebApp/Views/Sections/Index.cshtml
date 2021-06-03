@@ -63,19 +63,21 @@
         }
     </div>
 </div>
-@foreach (var genre in Model)
+@foreach (var sectionView in Model)
 {
-    var editGenre = new GenreEditViewModel
+    var editSection = new SectionEditViewModel
     {
-        Id = genre.Id,
-        Name = genre.Name
+        Id = sectionView.Id,
+        Name = sectionView.Name,
+        IsDeleted = sectionView.IsDeleted,
+        SectorId = sectionView.SectorId
     };
 
     <div class="row d-flex align-middle p-2 text-13px text-left row-hover border @Html.Raw(index % 2 == 0 ? "grid-header":"")">
-        <div class="col-sm-4 col-md-4">@genre.Name</div>
-        <div class="col-sm-4 col-md-4">@genre.CreateDate</div>
+        <div class="col-sm-4 col-md-4">@sectionView.Name</div>
+        <div class="col-sm-4 col-md-4">@sectionView.CreateDate</div>
         <div class="col-sm-2 col-md-2 text-center">
-            @if (!genre.IsDeleted)
+            @if (!sectionView.IsDeleted)
             {
                 <i class="fas fa-check-circle text-success text-14px opacity-80"></i>
             }
@@ -86,11 +88,22 @@
         </div>
         <div class="col-sm-2 col-md-2">
             <div class="row float-right">
+                @if (!sectionView.IsDeleted)
+                {
+                    <partial name="Sections/_SectionDetailsPartial" model="sectionView" />
+                }
+                else
+                {
+                    <button type="button" disabled class="btn btn-sm text-secondary text-12px">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                }
+
                 @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
                 {
-                    if (!genre.IsDeleted)
+                    if (!sectionView.IsDeleted)
                     {
-                        <span>edit</span>
+                        <partial name="Sections/_SectionEditPartial" model="editSection" />
                     }
                     else
                     {
@@ -102,9 +115,9 @@
 
                 @if (User.IsInRole(DefaultRoles[SuperAdmin]))
                 {
-                    if (!genre.IsDeleted)
+                    if (!sectionView.IsDeleted)
                     {
-                        <span>delete</span>
+                        <partial name="Sections/_SectionDeletePartial" model="sectionView" />
                     }
                     else
                     {
@@ -115,9 +128,9 @@
                 }
                 @if (User.IsInRole(DefaultRoles[SuperAdmin]))
                 {
-                    if (genre.IsDeleted)
+                    if (sectionView.IsDeleted)
                     {
-                        <span>restore</span>
+                        <partial name="Sections/_SectionRestorepartial" model="sectionView" />
                     }
                     else
                     {

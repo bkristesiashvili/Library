@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library.WebApp.Models
 {
-    public sealed class SectionListViewModel
+    public sealed class SectionEditViewModel
     {
         #region PUBLIC PROPERTIES
 
@@ -16,13 +16,10 @@ namespace Library.WebApp.Models
 
         public string Name { get; set; }
 
-        public string CreateDate { get; set; }
-
-        public string SectorName { get; set; }
+        [HiddenInput]
+        public bool IsDeleted { get; set; }
 
         public Guid SectorId { get; set; }
-
-        public bool IsDeleted { get; set; }
 
         #endregion
     }

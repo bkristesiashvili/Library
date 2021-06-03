@@ -57,7 +57,9 @@ namespace Library.WebApp.Controllers
                                Id = section.Id,
                                Name = section.Name,
                                CreateDate = section.CreatedAt.ToDateString(),
-                               IsDeleted = section.DeletedAt.HasValue
+                               IsDeleted = section.DeletedAt.HasValue,
+                               SectorName = section.Sector.Name,
+                               SectorId = section.SectorId
                            };
 
             ViewBag.Search = filter.Search;
@@ -88,6 +90,49 @@ namespace Library.WebApp.Controllers
             }
 
             return JsonResponse(false, SectionCreateFaieldMessage);
+        }
+
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAsync([FromForm] SectionEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await sectionService.UpdateSectionAsync(model.Id, new Section
+                {
+                    Name = model.Name,
+                    SectorId = model.SectorId
+                });
+
+                if (result.Succeed)
+                    return JsonResponse(true, SectionEditSuccessMessage, SectionIndexLink);
+            }
+
+            return JsonResponse(false, SectionEditFailedMessage);
+        }
+
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteAsync([FromForm] Guid id)
+        {
+            var result = await sectionService.DeleteSectionAsync(id);
+
+            if (result.Succeed)
+                return JsonResponse(true, SectionDeleteSuccessMessage, SectionIndexLink);
+
+            return JsonResponse(false, SectionDeleteFailedMessage);
+        }
+
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RestoreAsync([FromForm] Guid id)
+        {
+            var result = await sectionService.RestoreSectionAsync(id);
+
+            if (result.Succeed)
+                return JsonResponse(true, SectionRestoreSuccessMessage, SectionIndexLink);
+
+            return JsonResponse(false, SectionRestoreFailedMessage);
         }
 
         #endregion
