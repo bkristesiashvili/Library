@@ -750,3 +750,149 @@ var sectorRestore = (sid) => {
         }
     });
 }
+
+var sectionCreate = () => {
+    const sectorCreateForm = $('form[data-create-section="new"]');
+    const action = sectorCreateForm.attr('action');
+    const postData = sectorCreateForm.serialize();
+
+    sectorCreateForm.validate();
+
+    if (sectorCreateForm.valid() !== true) return;
+
+    $.post(action, postData)
+        .done((response) => {
+            if (response.succeed === true) {
+                toastr.success('', response.message, {
+                    onHidden: () => {
+                        window.location.href = response.returnUrl;
+                    }
+                })
+            } else if (response.succeed === false) {
+                toastr.error('', response.message);
+            }
+        })
+        .fail((response) => {
+            toastr.error('ERROR: ' + response.status);
+        });
+}
+
+var sectionEdit = (sid) => {
+    const sectorDeleteForm = $('form[data-section-edit="' + sid + '"]');
+    const action = sectorDeleteForm.attr('action');
+    const postData = sectorDeleteForm.serialize();
+
+    $.ajax({
+        type: 'PUT',
+        url: action,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        data: postData,
+        success: function (response) {
+            if (response.succeed === true) {
+                toastr.success('', response.message, {
+                    onHidden: function () {
+                        window.location.href = response.returnUrl;
+                    }
+                });
+
+            } else if (response.succeed === false) {
+                toastr.warning('', response.message);
+            }
+        },
+        error: function (response) {
+            toastr.error('ERROR: ' + response.status);
+        }
+    });
+}
+
+var sectionDelete = (sid) => {
+    const deleteForm = $('form[data-delete-section="' + sid + '"]');
+    const action = deleteForm.attr('action');
+    const deleteData = deleteForm.serialize();
+
+    var confirmForm = $.confirm({
+        title: '',
+        content: 'ნამდვილად გსურთ წაშლა?',
+        type: 'red',
+        columnClass: 'col-sm-4 col-md-offset-4 text-12px',
+        buttons: {
+            დიახ: {
+                btnClass: 'btn-danger text-12px',
+                action: function () {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: action,
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        dataType: 'json',
+                        data: deleteData,
+                        success: function (data) {
+                            console.log(data);
+                            if (data.succeed === true) {
+                                toastr.success("", data.message, {
+                                    fadeOut: 500,
+                                    onHidden: function () {
+                                        window.location.href = data.returnUrl;
+                                    }
+                                });
+                            } else if (data.succeed == false) {
+                                toastr.warning("", data.message);
+                            }
+                        },
+                        error: function (resp) {
+                            toastr.error('Error: ' + resp.status);
+                        }
+                    });
+                }
+            },
+            არა: function () {
+                confirmForm.close();
+            }
+        }
+    });
+}
+
+var sectionRestore = (sid) => {
+    const sectorDeleteForm = $('form[data-restore-section="' + sid + '"]');
+    const action = sectorDeleteForm.attr('action');
+    const postData = sectorDeleteForm.serialize();
+
+    var confirmForm = $.confirm({
+        title: '',
+        content: 'ნამდვილად გსურთ აღდგენა?',
+        type: 'green',
+        columnClass: 'col-sm-4 col-md-offset-4 text-12px',
+        buttons: {
+            დიახ: {
+                btnClass: 'btn-success text-12px',
+                action: function () {
+                    $.ajax({
+                        type: 'PUT',
+                        url: action,
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        dataType: 'json',
+                        data: postData,
+                        success: function (response) {
+                            if (response.succeed === true) {
+                                toastr.success('', response.message, {
+                                    onHidden: function () {
+                                        window.location.href = response.returnUrl;
+                                    }
+                                });
+
+                            } else if (response.succeed === false) {
+                                toastr.warning('', response.message);
+                            }
+                        },
+                        error: function (response) {
+                            toastr.error('ERROR: ' + response.status);
+                        }
+                    });
+                }
+            },
+            არა: function () {
+                confirmForm.close();
+            }
+        }
+    });
+}

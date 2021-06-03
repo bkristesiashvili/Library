@@ -98,6 +98,15 @@ namespace Library.Common
         public const string SectorRestoreSuccessMessage = "სექტორის აღდგენა წარმატეით შესრულდა.";
         public const string SectorRestoreFailedMessage = "სექტორის აღდგენა ვერ მოხერხდა!";
 
+        public const string SectionNameRequiredMessage = "კარადის დასახელება აუცილებელია!";
+        public const string SectionCreateSuccessMessage = "კარადა წარმატებით დაემატა.";
+        public const string SectionCreateFaieldMessage = "კარადის დამატება ვერ მოხერხდა!";
+        public const string SectionEditSuccessMessage = "კარადის განახლება წარმატებით შესრულდა.";
+        public const string SectionEditFailedMessage = "კარადის განახლება ვერ მოხერხდა!";
+        public const string SectionDeleteSuccessMessage = "კარადა წარმატებით წაიშალა";
+        public const string SectionDeleteFailedMessage = "კარადის წაშლა ვერ მოხერხდა!";
+        public const string SectionRestoreSuccessMessage = "კარადის აღდგენა წარმატეით შესრულდა.";
+        public const string SectionRestoreFailedMessage = "კარადის აღდგენა ვერ მოხერხდა!";
 
         public const string Space = "\u0020";
         public const string DefaultUrl = "/";
@@ -112,6 +121,8 @@ namespace Library.Common
         public const string GenreIndexLink = "/genres";
 
         public const string SectorIndexLink = "/sectors";
+
+        public const string SectionIndexLink = "/sections";
 
         public const string LoginLink = "/auth/login";
 

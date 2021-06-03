@@ -7,8 +7,9 @@
 <div class="row">
     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
         <div class="text-left pb-1">
-            <form method="get" asp-controller="@GenreIndexLink" asp-action="index" autocomplete="off">
+            <form method="get" asp-controller="@Model.Url" asp-action="index" autocomplete="off">
                 <div class="input-group">
+                    <input type="hidden" name="pagesize" value="@ViewBag.PageSize" />
                     <input type="hidden" name="selectdeleted" value="@string.Format($"{ViewBag.SelectDeleted}")" />
                     <input type="search" placeholder="ძებნა" name="search" class="form-control text-12px" maxlength="30" />
                     <div class="input-group-append">
@@ -24,11 +25,12 @@
 <div class="row profile-bg text-dark font-weight-bold p-3 rounded-top text-13px">
     <div class="col-sm-4 col-md-4">
         <div class="d-flex">
-            <a asp-controller="@GenreIndexLink"
+            <a asp-controller="@Model.Url"
                asp-action="index"
                asp-route-orderby="name"
                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
                asp-route-selectdeleted="@ViewBag.SelectDeleted"
+               asp-route-pagesize="@ViewBag.PageSize"
                class="btn btn-sm">
                 <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
                                                              ((string)ViewBag.OrderBy).ToLower() == "name"
@@ -38,11 +40,12 @@
         </div>
     </div>
     <div class="col-sm-4 col-md-4">
-        <a asp-controller="@GenreIndexLink"
+        <a asp-controller="@Model.Url"
            asp-action="index"
            asp-route-orderby="createdat"
            asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
            asp-route-selectdeleted="@ViewBag.SelectDeleted"
+           asp-route-pagesize="@ViewBag.PageSize"
            class="btn btn-sm">
             <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
                                                              ((string)ViewBag.OrderBy).ToLower() == "createdat"
@@ -141,11 +144,13 @@
                 {
                     <div class="float-left">
                         <div class="text-center">
-                            <a asp-controller="@GenreIndexLink"
+                            <a asp-controller="@Model.Url"
                                asp-action="index"
                                asp-route-orderby="@ViewBag.OrderBy"
                                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
-                               asp-route-selectdeleted="@ViewBag.SelectDeleted" class="btn btn-sm btn-outline-danger text-12px">
+                               asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                               asp-route-pagesize="@ViewBag.PageSize"
+                               class="btn btn-sm btn-outline-danger text-12px">
                                 <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
                             </a>
                         </div>
@@ -157,17 +162,29 @@
 }
 @if (Model.Any())
 {
+    var pageFilter = new FilterViewModel
+    {
+        Url = Model.Url,
+        Page = Model.PageNumber,
+        PageSize = ViewBag.PageSize,
+        Search = ViewBag.Search,
+        SelectDeleted = ViewBag.SelectDeleted ?? false,
+        OrderBy = ViewBag.OrderBy,
+        Ordering = ViewBag.Ordering
+    };
+
     <div class="row pt-1">
         <div class="col-sm-3 col-md-6 col-lg-6 col-xl-6">
             @if (!string.IsNullOrEmpty(ViewBag.Search))
             {
                 <div class="float-left">
                     <div class="text-center">
-                        <a asp-controller="@GenreIndexLink" 
+                        <a asp-controller="@Model.Url" 
                            asp-action="index"
                            asp-route-orderby="@ViewBag.OrderBy"
                            asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
                            asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                           asp-route-pagesize="@ViewBag.PageSize"
                            class="btn btn-sm btn-outline-danger text-12px">
                             <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
                         </a>
@@ -177,13 +194,12 @@
         </div>
         <div class="col-sm-8 col-md-6 col-lg-6 col-xl-6">
             <div class="row">
-                <div class="col-sm-4 col-md-4 col-lg-4"></div>
                 <div class="col-sm-4 col-md-4 col-lg-4">
                     @if (User.IsInRole(DefaultRoles[SuperAdmin]))
                     {
                         <div class="float-right">
                             <form data-select-all onsubmit="return false;"
-                                  asp-controller="@GenreIndexLink"
+                                  asp-controller="@Model.Url"
                                   asp-action="index" method="get">
                                 <label class="text-12px">
                                     <input type="checkbox" name="selectdeleted"
@@ -194,27 +210,32 @@
                     }
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4">
+                    <partial name="_PageFilterPartial" model="pageFilter" />
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
                     <div class="float-right">
                         <div class="pagination">
 
                             <div class="page-item">
-                                <a asp-controller="@GenreIndexLink"
+                                <a asp-controller="@Model.Url"
                                    asp-action="index"
                                    asp-route-page="@(Model.PageNumber - 1)"
                                    asp-route-search="@ViewBag.Search"
                                    asp-route-orderby="@ViewBag.OrderBy"
                                    asp-route-ordering="@ViewBag.Ordering"
                                    asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                                   asp-route-pagesize="@ViewBag.PageSize"
                                    class="page-link @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
                             </div>
                             <div class="page-item">
-                                <a asp-controller="@GenreIndexLink"
+                                <a asp-controller="@Model.Url"
                                    asp-action="index"
                                    asp-route-page="@(Model.PageNumber + 1)"
                                    asp-route-search="@ViewBag.Search"
                                    asp-route-orderby="@ViewBag.OrderBy"
                                    asp-route-ordering="@ViewBag.Ordering"
                                    asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                                   asp-route-pagesize="@ViewBag.PageSize"
                                    class="page-link @Html.Raw(Model.Next ? "" : "disabled") text-12px">წინ&nbsp;<i class="fas fa-chevron-right"></i></a>
                             </div>
                         </div>

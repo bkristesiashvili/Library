@@ -139,6 +139,17 @@
 </div>
 @if (Model.Any())
 {
+    var pageFilter = new FilterViewModel
+    {
+        Url = Model.Url,
+        Page = Model.PageNumber,
+        PageSize = ViewBag.PageSize,
+        Search = ViewBag.Search,
+        SelectDeleted = ViewBag.SelectDeleted  ?? false,
+        OrderBy = ViewBag.OrderBy,
+        Ordering = ViewBag.Ordering
+    };
+
     <div class="row pt-1">
         <div class="col-sm-3 col-md-6 col-lg-6 col-xl-6">
             @if (!string.IsNullOrEmpty(ViewBag.Search))
@@ -158,45 +169,7 @@
             <div class="row">
                 <div class="col-sm-4 col-md-4"></div>
                 <div class="col-sm-4 col-md-4">
-                    <div class="dropdown show float-right">
-                        <a class="btn btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @ViewBag.PageSize
-                        </a>
-                        <div class="dropdown-menu text-12px">
-                            <a asp-controller="@Model.Url"
-                               asp-action="index"
-                               asp-route-page="@(Model.PageNumber - 1)"
-                               asp-route-search="@ViewBag.Search"
-                               asp-route-orderby="@ViewBag.OrderBy"
-                               asp-route-ordering="@ViewBag.Ordering"
-                               asp-route-selectdeleted="@ViewBag.SelectDeleted"
-                               asp-route-pagesize="5" class="dropdown-item">5</a>
-                            <a asp-controller="@Model.Url"
-                               asp-action="index"
-                               asp-route-page="@(Model.PageNumber - 1)"
-                               asp-route-search="@ViewBag.Search"
-                               asp-route-orderby="@ViewBag.OrderBy"
-                               asp-route-ordering="@ViewBag.Ordering"
-                               asp-route-selectdeleted="@ViewBag.SelectDeleted"
-                               asp-route-pagesize="10" class="dropdown-item">10</a>
-                            <a asp-controller="@Model.Url"
-                               asp-action="index"
-                               asp-route-page="@(Model.PageNumber - 1)"
-                               asp-route-search="@ViewBag.Search"
-                               asp-route-orderby="@ViewBag.OrderBy"
-                               asp-route-ordering="@ViewBag.Ordering"
-                               asp-route-selectdeleted="@ViewBag.SelectDeleted"
-                               asp-route-pagesize="15" class="dropdown-item">15</a>
-                            <a asp-controller="@Model.Url"
-                               asp-action="index"
-                               asp-route-page="@(Model.PageNumber - 1)"
-                               asp-route-search="@ViewBag.Search"
-                               asp-route-orderby="@ViewBag.OrderBy"
-                               asp-route-ordering="@ViewBag.Ordering"
-                               asp-route-selectdeleted="@ViewBag.SelectDeleted"
-                               asp-route-pagesize="20" class="dropdown-item">20</a>
-                        </div>
-                    </div>
+                    <partial name="_PageFilterPartial" model="pageFilter" />
                 </div>
                 <div class="col-sm-4 col-md-4">
                     <div class="float-right">
@@ -226,7 +199,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 }

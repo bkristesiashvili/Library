@@ -61,6 +61,7 @@ namespace Library.WebApp.Controllers
             ViewBag.Ordering = filter.Ordering;
             ViewBag.OrderBy = filter.OrderBy;
             ViewBag.SelectDeleted = filter.SelectDeleted;
+            ViewBag.PageSize = filter.PageSize;
 
             return View(await genreList.ToPagedListAsync(filter.Page, GenreIndexLink, filter.PageSize));
         }
