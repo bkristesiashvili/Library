@@ -124,6 +124,8 @@ namespace Library.Common
 
         public const string SectionIndexLink = "/sections";
 
+        public const string BookShelveIndexLink = "/bookshelves";
+
         public const string LoginLink = "/auth/login";
 
         public const string AntiForgeryCoockieName = "Library.AntiForgery";
