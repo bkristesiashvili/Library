@@ -71,11 +71,7 @@ namespace Library.WebApp
                 options.Cookie.Name = AntiForgeryCoockieName;
             });
 
-            
-
             services.AddScoped<IUnitOfWorks, UnitOfWorks>();
-
-            services.AddFileLogger(Configuration.GetSection("FileLogger:Dir").Value);
 
             services.AddApplicationServices();
         }

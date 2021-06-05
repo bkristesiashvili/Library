@@ -21,17 +21,6 @@ namespace Library.Services.Extensions
 
         #region EXTENSION METHODS
 
-        public static void AddFileLogger(this IServiceCollection @this, string loggingDirectoryPath)
-        {
-            if (@this == null)
-                throw new ArgumentNullException(nameof(@this));
-
-            if (string.IsNullOrEmpty(loggingDirectoryPath) || string.IsNullOrWhiteSpace(loggingDirectoryPath))
-                throw new ArgumentNullException("Empty logging directory name!");
-
-            @this.AddSingleton<IFileLoggerService>(new FileLoggerServiceFactory(loggingDirectoryPath));
-        }
-
         public static IServiceCollection AddApplicationServices(this IServiceCollection @this)
         {
             if (@this == null)
@@ -47,8 +36,6 @@ namespace Library.Services.Extensions
                 var name = serviceType.Name.Replace(FACTORY_STRING, string.Empty);
 
                 var _interface = serviceType.GetInterface($"I{name}");
-
-                if (_interface.Name == nameof(IFileLoggerService)) continue;
 
                 @this.AddScoped(_interface, serviceType);
             }

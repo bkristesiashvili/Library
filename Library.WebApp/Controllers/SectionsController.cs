@@ -14,8 +14,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Library.Data.Extensions;
 using Library.WebApp.Models;
-using Library.WebApp.Helpers.Extensions;
 using Library.Data.Entities;
+using Library.Common.Extensions;
 
 namespace Library.WebApp.Controllers
 {

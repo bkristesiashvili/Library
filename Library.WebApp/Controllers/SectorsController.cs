@@ -3,7 +3,6 @@ using Library.Data.Entities;
 using Library.Data.Extensions;
 using Library.Services.Abstractions;
 using Library.WebApp.Controllers.Abstractions;
-using Library.WebApp.Helpers.Extensions;
 using Library.WebApp.Models;
 
 using static Library.Common.GlobalVariables;
@@ -16,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Library.WebApp.Helpers.Attributes;
+using Library.Common.Extensions;
 
 namespace Library.WebApp.Controllers
 {
@@ -118,7 +118,7 @@ namespace Library.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RestoreAsync([FromForm]Guid id)
         {
-            var result = await sectorService.RestoreSectoreAsync(id);
+            var result = await sectorService.RestoreSectorAsync(id);
 
             if (result.Succeed)
                 return JsonResponse(true, SectorRestoreSuccessMessage, SectorIndexLink);

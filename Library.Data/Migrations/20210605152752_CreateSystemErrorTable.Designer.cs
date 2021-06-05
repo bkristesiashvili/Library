@@ -4,14 +4,16 @@ using Library.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.Data.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    partial class LibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210605152752_CreateSystemErrorTable")]
+    partial class CreateSystemErrorTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -355,43 +357,43 @@ namespace Library.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f79f7470-35cd-445b-acd3-865672a3ee1a"),
+                            Id = new Guid("4f0d016a-02a1-412b-b658-d76adf124a92"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ავტობიოგრაფია"
                         },
                         new
                         {
-                            Id = new Guid("b21888ce-c428-46a7-8291-ed2720a21774"),
+                            Id = new Guid("e09a315a-8d28-4b60-812e-48cc513e6d52"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ბიოგრაფია"
                         },
                         new
                         {
-                            Id = new Guid("2d0c2981-8c16-4aaa-822b-e0f2f7f90842"),
+                            Id = new Guid("1f163870-1636-4299-bf4e-e04428f615aa"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "ბელეტრისტიკა"
                         },
                         new
                         {
-                            Id = new Guid("0a3d8f34-b4eb-44fc-ba59-391b905a9487"),
+                            Id = new Guid("4d234d0f-8acb-416c-a67c-5759c2dfa25f"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "პროზა"
                         },
                         new
                         {
-                            Id = new Guid("538da775-9f40-404a-be4b-f5c6084cbcbb"),
+                            Id = new Guid("24087776-0b96-456a-bb9f-50217a58faea"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "რომანი"
                         },
                         new
                         {
-                            Id = new Guid("306fdea3-d1a2-457e-9bdb-f180126929d9"),
+                            Id = new Guid("20d870f7-7cc1-4211-bec8-647af3a1d040"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "დეტექტივი"
                         },
                         new
                         {
-                            Id = new Guid("d155a800-5d76-40d3-94e8-676ac9d7ebf1"),
+                            Id = new Guid("68efc68f-78be-44a9-8343-eaeb5e6d7008"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "დრამა"
                         });
@@ -427,22 +429,22 @@ namespace Library.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b5c4266c-3bcb-43e5-b349-e0f28245a3b3"),
-                            ConcurrencyStamp = "34eaed3b-45a6-4b64-ada1-391771142618",
+                            Id = new Guid("f1e6c378-e921-4a60-a0d3-95fe559e98ba"),
+                            ConcurrencyStamp = "cd3cbcf7-258f-4316-9844-87ee1f5def4b",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = new Guid("78fb2d47-9a88-4682-9861-7b42a8996c06"),
-                            ConcurrencyStamp = "e69a2688-57dc-4c42-b082-5e58cae188a8",
+                            Id = new Guid("df856f47-a7f3-41e3-95d3-6a3e05b39d1b"),
+                            ConcurrencyStamp = "a3eec40b-5376-43cc-aede-d5f631833728",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("ffe2dd7f-89e5-49db-9a14-b39c97c03cf7"),
-                            ConcurrencyStamp = "0b918cab-b98d-44f4-bd7d-761e3356c3bb",
+                            Id = new Guid("f6207010-df54-486e-9344-b1491e076214"),
+                            ConcurrencyStamp = "a894fdf1-d257-4263-a266-45197d2ba543",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -550,11 +552,6 @@ namespace Library.Data.Migrations
                     b.Property<string>("RequestPath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Resolved")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()

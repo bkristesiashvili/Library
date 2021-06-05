@@ -112,13 +112,13 @@ namespace Library.Services
                     .GetByIdAsync(newSection.SectorId);
 
                 var exists = currentSector.Sections
-                    .Select(section => section.Name);
+                    .Select(section => section);
 
-                if (exists.Contains(newSection.Name))
-                    throw new Exception(RecordAlreadyExists);
-
-                await UnitOfWorks.SectionsRepository.CreateAsync(newSection);
-                UnitOfWorks.SaveChanges();
+                if (!RestoreIfExistWhenCreate(newSection.Name, exists))
+                {
+                    await UnitOfWorks.SectionsRepository.CreateAsync(newSection);
+                    UnitOfWorks.SaveChanges();
+                }
 
                 return ServiceResult(true);
             }
@@ -162,6 +162,25 @@ namespace Library.Services
         {
             if (UnitOfWorks == null)
                 throw new ArgumentNullException(UOW_ExceptionMessage);
+        }
+
+        #endregion
+
+        #region PRIVATE METHODS
+
+        private bool RestoreIfExistWhenCreate(string Name, IEnumerable<Section> relatedSections)
+        {
+            if (relatedSections == null)
+                throw new ArgumentNullException(nameof(relatedSections));
+
+            var found = relatedSections.FirstOrDefault(s => s.Name.Equals(Name));
+
+            if (found == null) return false;
+
+            if (found.DeletedAt.HasValue)
+                return RestoreSectionAsync(found.Id).Result.Succeed;
+            else
+                throw new Exception(RecordAlreadyExists);
         }
 
         #endregion
