@@ -18,6 +18,10 @@ namespace Library.Data.Entities.Configurations
                    .HasDefaultValue(false)
                    .ValueGeneratedOnAdd();
 
+            builder.Property(entity => entity.Comment)
+                .HasDefaultValue(string.Empty)
+                .ValueGeneratedOnAdd();
+
             base.Configure(builder);
         }
     }

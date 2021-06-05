@@ -10,7 +10,7 @@
             <form method="get" asp-controller="@Model.Url" asp-action="index" autocomplete="off">
                 <div class="input-group">
                     <input type="hidden" name="pagesize" value="@ViewBag.PageSize" />
-                    <input type="hidden" name="selectdeleted" value="@string.Format($"{ViewBag.SelectDeleted}")" />
+                    <input type="hidden" name="checked" value="@string.Format($"{ViewBag.SelectDeleted}")" />
                     <input type="search" placeholder="ძებნა" name="search" class="form-control text-12px" maxlength="30" />
                     <div class="input-group-append">
                         <button class="btn btn-success text-12px">
@@ -29,7 +29,7 @@
                asp-action="index"
                asp-route-orderby="name"
                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
-               asp-route-selectdeleted="@ViewBag.SelectDeleted"
+               asp-route-checked="@ViewBag.SelectDeleted"
                asp-route-pagesize="@ViewBag.PageSize"
                class="btn btn-sm">
                 <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
@@ -44,7 +44,7 @@
            asp-action="index"
            asp-route-orderby="createdat"
            asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
-           asp-route-selectdeleted="@ViewBag.SelectDeleted"
+           asp-route-checked="@ViewBag.SelectDeleted"
            asp-route-pagesize="@ViewBag.PageSize"
            class="btn btn-sm">
             <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
@@ -148,7 +148,7 @@
                                asp-action="index"
                                asp-route-orderby="@ViewBag.OrderBy"
                                asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
-                               asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                               asp-route-checked="@ViewBag.SelectDeleted"
                                asp-route-pagesize="@ViewBag.PageSize"
                                class="btn btn-sm btn-outline-danger text-12px">
                                 <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
@@ -183,7 +183,7 @@
                            asp-action="index"
                            asp-route-orderby="@ViewBag.OrderBy"
                            asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
-                           asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                           asp-route-checked="@ViewBag.SelectDeleted"
                            asp-route-pagesize="@ViewBag.PageSize"
                            class="btn btn-sm btn-outline-danger text-12px">
                             <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
@@ -202,7 +202,7 @@
                                   asp-controller="@Model.Url"
                                   asp-action="index" method="get">
                                 <label class="text-12px">
-                                    <input type="checkbox" name="selectdeleted"
+                                    <input type="checkbox" name="checked"
                                            value="false" checked="@ViewBag.SelectDeleted" />&nbsp;ყველა სტატუსი
                                 </label>
                             </form>
@@ -223,7 +223,7 @@
                                    asp-route-search="@ViewBag.Search"
                                    asp-route-orderby="@ViewBag.OrderBy"
                                    asp-route-ordering="@ViewBag.Ordering"
-                                   asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                                   asp-route-checked="@ViewBag.SelectDeleted"
                                    asp-route-pagesize="@ViewBag.PageSize"
                                    class="page-link @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
                             </div>
@@ -234,7 +234,7 @@
                                    asp-route-search="@ViewBag.Search"
                                    asp-route-orderby="@ViewBag.OrderBy"
                                    asp-route-ordering="@ViewBag.Ordering"
-                                   asp-route-selectdeleted="@ViewBag.SelectDeleted"
+                                   asp-route-checked="@ViewBag.SelectDeleted"
                                    asp-route-pagesize="@ViewBag.PageSize"
                                    class="page-link @Html.Raw(Model.Next ? "" : "disabled") text-12px">წინ&nbsp;<i class="fas fa-chevron-right"></i></a>
                             </div>

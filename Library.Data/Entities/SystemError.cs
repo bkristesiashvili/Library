@@ -31,6 +31,8 @@ namespace Library.Data.Entities
         [DefaultValue(false)]
         public bool Resolved { get; set; }
 
+        public string Comment { get; set; }
+
         #endregion
     }
 }

@@ -84,11 +84,16 @@ namespace Library.Services
         }
 
 
-        public async Task<IQueryable<SystemError>> GetAllSystemErrorsAsync(IFilter filter = null)
+        public async Task<IQueryable<SystemError>> GetAllSystemErrorsAsync(IFilter filter = null,
+            bool selectResolved = false)
         {
             EnsureDependencies();
 
-            return await UnitOfWorks.SystemErrorRepository.GetAll(filter);
+            var errors = await UnitOfWorks.SystemErrorRepository.GetAll(filter);
+
+            return from error in errors
+                   where error.Resolved == selectResolved
+                   select error;
         }
 
         public async Task<SystemError> GetSystemErrorByIdAsync(Guid id)

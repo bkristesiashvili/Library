@@ -49,9 +49,9 @@ namespace Library.WebApp.Controllers
         public async Task<IActionResult> IndexAsync([FromQuery] SectionFilter filter)
         {
             if (!User.IsInRole(DefaultRoles[Common.Enums.SystemDefaultRole.SuperAdmin]))
-                filter.SelectDeleted = false;
+                filter.Checked = false;
 
-            var sections = from section in await sectionService.GetAllSectionsAsync(filter, filter.SelectDeleted)
+            var sections = from section in await sectionService.GetAllSectionsAsync(filter, filter.Checked)
                            select new SectionListViewModel
                            {
                                Id = section.Id,
@@ -65,7 +65,7 @@ namespace Library.WebApp.Controllers
             ViewBag.Search = filter.Search;
             ViewBag.Ordering = filter.Ordering;
             ViewBag.OrderBy = filter.OrderBy;
-            ViewBag.SelectDeleted = filter.SelectDeleted;
+            ViewBag.SelectDeleted = filter.Checked;
             ViewBag.PageSize = filter.PageSize;
             ViewBag.Sectors = await sectorService.GetAllSectorsAsync();
 

@@ -191,9 +191,12 @@ $(document).ready(() => {
     checkBox.on('change', () => {
         var checked = checkBox.prop('checked');
         var action = selectAllForm.attr('action');
+        var name = checkBox.attr('name');
 
-        window.location.href = action + '?selectdeleted=' + checked;
-        
+        console.log(name);
+
+        window.location.href = action + '?' + name + '=' + checked;
+
     });
 
     pageSizeSelect.on('change', () => {

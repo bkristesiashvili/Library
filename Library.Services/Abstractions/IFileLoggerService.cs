@@ -27,7 +27,8 @@ namespace Library.Services.Abstractions
 
         Task FileLogAsync(string Message, HttpContext httpCOntext, LoggingType loggingType = LoggingType.Information);
 
-        Task<IQueryable<SystemError>> GetAllSystemErrorsAsync(IFilter filter = null);
+        Task<IQueryable<SystemError>> GetAllSystemErrorsAsync(IFilter filter = null,
+            bool selectResolved = false);
 
         Task<SystemError> GetSystemErrorByIdAsync(Guid id);
 

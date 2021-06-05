@@ -45,9 +45,9 @@ namespace Library.WebApp.Controllers
         public async Task<IActionResult> IndexAsync([FromQuery] AuthorFilter filter)
         {
             if (!User.IsInRole(DefaultRoles[Common.Enums.SystemDefaultRole.SuperAdmin]))
-                filter.SelectDeleted = false;
+                filter.Checked = false;
 
-            var authors = from author in await authorService.GetAllAuthorsAsync(filter, filter.SelectDeleted)
+            var authors = from author in await authorService.GetAllAuthorsAsync(filter, filter.Checked)
                           select new AuthorListViewModel
                           {
                               Id = author.Id,
@@ -60,7 +60,7 @@ namespace Library.WebApp.Controllers
             ViewBag.Search = filter.Search;
             ViewBag.Ordering = filter.Ordering;
             ViewBag.OrderBy = filter.OrderBy;
-            ViewBag.SelectDeleted = filter.SelectDeleted;
+            ViewBag.SelectDeleted = filter.Checked;
             ViewBag.PageSize = filter.PageSize;
 
             return View(await authors.ToPagedListAsync(filter.Page, AuthorIndexLink, filter.PageSize));

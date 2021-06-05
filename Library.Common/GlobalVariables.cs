@@ -136,6 +136,8 @@ namespace Library.Common
 
         public const string BookShelveIndexLink = "/bookshelves";
 
+        public const string LogsIndexLink = "/logs";
+
         public const string LoginLink = "/auth/login";
 
         public const string AntiForgeryCoockieName = "Library.AntiForgery";

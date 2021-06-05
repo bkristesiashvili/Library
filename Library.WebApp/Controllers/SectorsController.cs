@@ -46,9 +46,9 @@ namespace Library.WebApp.Controllers
         public async Task<IActionResult> IndexAsync([FromQuery] SectorFilter filter)
         {
             if (!User.IsInRole(DefaultRoles[Common.Enums.SystemDefaultRole.SuperAdmin]))
-                filter.SelectDeleted = false;
+                filter.Checked = false;
 
-            var sectors = from sector in await sectorService.GetAllSectorsAsync(filter, filter.SelectDeleted)
+            var sectors = from sector in await sectorService.GetAllSectorsAsync(filter, filter.Checked)
                           select new SectorListViewModel
                           {
                               Id = sector.Id,
@@ -60,7 +60,7 @@ namespace Library.WebApp.Controllers
             ViewBag.Search = filter.Search;
             ViewBag.Ordering = filter.Ordering;
             ViewBag.OrderBy = filter.OrderBy;
-            ViewBag.SelectDeleted = filter.SelectDeleted;
+            ViewBag.SelectDeleted = filter.Checked;
             ViewBag.PageSize = filter.PageSize;
 
             return View(await sectors.ToPagedListAsync(filter.Page, SectorIndexLink, filter.PageSize));
