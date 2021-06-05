@@ -13,24 +13,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Library.WebApp.Helpers.Extensions;
+using Microsoft.AspNetCore.Authorization;
+using Library.WebApp.Helpers.Attributes;
+using Library.Data.Entities;
 
 namespace Library.WebApp.Controllers
 {
+    [Authorize]
+    [ValidateUser]
     public class BookShelvesController : BaseController
     {
         #region PRIVATE FIELDS
 
         private readonly IBookShelveService bookShelveService;
+        private readonly ISectionService sectionService;
 
         #endregion
 
         #region CTOR
 
         public BookShelvesController(IFileLoggerService logger,
-            IBookShelveService bookShelveService)
+            IBookShelveService bookShelveService,
+            ISectionService sectionService)
             : base(logger)
         {
             this.bookShelveService = bookShelveService;
+            this.sectionService = sectionService;
         }
 
         #endregion
@@ -56,13 +64,28 @@ namespace Library.WebApp.Controllers
             ViewBag.OrderBy = filter.OrderBy;
             ViewBag.SelectDeleted = filter.SelectDeleted;
             ViewBag.PageSize = filter.PageSize;
+            ViewBag.Sections = await sectionService.GetAllSectionsAsync();
 
             return View(await shelves.ToPagedListAsync(filter.Page, BookShelveIndexLink, filter.PageSize));
         }
 
-        public IActionResult Add()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddAsync([FromForm] BookShelveCreateViewModel model)
         {
-            return JsonResponse(false, "");
+            if (ModelState.IsValid)
+            {
+                var result = await bookShelveService.CreateBookShelveAsync(new BookShelve
+                {
+                    Name = model.Name,
+                    SectionId = model.SectionId
+                });
+
+                if (result.Succeed)
+                    return JsonResponse(true, BookSHelveCreateSuccessMessage, BookShelveIndexLink);
+            }
+
+            return JsonResponse(false, BookSHelveCreateFaieldMessage);
         }
 
         public IActionResult Edit()

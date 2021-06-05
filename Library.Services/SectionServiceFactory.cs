@@ -80,6 +80,14 @@ namespace Library.Services
                 if (section == null)
                     throw new Exception(RecordNotFound);
 
+                var sector = await UnitOfWorks.SectorsRepository
+                    .GetByIdAsync(section.SectorId);
+
+                var exists = sector.Sections.Select(s => s.Name);
+
+                if (exists.Contains(updatedSection.Name))
+                    throw new Exception(RecordAlreadyExists);
+
                 section.Name = updatedSection.Name;
                 section.SectorId = updatedSection.SectorId;
 
@@ -99,6 +107,15 @@ namespace Library.Services
             try
             {
                 EnsureDependencies();
+
+                var currentSector = await UnitOfWorks.SectorsRepository
+                    .GetByIdAsync(newSection.SectorId);
+
+                var exists = currentSector.Sections
+                    .Select(section => section.Name);
+
+                if (exists.Contains(newSection.Name))
+                    throw new Exception(RecordAlreadyExists);
 
                 await UnitOfWorks.SectionsRepository.CreateAsync(newSection);
                 UnitOfWorks.SaveChanges();

@@ -59,11 +59,7 @@
     <div class="col-sm-2 col-md-2">
         @if (User.IsInRole(DefaultRoles[SuperAdmin]) || User.IsInRole(DefaultRoles[Admin]))
         {
-            <div class="text-right">
-                <button type="button" class="btn btn-sm btn-success text-white text-12px" data-toggle="modal" data-target="#add_section">
-                    <i class="fas fa-plus">&nbsp;</i>დამატება
-                </button>
-            </div>
+            <partial name="BookShelve/_BookShelveAddPartial" model="null" />
         }
     </div>
 </div>

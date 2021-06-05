@@ -2,6 +2,8 @@
 using Library.Data.Entities;
 using Library.Data.Repositories.Abstractions;
 
+using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +36,14 @@ namespace Library.Data.Repositories
                         customer.Phone.StartsWith(filter.Search)
                   select customer
                 : customers;
+        }
+
+        public override async Task<Customer> GetByIdAsync(Guid id)
+        {
+            EnsureDependencies();
+
+            return await Entity.Include(s => s.RentedBooks)
+                .SingleOrDefaultAsync(s => s.Id.Equals(id));
         }
 
         #endregion

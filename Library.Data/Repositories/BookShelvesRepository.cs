@@ -2,6 +2,8 @@
 using Library.Data.Entities;
 using Library.Data.Repositories.Abstractions;
 
+using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,14 @@ namespace Library.Data.Repositories
                   where shelve.Name.StartsWith(filter.Search)
                   select shelve
                 : shelves;
+        }
+
+        public override async Task<BookShelve> GetByIdAsync(Guid id)
+        {
+            EnsureDependencies();
+
+            return await Entity.Include(s => s.Books)
+                .SingleOrDefaultAsync(s => s.Id.Equals(id));
         }
 
         #endregion

@@ -2,6 +2,8 @@
 using Library.Data.Entities;
 using Library.Data.Repositories.Abstractions;
 
+using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,7 @@ namespace Library.Data.Repositories
 
         #endregion
 
-         #region OVERRIDED METHODS
+        #region OVERRIDED METHODS
 
         public override async Task<IQueryable<Genre>> GetAll(IFilter filter = null)
         {
@@ -30,6 +32,14 @@ namespace Library.Data.Repositories
                   where genre.Name.StartsWith(filter.Search)
                   select genre
                 : genres;
+        }
+
+        public override async Task<Genre> GetByIdAsync(Guid id)
+        {
+            EnsureDependencies();
+
+            return await Entity.Include(s => s.Books)
+                .SingleOrDefaultAsync(s => s.Id.Equals(id));
         }
 
         #endregion

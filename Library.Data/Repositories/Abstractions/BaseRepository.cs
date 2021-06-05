@@ -16,9 +16,9 @@ namespace Library.Data.Repositories.Abstractions
     public abstract class BaseRepository<TEntity> : IRepository<TEntity>
         where TEntity : BaseEntity, new()
     {
-        #region PRIVATE FIELDS
+        #region PROTECTED FIELDS
 
-        private readonly DbSet<TEntity> Entity;
+        protected readonly DbSet<TEntity> Entity;
 
         #endregion
 
@@ -59,8 +59,7 @@ namespace Library.Data.Repositories.Abstractions
         {
             EnsureDependencies();
 
-            return await Entity
-                .SingleOrDefaultAsync(entity => entity.Id.Equals(id));
+            return await Entity.FindAsync(id);
         }
 
         public virtual async Task CreateAsync(TEntity newRecord)
@@ -92,19 +91,6 @@ namespace Library.Data.Repositories.Abstractions
         {
             DbContext.Dispose();
             GC.SuppressFinalize(this);
-        }
-
-        #endregion
-
-        #region PRIVATE METHODS
-
-        private void EnsureDependencies()
-        {
-            if (DbContext == null)
-                throw new ArgumentNullException(nameof(DbContext));
-
-            if (Entity == null)
-                throw new ArgumentNullException(nameof(Entity));
         }
 
         #endregion
@@ -144,6 +130,15 @@ namespace Library.Data.Repositories.Abstractions
                 Entity.Remove(deleteRecord);
             else if (type == DeletionType.Soft)
                 deleteRecord.DeletedAt = DateTime.Now;
+        }
+
+        protected void EnsureDependencies()
+        {
+            if (DbContext == null)
+                throw new ArgumentNullException(nameof(DbContext));
+
+            if (Entity == null)
+                throw new ArgumentNullException(nameof(Entity));
         }
 
         #endregion

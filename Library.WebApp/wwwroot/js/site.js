@@ -896,3 +896,29 @@ var sectionRestore = (sid) => {
         }
     });
 }
+
+var bookShelveCreate = () => {
+    const sectorCreateForm = $('form[data-create-bookshelve="new"]');
+    const action = sectorCreateForm.attr('action');
+    const postData = sectorCreateForm.serialize();
+
+    sectorCreateForm.validate();
+
+    if (sectorCreateForm.valid() !== true) return;
+
+    $.post(action, postData)
+        .done((response) => {
+            if (response.succeed === true) {
+                toastr.success('', response.message, {
+                    onHidden: () => {
+                        window.location.href = response.returnUrl;
+                    }
+                })
+            } else if (response.succeed === false) {
+                toastr.error('', response.message);
+            }
+        })
+        .fail((response) => {
+            toastr.error('ERROR: ' + response.status);
+        });
+}
