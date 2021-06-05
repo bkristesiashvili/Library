@@ -14,8 +14,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Library.WebApp.Helpers.Extensions;
 using Library.WebApp.Helpers.Attributes;
+using Library.Common.Extensions;
 
 namespace Library.WebApp.Controllers
 {
@@ -46,9 +46,9 @@ namespace Library.WebApp.Controllers
         public async Task<IActionResult> IndexAsync([FromQuery] GenreFilter filter)
         {
             if (!User.IsInRole(DefaultRoles[Common.Enums.SystemDefaultRole.SuperAdmin]))
-                filter.SelectDeleted = false;
+                filter.Checked = false;
 
-            var genreList = from genre in await genreService.GetAllGenresAsync(filter, filter.SelectDeleted)
+            var genreList = from genre in await genreService.GetAllGenresAsync(filter, filter.Checked)
                             select new GenreListViewModel
                             {
                                 Id = genre.Id,
@@ -60,7 +60,7 @@ namespace Library.WebApp.Controllers
             ViewBag.Search = filter.Search;
             ViewBag.Ordering = filter.Ordering;
             ViewBag.OrderBy = filter.OrderBy;
-            ViewBag.SelectDeleted = filter.SelectDeleted;
+            ViewBag.SelectDeleted = filter.Checked;
             ViewBag.PageSize = filter.PageSize;
 
             return View(await genreList.ToPagedListAsync(filter.Page, GenreIndexLink, filter.PageSize));

@@ -108,6 +108,16 @@ namespace Library.Common
         public const string SectionRestoreSuccessMessage = "კარადის აღდგენა წარმატეით შესრულდა.";
         public const string SectionRestoreFailedMessage = "კარადის აღდგენა ვერ მოხერხდა!";
 
+        public const string BookSHelveNameRequiredMessage = "თაროს დასახელება აუცილებელია!";
+        public const string BookSHelveCreateSuccessMessage = "თარო წარმატებით დაემატა.";
+        public const string BookSHelveCreateFaieldMessage = "თაროს დამატება ვერ მოხერხდა!";
+        public const string BookSHelveEditSuccessMessage = "თაროს განახლება წარმატებით შესრულდა.";
+        public const string BookSHelveEditFailedMessage = "თაროს განახლება ვერ მოხერხდა!";
+        public const string BookSHelveDeleteSuccessMessage = "თარო წარმატებით წაიშალა";
+        public const string BookSHelveDeleteFailedMessage = "თაროს წაშლა ვერ მოხერხდა!";
+        public const string BookSHelveRestoreSuccessMessage = "თაროს აღდგენა წარმატეით შესრულდა.";
+        public const string BookSHelveRestoreFailedMessage = "თაროს აღდგენა ვერ მოხერხდა!";
+
         public const string Space = "\u0020";
         public const string DefaultUrl = "/";
 
@@ -126,6 +136,8 @@ namespace Library.Common
 
         public const string BookShelveIndexLink = "/bookshelves";
 
+        public const string LogsIndexLink = "/logs";
+
         public const string LoginLink = "/auth/login";
 
         public const string AntiForgeryCoockieName = "Library.AntiForgery";
@@ -133,6 +145,7 @@ namespace Library.Common
 
         public const string UOW_ExceptionMessage = "UOW object null refference exception!";
         public const string RecordNotFound = "Record doesn't existed!";
+        public const string RecordAlreadyExists = "Record already exists!";
         public const string DataLostMessage = "{0} წაშლა შეუძლებელია!";
     }
 }

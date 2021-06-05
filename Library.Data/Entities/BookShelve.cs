@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Entities
 {
-    public class BookShelve : BaseEntity
+    public sealed class BookShelve : BaseEntity
     {
         public BookShelve() => Books = new HashSet<BooksBookshelve>();
 

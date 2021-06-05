@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Library.Common.Requests.Filters
 {
-    public sealed class SectionFilter : BaseFilter
+    public sealed class SystemErrorFilter : BaseFilter
     {
         #region PUBLIC PROPERTIES
 
@@ -17,10 +17,10 @@ namespace Library.Common.Requests.Filters
 
         #region CTOR
 
-        public SectionFilter()
+        public SystemErrorFilter()
         {
-            OrderBy = "Name";
-            Ordering = OrderingTypes.ASCENDING;
+            OrderBy = "LogDate";
+            Ordering = OrderingTypes.DESCENDING;
             Checked = false;
         }
 

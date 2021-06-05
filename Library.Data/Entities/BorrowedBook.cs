@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Entities
 {
-    public class BorrowedBook : BaseEntity
+    public sealed class BorrowedBook : BaseEntity
     {
         public Guid BookId { get; set; }
         public Book Book { get; set; }

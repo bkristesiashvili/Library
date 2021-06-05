@@ -14,6 +14,10 @@ namespace Library.Common.Requests.Filters.Abstractions
 
         string Ordering { get; set; }
 
+        DateTime From { get; set; }
+
+        DateTime To { get; set; }
+
         #endregion
     }
 }

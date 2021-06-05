@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Entities
 {
-    public class Customer : BaseEntity
+    public sealed class Customer : BaseEntity
     {
         public Customer() => RentedBooks = new HashSet<BorrowedBook>();
 

@@ -25,6 +25,8 @@ namespace Library.Data.Repositories.Uow.Abstractions
 
         IRepository<Book> BooksRepository { get; }
 
+        IRepository<SystemError> SystemErrorRepository { get; }
+
         #endregion
 
         #region METHODS

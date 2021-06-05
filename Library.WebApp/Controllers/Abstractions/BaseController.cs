@@ -33,7 +33,18 @@ namespace Library.WebApp.Controllers.Abstractions
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             if (context.Exception != null)
-                Logger.Log(context.Exception.ToString(), context.HttpContext, LoggingType.Error);
+            {
+                Logger.FileLog(context.Exception.ToString(), context.HttpContext, LoggingType.Error);
+                Logger.CreateSystemErrorLogAsync(new Data.Entities.SystemError
+                {
+                    LogType = LoggingType.Error.ToString(),
+                    LogDate = DateTime.Now,
+                    LogText = context.Exception.ToString(),
+                    RequestMethod = context.HttpContext.Request.Method,
+                    RequestPath = context.HttpContext.Request.Path,
+                    Resolved = false
+                });
+            }
             base.OnActionExecuted(context);
         }
 

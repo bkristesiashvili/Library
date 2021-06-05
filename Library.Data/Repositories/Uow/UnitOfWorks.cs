@@ -21,6 +21,7 @@ namespace Library.Data.Repositories.Uow
         private IRepository<BookShelve> _bookShelvessRepo;
         private IRepository<Customer> _customersRepo;
         private IRepository<Book> _booksRepo;
+        private IRepository<SystemError> _systemErrorRepo;
 
         #endregion
 
@@ -114,6 +115,18 @@ namespace Library.Data.Repositories.Uow
                 if (_booksRepo == null)
                     _booksRepo = new BooksRepository(_dbContext);
                 return _booksRepo;
+            }
+        }
+
+        public IRepository<SystemError> SystemErrorRepository
+        {
+            get
+            {
+                EnsureDependencies();
+
+                if (_systemErrorRepo == null)
+                    _systemErrorRepo = new SystemErrorRepository(_dbContext);
+                return _systemErrorRepo;
             }
         }
 

@@ -1,4 +1,6 @@
-﻿using Library.Services.Abstractions;
+﻿using static Library.Common.GlobalVariables;
+
+using Library.Services.Abstractions;
 using Library.Common.Enums;
 
 using Microsoft.AspNetCore.Http;
@@ -9,10 +11,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Library.Data.Repositories.Uow.Abstractions;
+using Microsoft.Extensions.Configuration;
+using System.Linq;
+using Library.Data.Entities;
+using Library.Common.Requests.Filters.Abstractions;
+using Library.Common.Responses;
 
 namespace Library.Services
 {
-    public sealed class FileLoggerServiceFactory : IFileLoggerService
+    public sealed class FileLoggerServiceFactory : BaseService, IFileLoggerService
     {
         #region CONSTANTS
 
@@ -21,6 +29,8 @@ namespace Library.Services
         private const string INFO = "INFO";
 
         private const string ERROR = "ERROR";
+
+        private const string DEFAULT_DIR = "Logs";
 
 
         #endregion
@@ -33,18 +43,21 @@ namespace Library.Services
 
         #region CTOR
 
-        public FileLoggerServiceFactory(string directoryName)
+        public FileLoggerServiceFactory(IUnitOfWorks uow, IConfiguration config)
+            : base(uow)
         {
-            LogDirectoryPath = directoryName;
+            LogDirectoryPath = config == null
+                ? DEFAULT_DIR
+                : config.GetSection("FileLogger:Dir").Value;
 
-            EnsureParameters();
+            EnsureDependencies();
         }
 
         #endregion
 
         #region PUBLIC METHODS
 
-        public void Log(string Message, HttpContext httpContext, 
+        public void FileLog(string Message, HttpContext httpContext,
             LoggingType loggingType = LoggingType.Information)
         {
             using var fileStream = new FileStream(CreateFileLoggerPath(), FileMode.Append);
@@ -57,7 +70,7 @@ namespace Library.Services
             streamWriter.Close();
         }
 
-        public async Task LogAsync(string Message, HttpContext httpContext, 
+        public async Task FileLogAsync(string Message, HttpContext httpContext,
             LoggingType loggingType = LoggingType.Information)
         {
             using var fileStream = new FileStream(CreateFileLoggerPath(), FileMode.Append);
@@ -70,17 +83,85 @@ namespace Library.Services
             streamWriter.Close();
         }
 
+
+        public async Task<IQueryable<SystemError>> GetAllSystemErrorsAsync(IFilter filter = null,
+            bool selectResolved = false)
+        {
+            EnsureDependencies();
+
+            var errors = await UnitOfWorks.SystemErrorRepository.GetAll(filter);
+
+            return from error in errors
+                   where error.Resolved == selectResolved
+                   select error;
+        }
+
+        public async Task<SystemError> GetSystemErrorByIdAsync(Guid id)
+        {
+            EnsureDependencies();
+
+            return await UnitOfWorks.SystemErrorRepository.GetByIdAsync(id);
+        }
+
+        public async Task<ServiceResult> CreateSystemErrorLogAsync(SystemError newSystemError)
+        {
+            try
+            {
+                EnsureDependencies();
+
+                await UnitOfWorks.SystemErrorRepository.CreateAsync(newSystemError);
+                UnitOfWorks.SaveChanges();
+
+                return ServiceResult(true);
+            }
+            catch (Exception e)
+            {
+                return ServiceResult(false, e);
+            }
+        }
+
+        public async Task<ServiceResult> ResolveSystemErrorAsync(Guid id)
+        {
+            try
+            {
+                EnsureDependencies();
+
+                var error = await GetSystemErrorByIdAsync(id);
+
+                if (error == null)
+                    throw new Exception(RecordNotFound);
+
+                error.Resolved = true;
+
+                await UnitOfWorks.SystemErrorRepository.UpdateAsync(error);
+                UnitOfWorks.SaveChanges();
+
+                return ServiceResult(true);
+            }
+            catch (Exception e)
+            {
+                return ServiceResult(false, e);
+            }
+        }
+
         public void Dispose() => GC.Collect();
 
         #endregion
 
-        #region PRIVATE METHODS
+        #region PROTECTED METHODS
 
-        private void EnsureParameters()
+        protected override void EnsureDependencies()
         {
             if (string.IsNullOrEmpty(LogDirectoryPath) || string.IsNullOrWhiteSpace(LogDirectoryPath))
                 throw new ArgumentNullException(nameof(LogDirectoryPath));
+
+            if (UnitOfWorks == null)
+                throw new ArgumentNullException(UOW_ExceptionMessage);
         }
+
+        #endregion
+
+        #region PRIVATE METHODS
 
         private string CreateFileLoggerPath()
         {
@@ -94,7 +175,7 @@ namespace Library.Services
             return filePath;
         }
 
-        private string FormatMessage(string message, HttpContext httpContext, 
+        private string FormatMessage(string message, HttpContext httpContext,
             LoggingType loggingType)
         {
             var formated = loggingType == LoggingType.Information ? INFO : ERROR;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Entities
 {
-    public class BooksBookshelve : BaseEntity
+    public sealed class BooksBookshelve : BaseEntity
     {
         public Guid BookshelveId { get; set; }
         public BookShelve BookShelve { get; set; }

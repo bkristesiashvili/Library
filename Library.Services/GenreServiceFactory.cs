@@ -32,8 +32,11 @@ namespace Library.Services
             {
                 EnsureDependencies();
 
-                await UnitOfWorks.GenresRepository.CreateAsync(newGenre);
-                UnitOfWorks.SaveChanges();
+                if(!RestoreIfExistWhenCreate(newGenre.Name, await GetAllGenresAsync()))
+                {
+                    await UnitOfWorks.GenresRepository.CreateAsync(newGenre);
+                    UnitOfWorks.SaveChanges();
+                }
 
                 return ServiceResult(true);
             }
@@ -144,6 +147,25 @@ namespace Library.Services
         {
             if (UnitOfWorks == null)
                 throw new ArgumentNullException(UOW_ExceptionMessage);
+        }
+
+        #endregion
+
+        #region PRIVATE METHODS
+
+        private bool RestoreIfExistWhenCreate(string Name, IEnumerable<Genre> relatedGenres)
+        {
+            if (relatedGenres == null)
+                throw new ArgumentNullException(nameof(relatedGenres));
+
+            var found = relatedGenres.FirstOrDefault(s => s.Name.Equals(Name));
+
+            if (found == null) return false;
+
+            if (found.DeletedAt.HasValue)
+                return RestoreGenreAsync(found.Id).Result.Succeed;
+            else
+                throw new Exception(RecordAlreadyExists);
         }
 
         #endregion

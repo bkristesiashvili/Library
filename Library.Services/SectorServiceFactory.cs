@@ -78,14 +78,16 @@ namespace Library.Services
             {
                 EnsureDependencies();
 
-                await UnitOfWorks.SectorsRepository.CreateAsync(newSector);
-                UnitOfWorks.SaveChanges();
+                if (!RestoreIfExistsWhenCreate(newSector.Name, await GetAllSectorsAsync()))
+                {
+                    await UnitOfWorks.SectorsRepository.CreateAsync(newSector);
+                    UnitOfWorks.SaveChanges();
+                }
 
                 return ServiceResult(true);
             }
             catch (Exception e)
             {
-
                 return ServiceResult(false, e);
             }
         }
@@ -115,7 +117,7 @@ namespace Library.Services
             }
         }
 
-        public async Task<ServiceResult> RestoreSectoreAsync(Guid id)
+        public async Task<ServiceResult> RestoreSectorAsync(Guid id)
         {
             try
             {
@@ -148,6 +150,25 @@ namespace Library.Services
         {
             if (UnitOfWorks == null)
                 throw new ArgumentNullException(UOW_ExceptionMessage);
+        }
+
+        #endregion
+
+        #region PRIVATE METHODS
+
+        private bool RestoreIfExistsWhenCreate(string Name, IEnumerable<Sector> sectors)
+        {
+            if (sectors == null)
+                throw new ArgumentNullException(nameof(sectors));
+
+            var found = sectors.FirstOrDefault(s => s.Name.Equals(Name));
+
+            if (found == null) return false;
+
+            if (found.DeletedAt.HasValue)
+                return RestoreSectorAsync(found.Id).Result.Succeed;
+            else
+                throw new Exception(RecordAlreadyExists);
         }
 
         #endregion

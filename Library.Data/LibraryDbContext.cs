@@ -35,6 +35,7 @@ namespace Library.Data
             builder.ApplyConfiguration(new SectorEntityConfigurations());
             builder.ApplyConfiguration(new SectionEntityConfigurations());
             builder.ApplyConfiguration(new CustomerEntityConfigurations());
+            builder.ApplyConfiguration(new SystemErrorEntityConfigurations());
 
 
             builder.SeedSystemRoles();
@@ -67,6 +68,8 @@ namespace Library.Data
         public DbSet<BookShelve> BookShelves { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<SystemError> SystemErrors { get; set; }
 
         #endregion
 

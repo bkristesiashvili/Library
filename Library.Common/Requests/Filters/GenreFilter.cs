@@ -11,7 +11,7 @@ namespace Library.Common.Requests.Filters
     {
         #region PUBLIC PROPERTIES
 
-        public bool SelectDeleted { get; set; }
+        public bool Checked { get; set; }
 
         #endregion
 
@@ -21,7 +21,7 @@ namespace Library.Common.Requests.Filters
         {
             OrderBy = "Name";
             Ordering = OrderingTypes.ASCENDING;
-            SelectDeleted = false;
+            Checked = false;
         }
 
         #endregion

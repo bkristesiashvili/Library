@@ -22,6 +22,10 @@ namespace Library.Common.Requests.Filters.Abstractions
 
         private int _pageSize = MIN_PAGE_SIZE;
 
+        private DateTime _from = DateTime.MinValue;
+
+        private DateTime _to = DateTime.MinValue;
+
         #endregion
 
         #region PUBLIC PROPERTIES
@@ -54,6 +58,29 @@ namespace Library.Common.Requests.Filters.Abstractions
             }
         }
 
+        public DateTime From
+        {
+            get => _from;
+            set
+            {
+                if (value > DateTime.Now)
+                    _from = DateTime.Now;
+                else
+                    _from = value;
+            }
+        }
+
+        public DateTime To
+        {
+            get => _to;
+            set
+            {
+                if (value > DateTime.Now)
+                    _to = DateTime.Now;
+                else
+                    _to = value;
+            }
+        }
 
         #endregion
 
