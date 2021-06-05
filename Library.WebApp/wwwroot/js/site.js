@@ -15,6 +15,17 @@ const pageSizeSelect = $('select[data-page-size]');
 
 $(document).ready(() => {
 
+    $.validator.addMethod("sanitization",
+        function (value, element, parameters) {
+            const regex = '<[^>]*(>|$)';
+            return !value.match(regex);
+        });
+
+    $.validator.unobtrusive.adapters.add("sanitization", [], function (options) {
+        options.rules.sanitization = {};
+        options.messages["sanitization"] = options.message;
+    });
+
     toastr.options.closeMethod = 'slideUp';
     toastr.options.hideMethod = 'slideUp';
     toastr.options.showMethod = 'slideDown';
@@ -924,4 +935,36 @@ var bookShelveCreate = () => {
         .fail((response) => {
             toastr.error('ERROR: ' + response.status);
         });
+}
+
+var resolveLog = (lid) => {
+    const genreEditForm = $('form[data-log-resolve="' + lid + '"]');
+    const action = genreEditForm.attr('action');
+    const postData = genreEditForm.serialize();
+
+    genreEditForm.validate();
+    if (genreEditForm.valid() !== true) return;
+
+    $.ajax({
+        type: 'PUT',
+        url: action,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        data: postData,
+        success: function (response) {
+            if (response.succeed === true) {
+                toastr.success('', response.message, {
+                    onHidden: function () {
+                        window.location.href = response.returnUrl;
+                    }
+                });
+
+            } else if (response.succeed === false) {
+                toastr.warning('', response.message);
+            }
+        },
+        error: function (response) {
+            toastr.error('ERROR: ' + response.status);
+        }
+    });
 }

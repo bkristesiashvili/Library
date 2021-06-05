@@ -10,6 +10,8 @@ namespace Library.WebApp.Models
 {
     public sealed class PasswordEditViewModel
     {
+        #region PUBLIC PROPERTIES
+
         [Required(ErrorMessage =PasswordRequiredErrorMessage)]
         [DataType(DataType.Password)]
         public string OldPassword { get; set; }
@@ -22,5 +24,7 @@ namespace Library.WebApp.Models
         [DataType(DataType.Password)]
         [Compare(nameof(NewPassword), ErrorMessage = PasswordMismatchErrorMessage)]
         public string ConfirmNewPassword { get; set; }
+
+        #endregion
     }
 }

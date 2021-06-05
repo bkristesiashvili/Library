@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Library.WebApp.Helpers.Attributes;
 
 namespace Library.WebApp.Models
 {
     public sealed class LoginViewModel
     {
+        #region PUBLIC PROPERTIES
+
         [Required(ErrorMessage = EmailErrorMessage)]
         [EmailAddress(ErrorMessage = EmailFormatError)]
         [Display(Name = EmailDisplayName)]
@@ -23,6 +26,9 @@ namespace Library.WebApp.Models
         [Display(Description = RememberMeDisplayName, Name = RememberMeDisplayName)]
         public bool RememberMe { get; set; }
 
+        [InputSanitization(ErrorMessage = InvalidInputMessage)]
         public string ReturnUrl { get; set; }
+
+        #endregion
     }
 }

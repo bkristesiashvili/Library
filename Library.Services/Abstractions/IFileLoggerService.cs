@@ -34,7 +34,7 @@ namespace Library.Services.Abstractions
 
         Task<ServiceResult> CreateSystemErrorLogAsync(SystemError newSystemError);
 
-        Task<ServiceResult> ResolveSystemErrorAsync(Guid id);
+        Task<ServiceResult> ResolveSystemErrorAsync(Guid id, string comment = default);
 
         #endregion
     }

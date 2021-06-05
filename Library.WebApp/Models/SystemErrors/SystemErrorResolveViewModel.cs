@@ -1,5 +1,7 @@
 ﻿using static Library.Common.GlobalVariables;
 
+using Microsoft.AspNetCore.Mvc;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,13 +11,16 @@ using Library.WebApp.Helpers.Attributes;
 
 namespace Library.WebApp.Models
 {
-    public sealed class SectorCreateViewModel
+    public sealed class SystemErrorResolveViewModel
     {
-        #region PUBLIC PROPERTEIS
+        #region PUBLIC PROPERTIES
 
-        [Required(ErrorMessage = SectorNameRequiredMessage)]
+        [HiddenInput]
+        public Guid Id { get; set; }
+
+        [Required(ErrorMessage = SystemErrorCommentTextRequired)]
         [InputSanitization(ErrorMessage = InvalidInputMessage)]
-        public string Name { get; set; }
+        public string Comment { get; set; }
 
         #endregion
     }

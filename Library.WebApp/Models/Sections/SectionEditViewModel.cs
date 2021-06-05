@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using static Library.Common.GlobalVariables;
+
+using Library.WebApp.Helpers.Attributes;
+
+using Microsoft.AspNetCore.Mvc;
 
 using System;
 using System.Collections.Generic;
@@ -14,6 +18,7 @@ namespace Library.WebApp.Models
         [HiddenInput]
         public Guid Id { get; set; }
 
+        [InputSanitization(ErrorMessage = InvalidInputMessage)]
         public string Name { get; set; }
 
         [HiddenInput]
