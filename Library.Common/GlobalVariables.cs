@@ -118,6 +118,13 @@ namespace Library.Common
         public const string BookSHelveRestoreSuccessMessage = "თაროს აღდგენა წარმატეით შესრულდა.";
         public const string BookSHelveRestoreFailedMessage = "თაროს აღდგენა ვერ მოხერხდა!";
 
+        public const string SystemErrorCommentTextRequired = "კომენტარის ველი აუცილებელია!";
+        public const string SystemErrorResolvedSuccessMessage = "სისტემური შეცდომა მოგვარდა წარმატებით.";
+        public const string SystemErrorResolvedFailedMessage = "სისტემური შეცდომის მოგვარება ვერ მოხერხდა!";
+
+        public const string InvalidInputMessage = "არასწორი ფორმატი!";
+        public const string InvalidTypePropertyMessage = "არასწორი ტიპის მახასიათებელი!";
+
         public const string Space = "\u0020";
         public const string DefaultUrl = "/";
 

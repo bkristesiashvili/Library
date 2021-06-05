@@ -24,7 +24,7 @@
                             <select asp-for="SectionId" class="form-control text-12px">
                                 @foreach (var sectionView in ViewBag.Sections)
                                 {
-                                    <option class="text-12px" value="@sectionView.Id">@sectionView.Name</option>
+                                    <option class="text-12px font" value="@sectionView.Id">@sectionView.Name ( @sectionView?.Sector?.Name )</option>
                                 }
                             </select>
                         </div>

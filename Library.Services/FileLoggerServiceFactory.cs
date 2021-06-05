@@ -120,7 +120,7 @@ namespace Library.Services
             }
         }
 
-        public async Task<ServiceResult> ResolveSystemErrorAsync(Guid id)
+        public async Task<ServiceResult> ResolveSystemErrorAsync(Guid id, string comment = default)
         {
             try
             {
@@ -132,6 +132,9 @@ namespace Library.Services
                     throw new Exception(RecordNotFound);
 
                 error.Resolved = true;
+
+                if (!string.IsNullOrEmpty(comment) || !string.IsNullOrWhiteSpace(comment))
+                    error.Comment = comment;
 
                 await UnitOfWorks.SystemErrorRepository.UpdateAsync(error);
                 UnitOfWorks.SaveChanges();

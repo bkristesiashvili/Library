@@ -25,7 +25,7 @@ namespace Library.Data.Repositories
 
         public override async Task<IQueryable<Section>> GetAll(IFilter filter = null)
         {
-            var sections = await base.GetAll(filter);
+            var sections = await SortBy(Entity.Include(S => S.Sector), filter);
 
             return CheckSearchFilter(filter)
                 ? from sector in sections

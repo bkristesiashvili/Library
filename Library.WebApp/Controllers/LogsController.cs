@@ -21,7 +21,7 @@ namespace Library.WebApp.Controllers
         #region CTOR
 
         public LogsController(IFileLoggerService logger)
-            :base(logger) { }
+            : base(logger) { }
 
         #endregion
 
@@ -51,6 +51,21 @@ namespace Library.WebApp.Controllers
             ViewBag.To = filter.To;
 
             return View(await errors.ToPagedListAsync(filter.Page, LogsIndexLink, filter.PageSize));
+        }
+
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResolveAsync([FromForm] SystemErrorResolveViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await Logger.ResolveSystemErrorAsync(model.Id, model.Comment);
+
+                if (result.Succeed)
+                    return JsonResponse(true, SystemErrorResolvedSuccessMessage, LogsIndexLink);
+            }
+
+            return JsonResponse(false, SystemErrorResolvedFailedMessage);
         }
 
         #endregion
