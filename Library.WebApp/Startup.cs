@@ -45,7 +45,8 @@ namespace Library.WebApp
             services.AddDbContext<LibraryDbContext>(options =>
             {
                 //options.UseSqlServer(Configuration.GetConnectionString("someeDb")
-                options.UseSqlServer(Configuration.GetConnectionString("saatecDB")
+                //options.UseSqlServer(Configuration.GetConnectionString("saatecDB")
+                options.UseSqlServer(Configuration.GetConnectionString("localDB")
                     , migration => migration.MigrationsAssembly("Library.Data"));
             });
 

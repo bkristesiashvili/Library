@@ -1,0 +1,61 @@
+﻿@model SystemErrorListViewModel
+<div class="text-right">
+    <button type="button" class="btn btn-sm text-dark text-12px" data-toggle="modal" data-target="#view_log_@Model.Id">
+        <i class="fas fa-eye">&nbsp;</i>
+    </button>
+</div>
+<div class="modal fade" id="view_log_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="exampleModalLabel">დეტალური ინფორმაცია</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="form-group">
+                        <label class="text-dark text-12px">
+                            ტიპი: <b>@Model.LogType</b>
+                        </label>&nbsp;&nbsp;
+                        <label class="text-dark text-12px">
+                            თარიღი: <b>@Model.LogDate</b>
+                        </label>
+                        &nbsp;&nbsp;
+                        <label class="text-dark text-12px">
+                            მეთოდი: <b>@Model.RequestMethod</b>
+                        </label>
+                        &nbsp;&nbsp;
+                        <label class="text-dark text-12px">
+                            მისამართი: <b>@Model.RequestPath</b>
+                        </label>&nbsp;&nbsp;
+                        <label class="text-dark">
+                            სტატუსი:
+                            @if (Model.Resolved)
+                            {
+                                <i class="fas fa-check-circle text-success text-14px opacity-80"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-minus-circle text-danger text-14px opacity-80"></i>
+                            }
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control text-12px" asp-for="LogText" rows="8" disabled></textarea>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.Comment))
+                    {
+                        <div class="form-group">
+                            <textarea class="form-control text-12px" asp-for="Comment" rows="8" disabled></textarea>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary text-12px" data-dismiss="modal">დახურვა</button>
+            </div>
+        </div>
+    </div>
+</div>

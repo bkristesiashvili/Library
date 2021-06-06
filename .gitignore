@@ -6,4 +6,4 @@ bin
 obj
 appsettings.json
 appsettings.Development.json
-Logs
+../Library.WebApp/Logs
