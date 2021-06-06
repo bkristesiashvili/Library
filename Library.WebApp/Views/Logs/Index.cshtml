@@ -82,7 +82,7 @@
 
     <div class="row d-flex align-middle p-2 text-13px text-left row-hover border @Html.Raw(index % 2 == 0 ? "grid-header":"")">
         <div class="col-sm-2 col-md-2 text-center">@error.LogType</div>
-        <div class="col-sm-4 col-md-4 text-center">@error.LogText.Substring(0,50)</div>
+        <div class="col-sm-4 col-md-4 text-center">@error.LogText.Substring(0, 50)</div>
         <div class="col-sm-3 col-md-3 text-center">@error.LogDate</div>
         <div class="col-sm-1 col-md-1 text-center">
             @if (error.Resolved)
@@ -99,21 +99,19 @@
 
                 @if (User.IsInRole(DefaultRoles[SuperAdmin]))
                 {
+                    <partial name="Logs/_LogViewPartial" model="error" />
+
                     if (!error.Resolved)
                     {
-                        <button type="button" class="btn btn-sm text-secondary text-12px">
-                            <i class="fas fa-eye"></i>
-                        </button>
                         <partial name="Logs/_LogResolvePartial" model="log" />
                     }
                     else
                     {
-                        <button type="button" disabled class="btn btn-sm text-secondary text-12px">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button type="button" disabled class="btn btn-sm text-secondary text-12px">
-                            <i class="fas fa-sync-alt"></i>
-                        </button>
+                        <div class="text-right">
+                            <button type="button" disabled class="btn btn-sm text-secondary text-12px">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
                     }
                 }
             </div>

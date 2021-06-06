@@ -91,9 +91,11 @@ namespace Library.Services
 
             var errors = await UnitOfWorks.SystemErrorRepository.GetAll(filter);
 
-            return from error in errors
-                   where error.Resolved == selectResolved
-                   select error;
+            return selectResolved
+                ? from error in errors
+                  where !error.Resolved
+                  select error
+                : errors;
         }
 
         public async Task<SystemError> GetSystemErrorByIdAsync(Guid id)

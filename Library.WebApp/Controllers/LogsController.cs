@@ -39,7 +39,8 @@ namespace Library.WebApp.Controllers
                              LogDate = error.LogDate.ToDateString(),
                              RequestMethod = error.RequestMethod,
                              RequestPath = error.RequestPath,
-                             Resolved = error.Resolved
+                             Resolved = error.Resolved,
+                             Comment = error.Comment
                          };
 
             ViewBag.Search = filter.Search;
