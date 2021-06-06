@@ -18,6 +18,10 @@
                 </button>
                 <div class="dropdown-menu text-12px text-center" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" asp-controller="@AccountIndexLink" asp-action="profile">პროფილი</a>
+                    @if (User.IsInRole(DefaultRoles[SuperAdmin]))
+                    {
+                        <a class="dropdown-item" asp-controller="@LogsIndexLink" asp-action="index">Log-ები</a>
+                    }
                     <div class="text-center">
                         <form id="logout" asp-controller="auth" asp-action="logout" method="post">
                             <button type="submit" class="btn btn-sm btn-danger mt-2 text-11px text-light"><i class="fas fa-sign-out-alt">&nbsp;</i>გასვლა</button>

@@ -1,0 +1,33 @@
+﻿@model SystemErrorResolveViewModel
+<div class="text-right">
+    <button type="button" class="btn btn-sm text-primary text-12px" data-toggle="modal" data-target="#resolve_log_@Model.Id">
+        <i class="fas fa-sync-alt">&nbsp;</i>
+    </button>
+</div>
+<div class="modal fade" id="resolve_log_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="exampleModalLabel">კარადის განახლება</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form onsubmit="return false;" data-log-resolve="@Model.Id" method="post" asp-controller="@LogsIndexLink" asp-action="resolve" enctype="application/x-www-form-urlencoded">
+                        <input asp-for="Id" />
+                        <div class="form-group">
+                            <textarea asp-for="Comment" class="form-control text-12px" rows="15"></textarea>
+                            <span asp-validation-for="Comment" class="text-danger text-11px"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary text-12px" data-dismiss="modal">გაუქმება</button>
+                <button type="button" onclick="resolveLog('@Model.Id')" class="btn btn-sm btn-success text-12px">დამახსოვრება</button>
+            </div>
+        </div>
+    </div>
+</div>

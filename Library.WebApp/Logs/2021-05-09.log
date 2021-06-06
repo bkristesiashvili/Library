@@ -1,0 +1,472 @@
+[11:58:20 AM] (ERROR) - (PATH:/account/getallusers | METHOD:GET)
+System.Exception: Invalid Ordering Query!
+   at Library.Data.Extensions.IQueryableExtensions.OrderBy[TObject](IQueryable`1 this, IFilter filter) in C:\Users\BesoK\Desktop\Library\Library.Data\Extensions\IQuaryableExtensions.cs:line 23
+   at Library.Services.UserServiceFactory.GetAllUsersList(IFilter filter) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 127
+   at Library.WebApp.Controllers.AccountController.getAllUsers(AccountFilter filter) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 119
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[04:56:19 PM] (ERROR) - (PATH:/account/delete/20ada623-04bf-4180-0b69-08d90f2f4001 | METHOD:GET)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 146
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[04:56:24 PM] (ERROR) - (PATH:/account/delete/b6ff583f-30e9-4a38-0b6a-08d90f2f4001 | METHOD:GET)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 146
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[04:57:38 PM] (ERROR) - (PATH:/account/delete/b6ff583f-30e9-4a38-0b6a-08d90f2f4001 | METHOD:GET)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 146
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:19:13 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:20:01 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:20:42 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:26:26 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:28:33 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:31:02 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:34:25 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:35:28 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:36:36 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:39:14 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:39:27 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:11 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:23 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:31 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:32 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:32 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:33 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:33 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:33 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:34 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:34 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:34 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:35 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:35 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:35 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:41:36 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:42:28 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:42:36 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:42:50 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:42:58 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:43:40 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:44:07 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:44:15 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:44:51 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:45:08 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:47:37 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:49:00 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:49:12 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:52:37 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(String id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 149
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:54:55 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(String id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 149
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[05:59:14 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:00:25 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:00:57 PM] (ERROR) - (PATH:/account/delete/ | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:04:06 PM] (ERROR) - (PATH:/account/delete | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:04:34 PM] (ERROR) - (PATH:/account/delete | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:06:48 PM] (ERROR) - (PATH:/account/delete | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:07:46 PM] (ERROR) - (PATH:/account/delete | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:09:59 PM] (ERROR) - (PATH:/account/delete | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:11:07 PM] (ERROR) - (PATH:/account/delete | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:12:55 PM] (ERROR) - (PATH:/account/delete | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:13:50 PM] (ERROR) - (PATH:/account/delete | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:14:45 PM] (ERROR) - (PATH:/account/delete | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:15:15 PM] (ERROR) - (PATH:/account/delete | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:16:00 PM] (ERROR) - (PATH:/account/delete | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[06:46:00 PM] (ERROR) - (PATH:/account/delete | METHOD:POST)
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.DeleteAsync(TUser user)
+   at Library.Services.UserServiceFactory.DeleteUserAsync(User user) in C:\Users\BesoK\Desktop\Library\Library.Services\UserServiceFactory.cs:line 141
+   at Library.WebApp.Controllers.AccountController.Delete(Guid id) in C:\Users\BesoK\Desktop\Library\Library.WebApp\Controllers\AccountController.cs:line 147
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)

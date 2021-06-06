@@ -1,0 +1,240 @@
+﻿@model PagedList<SystemErrorListViewModel>
+@{
+    ViewBag.Title = "ყველა LOG ჩანაწერი";
+
+    var index = 1;
+}
+<div class="row">
+    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+        <div class="text-left pb-1">
+            <form method="get" asp-controller="@Model.Url" asp-action="index" autocomplete="off">
+                <div class="input-group">
+                    <input type="hidden" name="pagesize" value="@ViewBag.PageSize" />
+                    <input type="hidden" name="checked" value="@string.Format($"{ViewBag.SelectDeleted}")" />
+                    <input type="search" placeholder="ძებნა" name="search" class="form-control text-12px" maxlength="30" />
+                    <div class="input-group-append">
+                        <button class="btn btn-success text-12px">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row profile-bg text-dark font-weight-bold p-3 rounded-top text-13px">
+    <div class="col-sm-2 col-md-2 text-center">
+        <div class="d-flex">
+            <a asp-controller="@Model.Url"
+               asp-action="index"
+               asp-route-orderby="name"
+               asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+               asp-route-checked="@ViewBag.SelectDeleted"
+               asp-route-pagesize="@ViewBag.PageSize"
+               class="btn btn-sm">
+                <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
+                                                             ((string)ViewBag.OrderBy).ToLower() == "name"
+                                                             ? "up"
+                                                             :"down")">&nbsp;&nbsp;</i>Log-ის ტიპი
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-4 col-md-4 text-center">
+        <a asp-controller="@Model.Url"
+           asp-action="index"
+           asp-route-orderby="createdat"
+           asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+           asp-route-checked="@ViewBag.SelectDeleted"
+           asp-route-pagesize="@ViewBag.PageSize"
+           class="btn btn-sm">
+            <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
+                                                             ((string)ViewBag.OrderBy).ToLower() == "createdat"
+                                                             ? "up"
+                                                             :"down")">&nbsp;&nbsp;</i>Log-ის ტექსტი
+        </a>
+    </div>
+    <div class="col-sm-3 col-md-3 text-center">
+        <a asp-controller="@Model.Url"
+           asp-action="index"
+           asp-route-orderby="createdat"
+           asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+           asp-route-checked="@ViewBag.SelectDeleted"
+           asp-route-pagesize="@ViewBag.PageSize"
+           class="btn btn-sm">
+            <i class="fas fa-sort-alpha-@Html.Raw(ViewBag.Ordering == ASCENDING &&
+                                                             ((string)ViewBag.OrderBy).ToLower() == "createdat"
+                                                             ? "up"
+                                                             :"down")">&nbsp;&nbsp;</i>შექმნის თარიღი
+        </a>
+    </div>
+    <div class="col-sm-1 col-md-1 text-center">
+        <a href="#" class="btn btn-sm">სტატუსი</a>
+    </div>
+    <div class="col-sm-2 col-md-2 text-center"></div>
+</div>
+@foreach (var error in Model)
+{
+    var log = new SystemErrorResolveViewModel
+    {
+        Id = error.Id,
+        Comment = string.Empty
+    };
+
+    <div class="row d-flex align-middle p-2 text-13px text-left row-hover border @Html.Raw(index % 2 == 0 ? "grid-header":"")">
+        <div class="col-sm-2 col-md-2 text-center">@error.LogType</div>
+        <div class="col-sm-4 col-md-4 text-center">@error.LogText.Substring(0,50)</div>
+        <div class="col-sm-3 col-md-3 text-center">@error.LogDate</div>
+        <div class="col-sm-1 col-md-1 text-center">
+            @if (error.Resolved)
+            {
+                <i class="fas fa-check-circle text-success text-14px opacity-80"></i>
+            }
+            else
+            {
+                <i class="fas fa-minus-circle text-danger text-14px opacity-80"></i>
+            }
+        </div>
+        <div class="col-sm-2 col-md-2">
+            <div class="row float-right">
+
+                @if (User.IsInRole(DefaultRoles[SuperAdmin]))
+                {
+                    if (!error.Resolved)
+                    {
+                        <button type="button" class="btn btn-sm text-secondary text-12px">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <partial name="Logs/_LogResolvePartial" model="log" />
+                    }
+                    else
+                    {
+                        <button type="button" disabled class="btn btn-sm text-secondary text-12px">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button type="button" disabled class="btn btn-sm text-secondary text-12px">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    index++;
+}
+@if (!Model.Any())
+{
+    <div class="row p-1">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="text-center">
+                <div class="text-13px">
+                    ჩანაწერი ვერ მოიძებნა!
+                </div>
+                @if (!string.IsNullOrEmpty(ViewBag.Search) || ViewBag.SelectDeleted)
+                {
+                    <div class="float-left">
+                        <div class="text-center">
+                            <a asp-controller="@Model.Url"
+                               asp-action="index"
+                               asp-route-orderby="@ViewBag.OrderBy"
+                               asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+                               asp-route-checked="@ViewBag.SelectDeleted ? @ViewBag.SelectDeleted = false;"
+                               asp-route-pagesize="@ViewBag.PageSize"
+                               class="btn btn-sm btn-outline-danger text-12px">
+                                <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+@if (Model.Any())
+{
+    var pageFilter = new FilterViewModel
+    {
+        Url = Model.Url,
+        Page = Model.PageNumber,
+        PageSize = ViewBag.PageSize,
+        Search = ViewBag.Search,
+        SelectDeleted = ViewBag.SelectDeleted ?? false,
+        OrderBy = ViewBag.OrderBy,
+        Ordering = ViewBag.Ordering
+    };
+
+    <div class="row pt-1">
+        <div class="col-sm-3 col-md-6 col-lg-6 col-xl-6">
+            @if (!string.IsNullOrEmpty(ViewBag.Search))
+            {
+                <div class="float-left">
+                    <div class="text-center">
+                        <a asp-controller="@Model.Url"
+                           asp-action="index"
+                           asp-route-orderby="@ViewBag.OrderBy"
+                           asp-route-ordering="@(ViewBag.Ordering == ASCENDING ? DESCENDING:ASCENDING)"
+                           asp-route-checked="@ViewBag.SelectDeleted"
+                           asp-route-pagesize="@ViewBag.PageSize"
+                           class="btn btn-sm btn-outline-danger text-12px">
+                            <i class="far fa-arrow-alt-circle-left text-14px">&nbsp;</i> უკან დაბრუნება
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-sm-8 col-md-6 col-lg-6 col-xl-6">
+            <div class="row">
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    @if (User.IsInRole(DefaultRoles[SuperAdmin]))
+                    {
+                        <div class="float-right">
+                            <form data-select-all onsubmit="return false;"
+                                  asp-controller="@Model.Url"
+                                  asp-action="index" method="get">
+                                <label class="text-12px">
+                                    <input type="checkbox" name="checked"
+                                           value="false" checked="@ViewBag.SelectDeleted" />&nbsp;ყველა სტატუსი
+                                </label>
+                            </form>
+                        </div>
+                    }
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <partial name="_PageFilterPartial" model="pageFilter" />
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <div class="float-right">
+                        <div class="pagination">
+
+                            <div class="page-item">
+                                <a asp-controller="@Model.Url"
+                                   asp-action="index"
+                                   asp-route-page="@(Model.PageNumber - 1)"
+                                   asp-route-search="@ViewBag.Search"
+                                   asp-route-orderby="@ViewBag.OrderBy"
+                                   asp-route-ordering="@ViewBag.Ordering"
+                                   asp-route-checked="@ViewBag.SelectDeleted"
+                                   asp-route-pagesize="@ViewBag.PageSize"
+                                   class="page-link @Html.Raw(Model.Previous ? "" : "disabled") text-12px"><i class="fas fa-chevron-left">&nbsp;</i>უკან</a>
+                            </div>
+                            <div class="page-item">
+                                <a asp-controller="@Model.Url"
+                                   asp-action="index"
+                                   asp-route-page="@(Model.PageNumber + 1)"
+                                   asp-route-search="@ViewBag.Search"
+                                   asp-route-orderby="@ViewBag.OrderBy"
+                                   asp-route-ordering="@ViewBag.Ordering"
+                                   asp-route-checked="@ViewBag.SelectDeleted"
+                                   asp-route-pagesize="@ViewBag.PageSize"
+                                   class="page-link @Html.Raw(Model.Next ? "" : "disabled") text-12px">წინ&nbsp;<i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts{
+    @await Html.PartialAsync("/Views/Shared/_ValidationScriptsPartial.cshtml")
+}
