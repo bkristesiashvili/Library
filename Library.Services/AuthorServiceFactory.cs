@@ -121,10 +121,13 @@ namespace Library.Services
                 if (author == null)
                     throw new Exception(RecordNotFound);
 
-                author.DeletedAt = null;
+                var tableName = $"{nameof(Author)}s";
+                var fieldname = nameof(Author.DeletedAt);
 
-                await UnitOfWorks.AuthorsRepository.UpdateAsync(author);
-                UnitOfWorks.SaveChanges();
+                var result = await UnitOfWorks.AuthorsRepository.RestoreAsync(author, tableName, fieldname);
+
+                if (result == null)
+                    throw new Exception(RecordNotFound);
 
                 return ServiceResult(true);
             }
