@@ -52,7 +52,7 @@ namespace Library.WebApp.Controllers
                           {
                               Id = author.Id,
                               FirstName = author.FirstName,
-                              Middlename = author.MiddleName,
+                              MiddleName = author.MiddleName,
                               LastName = author.LastName,
                               IsDeleted = author.DeletedAt.HasValue
                           };

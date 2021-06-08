@@ -89,12 +89,12 @@
         {
             Id = author.Id,
             FirstName = author.FirstName,
-            MiddleName = author.Middlename,
+            MiddleName = author.MiddleName,
             LastName = author.LastName
         };
         <div class="row d-flex align-middle p-2 text-13px text-left row-hover border @Html.Raw(index % 2 == 0 ? "grid-header":"")">
             <div class="col-sm-2 col-md-2">@author.FirstName</div>
-            <div class="col-sm-3 col-md-3">@author.Middlename</div>
+            <div class="col-sm-3 col-md-3">@author.MiddleName</div>
             <div class="col-sm-3 col-md-3">@author.LastName</div>
             <div class="col-sm-2 col-md-2 text-center">
                 @if (!author.IsDeleted)

@@ -4,6 +4,14 @@
 
 @{
     var user = await UserService.GetUserByIdAsync(Model.Id);
+
+    var roles = from role in await UserService.GetAvailableRolesAsync()
+                select new SelectListItem
+                {
+                    Value = role.Name,
+                    Text = RoleNames[role.Name],
+                    Selected = UserService.UserIsInRole(user, role.Name)
+                };
 }
 
 @model UserProfileEditViewModel
@@ -39,19 +47,7 @@
                         </div>
                         @if (User.IsInRole(DefaultRoles[SuperAdmin]))
                         {
-                            <select id="roles" asp-for="Roles" class="form-control text-12px">
-                                @foreach (var role in await UserService.GetAvailableRolesAsync())
-                                {
-                                    if (UserService.UserIsInRole(user, role.Name))
-                                    {
-                                        <option class="text-12px" value="@role.Name" selected>@RoleNames[role.Name]</option>
-                                    }
-                                    else
-                                    {
-                                        <option class="text-12px" value="@role.Name">@RoleNames[role.Name]</option>
-                                    }
-                                }
-                            </select>
+                            <select id="roles" asp-for="Roles" asp-items="roles" class="form-control text-12px"></select>
                             <span asp-validation-for="Roles" class="text-danger text-11px"></span>
                         }
                     </form>

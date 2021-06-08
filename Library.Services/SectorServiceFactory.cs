@@ -123,15 +123,18 @@ namespace Library.Services
             {
                 EnsureDependencies();
 
-                var deletedSector = await GetsSectorDetailsByIdAsync(id);
+                var restoredSector = await GetsSectorDetailsByIdAsync(id);
 
-                if (deletedSector == null)
+                if (restoredSector == null)
                     throw new Exception(RecordNotFound);
 
-                deletedSector.DeletedAt = null;
+                var tableName = $"{nameof(Sector)}s";
+                var fieldName = nameof(Sector.DeletedAt);
 
-                await UnitOfWorks.SectorsRepository.UpdateAsync(deletedSector);
-                UnitOfWorks.SaveChanges();
+                var result = await UnitOfWorks.SectorsRepository.RestoreAsync(restoredSector, tableName, fieldName);
+
+                if (result == null)
+                    throw new Exception(RecordNotFound);
 
                 return ServiceResult(true);
             }

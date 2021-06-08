@@ -1,2 +1,16 @@
 ﻿<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(() => {
+        $.validator.addMethod("sanitization",
+            function (value, element, parameters) {
+                const regex = '<[^>]*(>|$)';
+                return !value.match(regex);
+            });
+
+        $.validator.unobtrusive.adapters.add("sanitization", [], function (options) {
+            options.rules.sanitization = {};
+            options.messages["sanitization"] = options.message;
+        });
+    });
+</script>

@@ -87,6 +87,28 @@ namespace Library.Data.Repositories.Abstractions
             });
         }
 
+        public virtual async Task<TEntity> RestoreAsync(TEntity restoreRecord, string tableName, string fieldName)
+        {
+            var sp_with_params = "sp_restore_record " +
+                                 "@record_id = {0}, " +
+                                 "@tablename = {1}, " +
+                                 "@field = {2}";
+
+            if (restoreRecord == null)
+                throw new ArgumentNullException(nameof(restoreRecord));
+
+            if (string.IsNullOrEmpty(tableName) || string.IsNullOrWhiteSpace(tableName))
+                throw new ArgumentNullException("Table name should not be null or empty!");
+
+            if (string.IsNullOrEmpty(fieldName) || string.IsNullOrWhiteSpace(fieldName))
+                throw new ArgumentNullException("Field name should not be null or empty");
+
+            var result  = Entity.FromSqlRaw(sp_with_params, restoreRecord.Id, tableName, fieldName)
+                .ToList();
+
+            return await Task.FromResult(result.SingleOrDefault());
+        }
+
         public void Dispose()
         {
             DbContext.Dispose();

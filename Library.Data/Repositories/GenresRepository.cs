@@ -2,6 +2,7 @@
 using Library.Data.Entities;
 using Library.Data.Repositories.Abstractions;
 
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 using System;

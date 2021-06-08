@@ -31,6 +31,8 @@ namespace Library.Data.Repositories.Abstractions
 
         Task DeleteAsync(TEntity deleteRecord, DeletionType type = DeletionType.Soft);
 
+        Task<TEntity> RestoreAsync(TEntity restoreRecord, string tableName, string fieldName);
+
         #endregion
     }
 }

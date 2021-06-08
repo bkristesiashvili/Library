@@ -15,17 +15,6 @@ const pageSizeSelect = $('select[data-page-size]');
 
 $(document).ready(() => {
 
-    $.validator.addMethod("sanitization",
-        function (value, element, parameters) {
-            const regex = '<[^>]*(>|$)';
-            return !value.match(regex);
-        });
-
-    $.validator.unobtrusive.adapters.add("sanitization", [], function (options) {
-        options.rules.sanitization = {};
-        options.messages["sanitization"] = options.message;
-    });
-
     toastr.options.closeMethod = 'slideUp';
     toastr.options.hideMethod = 'slideUp';
     toastr.options.showMethod = 'slideDown';
@@ -187,6 +176,8 @@ $(document).ready(() => {
         event.preventDefault();
         const postData = logoutForm.serialize();
         const action = logoutForm.attr('action');
+
+        console.log(postData);
 
         $.post(action, postData).done(function (response) {
             if (response.succeed === true) {

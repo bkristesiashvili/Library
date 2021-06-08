@@ -22,6 +22,8 @@ namespace Library.WebApp.Helpers.Attributes
 
         public override bool IsValid(object value)
         {
+            if (value == null) return false;
+
             if (value.GetType() != typeof(string))
                 return false;
 
