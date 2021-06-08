@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library.Data.Repositories;
 
 namespace Library.Services
 {
@@ -32,7 +33,7 @@ namespace Library.Services
             {
                 EnsureDependencies();
 
-                if(!RestoreIfExistWhenCreate(newGenre.Name, await GetAllGenresAsync()))
+                if (!RestoreIfExistWhenCreate(newGenre.Name, await GetAllGenresAsync()))
                 {
                     await UnitOfWorks.GenresRepository.CreateAsync(newGenre);
                     UnitOfWorks.SaveChanges();
@@ -124,10 +125,13 @@ namespace Library.Services
                 if (genre == null)
                     throw new Exception(RecordNotFound);
 
-                genre.DeletedAt = null;
+                var tableName = $"{nameof(Genre)}s";
+                var fieldName = nameof(Genre.DeletedAt);
 
-                await UnitOfWorks.GenresRepository.UpdateAsync(genre);
-                UnitOfWorks.SaveChanges();
+                var result = await UnitOfWorks.GenresRepository.RestoreAsync(genre, tableName, fieldName);
+
+                if (result == null)
+                    throw new Exception(RecordNotFound);
 
                 return ServiceResult(true);
             }
