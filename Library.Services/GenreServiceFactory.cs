@@ -125,10 +125,12 @@ namespace Library.Services
                 if (genre == null)
                     throw new Exception(RecordNotFound);
 
-                var tableName = $"{nameof(Genre)}s";
                 var fieldName = nameof(Genre.DeletedAt);
 
-                var result = await UnitOfWorks.GenresRepository.RestoreAsync(genre, tableName, fieldName);
+                var result = await UnitOfWorks.GenresRepository.RestoreAsync(
+                    genre, 
+                    UnitOfWorks.GenresRepository.Table, 
+                    fieldName);
 
                 if (result == null)
                     throw new Exception(RecordNotFound);

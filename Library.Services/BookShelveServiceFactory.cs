@@ -124,10 +124,15 @@ namespace Library.Services
                 if (shelve == null)
                     throw new Exception(RecordNotFound);
 
-                shelve.DeletedAt = null;
+                var fieldName = nameof(BookShelve.DeletedAt);
 
-                await UnitOfWorks.BookShelvesRepository.UpdateAsync(shelve);
-                UnitOfWorks.SaveChanges();
+                var result = await UnitOfWorks.BookShelvesRepository.RestoreAsync(
+                    shelve,
+                    UnitOfWorks.BookShelvesRepository.Table, 
+                    fieldName);
+
+                if (result == null)
+                    throw new Exception(RecordNotFound);
 
                 return ServiceResult(true);
             }
