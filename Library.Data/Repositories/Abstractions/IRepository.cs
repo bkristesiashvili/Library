@@ -17,6 +17,8 @@ namespace Library.Data.Repositories.Abstractions
 
         LibraryDbContext DbContext { get; }
 
+        string Table { get; }
+
         #endregion
 
         #region METHODS

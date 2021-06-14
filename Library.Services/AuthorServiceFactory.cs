@@ -19,6 +19,7 @@ namespace Library.Services
     {
         #region CTOR
 
+        //CTOR
         public AuthorServiceFactory(IUnitOfWorks uow)
             : base(uow) { }
 
@@ -121,10 +122,12 @@ namespace Library.Services
                 if (author == null)
                     throw new Exception(RecordNotFound);
 
-                var tableName = $"{nameof(Author)}s";
                 var fieldname = nameof(Author.DeletedAt);
 
-                var result = await UnitOfWorks.AuthorsRepository.RestoreAsync(author, tableName, fieldname);
+                var result = await UnitOfWorks.AuthorsRepository.RestoreAsync(
+                    author, 
+                    UnitOfWorks.AuthorsRepository.Table, 
+                    fieldname);
 
                 if (result == null)
                     throw new Exception(RecordNotFound);

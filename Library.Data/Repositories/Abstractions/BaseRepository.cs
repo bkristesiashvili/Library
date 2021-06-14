@@ -26,6 +26,8 @@ namespace Library.Data.Repositories.Abstractions
 
         public LibraryDbContext DbContext { get; }
 
+        public string Table { get; }
+
         #endregion
 
         #region CTOR
@@ -34,6 +36,7 @@ namespace Library.Data.Repositories.Abstractions
         {
             DbContext = context;
             Entity = DbContext.Set<TEntity>();
+            Table = $"{typeof(TEntity).Name}s";
         }
 
         #endregion

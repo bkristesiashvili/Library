@@ -56,10 +56,12 @@ namespace Library.Services
                 if (section == null)
                     throw new Exception(RecordNotFound);
 
-                var tableName = $"{nameof(Section)}s";
                 var fieldName = nameof(Section.DeletedAt);
 
-                var result = await UnitOfWorks.SectionsRepository.RestoreAsync(section, tableName, fieldName);
+                var result = await UnitOfWorks.SectionsRepository.RestoreAsync(
+                    section, 
+                    UnitOfWorks.SectionsRepository.Table, 
+                    fieldName);
 
                 if (result == null)
                     throw new Exception(RecordNotFound);

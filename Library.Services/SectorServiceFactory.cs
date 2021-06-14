@@ -128,10 +128,12 @@ namespace Library.Services
                 if (restoredSector == null)
                     throw new Exception(RecordNotFound);
 
-                var tableName = $"{nameof(Sector)}s";
                 var fieldName = nameof(Sector.DeletedAt);
 
-                var result = await UnitOfWorks.SectorsRepository.RestoreAsync(restoredSector, tableName, fieldName);
+                var result = await UnitOfWorks.SectorsRepository.RestoreAsync(
+                    restoredSector,
+                    UnitOfWorks.SectorsRepository.Table,
+                    fieldName);
 
                 if (result == null)
                     throw new Exception(RecordNotFound);
